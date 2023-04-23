@@ -1,7 +1,7 @@
 import lazyLoading from '@src/libs/lazyLoading';
 
-const Home = lazyLoading(() => import('../pages/home'));
-const About = lazyLoading(() => import('../pages/about'));
+const Home = lazyLoading(() => import('@src/pages/about'));
+const About = lazyLoading(() => import('@src/pages/home'));
 
 const routerConfig = [
   {

@@ -1,0 +1,46 @@
+.wrapper {
+  position: relative;
+  .swiper {
+    position: relative;
+    .slide {
+      padding: 0 (45/1440) * 100%;
+    }
+  }
+  .navigation {
+    position: absolute;
+    background-color: #ffffff;
+    z-index: 100;
+    filter: drop-shadow(0px 0px 9px rgba(0, 0, 0, 0.01)) drop-shadow(0px 0px 8px rgba(0, 0, 0, 0.05))
+      drop-shadow(0px 0px 6px rgba(0, 0, 0, 0.09)) drop-shadow(0px 0px 3px rgba(0, 0, 0, 0.1))
+      drop-shadow(0px 0px 0px rgba(0, 0, 0, 0.1));
+    &.navigationPrev {
+      left: -20px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    &.navigationNext {
+      right: -20px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
+  .pagination {
+    text-align: center;
+    span {
+      width: 10px;
+      height: 10px;
+      margin: 0 4px;
+      background-color: #c72d1b;
+    }
+    &.paginationAbsolute {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      z-index: 10;
+      transform: translateX(-50%);
+    }
+  }
+  .iconNavigation {
+    color: #c72d1b;
+  }
+}

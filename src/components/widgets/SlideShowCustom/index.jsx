@@ -13,10 +13,10 @@ function SlideShowCustom({
   slideElement,
   slideKey,
   customPadding,
-  slideHeight = 200,
+  nextStyle = {},
+  prevStyle = {},
   ...props
 }) {
-  const top = isNavigation && slideHeight ? slideHeight / 2 : '50%';
   return (
     <Row gutter={[0, 30]} className={styles.wrapper}>
       {slideElement && slideElement?.length > 0 ? (
@@ -45,14 +45,14 @@ function SlideShowCustom({
             {isNavigation && (
               <>
                 <Button
-                  style={{ top }}
+                  style={prevStyle}
                   className={`tw-button-navigation ${styles.navigation} ${styles.navigationPrev} button-prev-${slideKey}`}
                   shape='circle'
                 >
                   <LeftOutlined className={styles.iconNavigation} />
                 </Button>
                 <Button
-                  style={{ top }}
+                  style={nextStyle}
                   className={`tw-button-navigation ${styles.navigation} ${styles.navigationNext} button-next-${slideKey}`}
                   shape='circle'
                 >

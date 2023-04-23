@@ -1,11 +1,16 @@
-import lazyLoading from "@src/libs/lazyLoading";
+import lazyLoading from '@src/libs/lazyLoading';
 
-const Home = lazyLoading(() => import("../pages/home"));
+const Home = lazyLoading(() => import('../pages/home'));
+const About = lazyLoading(() => import('../pages/about'));
 
 const routerConfig = [
   {
-    path: "",
+    path: '/',
     Element: Home,
+  },
+  {
+    path: '/about',
+    Element: About,
   },
 ];
 

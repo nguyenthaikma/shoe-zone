@@ -1,40 +1,39 @@
-import { useEffect } from "react";
-import { Route, Routes, useLocation } from "react-router-dom";
-import routerConfig from "./routeConfig";
-import ProtectedRoute from "./ProtectedRoute";
-import MainLayout from "@src/components/layout";
-import Login from "@src/pages/login";
-import Home from "@src/pages/home";
+import Notfound from '@components/screens/404';
+import MainLayout from '@src/components/layout';
+import { checkAuth } from '@src/libs/localStorage';
+import Login from '@src/pages/login';
+import { useEffect } from 'react';
+import { Route, Routes, useNavigate } from 'react-router-dom';
+import routerConfig from './routeConfig';
 
 function RouteApp() {
-  const { pathname } = useLocation();
+  const token = checkAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  }, [pathname]);
+    if (!token) navigate('/login');
+  }, [navigate, token]);
 
   return (
     <Routes>
-      <>
-        {routerConfig.map(({ path, Element }, index) => (
+      <Route path='*' element={<Notfound />} />
+      {!!token ? (
+        routerConfig.map(({ path, Element }, index) => (
           <Route
             path={path}
             key={index}
             element={
-              <ProtectedRoute>
-                <MainLayout>
-                  <Element />
-                </MainLayout>
-              </ProtectedRoute>
+              <MainLayout>
+                <Element />
+              </MainLayout>
             }
           />
-        ))}
-      </>
-      <Route path="login" element={<Login />} />
-      <Route path="*" element={<Home />} />
+        ))
+      ) : (
+        <>
+          <Route path='/login' element={<Login />} />
+        </>
+      )}
     </Routes>
   );
 }

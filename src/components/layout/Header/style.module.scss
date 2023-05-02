@@ -1,0 +1,126 @@
+.wrapper {
+  .top {
+    background-color: #efefef;
+    width: 100%;
+    height: 32px;
+    padding: 10px 0;
+    display: flex;
+    align-items: center;
+    @media (max-width: 575.98px) {
+      height: auto;
+    }
+    .topWrap {
+      @media (max-width: 575.98px) {
+        > div:first-child {
+          margin-bottom: 20px;
+        }
+      }
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      flex-wrap: wrap;
+    }
+  }
+  .bottomWrap {
+    width: 100%;
+    &.fix {
+      box-shadow: 0 2px 5px #e9e9e9;
+      position: fixed;
+      z-index: 1000;
+      background-color: #fff;
+      margin: unset;
+      top: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      padding: 0 8%;
+      animation: fade 0.35s;
+      @media (max-width: 1400px) {
+        padding: 0 4%;
+      }
+      @media (max-width: 575.98px) {
+        padding: 0 30px;
+      }
+    }
+    .bottom {
+      display: flex;
+      .logoWrap {
+        width: 209px;
+      }
+      .category {
+        flex-grow: 1;
+        max-width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        .row {
+          display: flex;
+          @media (max-width: 1240px) {
+            display: none;
+          }
+          width: 100%;
+        }
+      }
+      .action {
+        width: 200px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        .icon {
+          font-size: 16px;
+          color: #1a1a1a;
+          transition: all ease-in-out 0.25s;
+          &:hover {
+            color: #571f7c;
+          }
+        }
+        .text {
+          font-size: 16px;
+          color: #1a1a1a;
+          transition: all ease-in-out 0.25s;
+          &:hover {
+            color: #571f7c;
+          }
+        }
+        .menu {
+          display: none;
+          cursor: pointer;
+          @media (max-width: 1240px) {
+            display: flex;
+          }
+          &:hover .icon {
+            color: #571f7c;
+          }
+        }
+      }
+    }
+  }
+}
+
+.linkItem {
+  color: #1a1a1a;
+  transition: all ease-in-out 0.25s;
+  &:hover,
+  &.active {
+    color: #571f7c;
+  }
+}
+
+.inDrawer {
+  height: 42px;
+  display: flex;
+  align-items: center;
+  padding: 0 15px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

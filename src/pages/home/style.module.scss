@@ -1,3 +1,131 @@
 .wrapper {
   max-width: 100%;
+  .outstandingSlide {
+    box-shadow: 0 0 10px #bbbb;
+  }
+  .newArrivals {
+    margin-top: 120px;
+    .titleGroup {
+      position: relative;
+      &::after {
+        content: '';
+        display: block;
+        width: 4px;
+        height: 65px;
+        background-color: #571f7c;
+        position: absolute;
+        left: -22px;
+        top: 11px;
+      }
+      .titleWrap {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .title {
+          font-size: 36px;
+          text-transform: uppercase;
+          color: #1a1a1a;
+        }
+      }
+      .subTitle {
+        color: #1a1a1a;
+      }
+    }
+  }
+  .bannerWrap {
+    margin-top: 50px;
+    margin-bottom: 100px;
+    position: relative;
+    width: 100%;
+    height: 710px;
+    display: flex;
+    text-align: center;
+    .banner {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      object-fit: cover;
+    }
+    .content {
+      margin: auto;
+      & * {
+        color: #fff;
+      }
+      & h3,
+      .titleColor {
+        text-transform: uppercase;
+        line-height: 1.4em;
+        font-size: 50px;
+        font-weight: 600;
+        letter-spacing: 0.175em;
+        @media (max-width: 575.98px) {
+          font-size: 30px;
+        }
+      }
+      .head {
+        font-size: 20px;
+        text-transform: uppercase;
+      }
+      .titleColor {
+        color: #e74c30;
+      }
+      .ends {
+        letter-spacing: unset;
+        font-weight: 500;
+      }
+      .btn {
+        background-color: #571f7c;
+        padding: 14px 40px 14px 40px;
+        transition: all ease-in-out 0.25s;
+        color: #fff;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        &:hover {
+          background-color: #000;
+        }
+      }
+    }
+  }
+  .bestSeller {
+    .content {
+      .titleGroup {
+        text-align: center;
+        .title {
+          font-size: 36px;
+          color: #1a1a1a;
+          text-transform: uppercase;
+          display: block;
+        }
+        .subTitle {
+          letter-spacing: 1px;
+          position: relative;
+          &:after {
+            content: '';
+            display: block;
+            background-color: #571f7c;
+            height: 4px;
+            width: 85px;
+            top: 30px;
+            left: 0;
+            position: absolute;
+          }
+        }
+      }
+      .tab {
+        margin-bottom: 40px;
+      }
+      .tabItem {
+        font-weight: 700;
+        color: #a5a5a5;
+        transition: all ease-in-out 0.25s;
+        font-size: 16px;
+        cursor: pointer;
+        &:hover,
+        &.active {
+          color: #1a1a1a;
+        }
+      }
+    }
+  }
 }

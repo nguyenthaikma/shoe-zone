@@ -1,6 +1,10 @@
 .wrapper {
+  height: 100%;
   position: relative;
   .swiper {
+    > div {
+      height: 100%;
+    }
     position: relative;
     .slide {
       padding: 0 (45/1440) * 100%;

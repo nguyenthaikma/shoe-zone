@@ -1,6 +1,5 @@
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import { Button, Col, Empty, Row } from 'antd';
-import React from 'react';
 import { Navigation, Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -73,7 +72,7 @@ function SlideShowCustom({
         </>
       ) : (
         <Col span={24}>
-          <Empty description='Không có dữ liệu' image={Empty.PRESENTED_IMAGE_SIMPLE} />
+          <Empty description='Không có dữ liệu' />
         </Col>
       )}
     </Row>

@@ -7,9 +7,9 @@ const { Title, Text } = Typography;
 export default function SlideItem({ data }) {
   return (
     <Row className={styles.wrapper}>
-      <img preview={false} alt='carousel' className={styles.image} src={data.image} />
-      <img preview={false} alt='carousel' className={styles.mobile} src={data.mobile} />
-      {data.type === 1 && (
+      <img alt='carousel' className={styles.image} src={data?.image} />
+      <img alt='carousel' className={styles.mobile} src={data?.mobile} />
+      {data?.type === 1 && (
         <Row gutter={[0, 15]} className={styles.slide_1}>
           <Col span={24}>
             <Title className={styles.title} level={2}>
@@ -24,7 +24,7 @@ export default function SlideItem({ data }) {
           </Col>
         </Row>
       )}
-      {data.type === 2 && (
+      {data?.type === 2 && (
         <Row gutter={[0, 15]} className={styles.slide_2}>
           <Col span={24}>
             <Title className={styles.title} level={2}>
@@ -39,7 +39,7 @@ export default function SlideItem({ data }) {
           </Col>
         </Row>
       )}
-      {data.type === 3 && (
+      {data?.type === 3 && (
         <Row gutter={[0, 15]} className={styles.slide_3}>
           <Col span={24}>
             <Text className={styles.subTitle}>summer canvas</Text>

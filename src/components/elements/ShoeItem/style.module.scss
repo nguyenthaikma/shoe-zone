@@ -1,1 +1,24 @@
-.wrapper {}
+.wrapper {
+  position: relative;
+  height: 340px;
+  box-shadow: 0 0 10px #bbbb;
+  cursor: pointer;
+  @media (max-width: 991.92px) {
+    height: 250px;
+  }
+  .thumbnail {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+  }
+  .title {
+    font-size: 24px;
+    color: #000;
+    position: relative;
+    text-transform: uppercase;
+    font-weight: 600;
+    padding-top: 24px ;
+    margin-left: 20px;
+  }
+}

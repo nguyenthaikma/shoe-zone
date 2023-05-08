@@ -279,7 +279,7 @@ export default function Home() {
           </Col>
         </Row>
       </Col>
-      <Col span={24} className={styles.bestSeller}>
+      <Col className={styles.bestSeller} span={24}>
         <Row gutter={[0, 60]} className={`container  ${styles.content}`}>
           <Col span={24} className={styles.titleGroup}>
             <Row gutter={[0, 10]}>
@@ -311,6 +311,50 @@ export default function Home() {
                   <NewArrivals data={bestSellerItem} key={bestSellerItem?.id} />
                 </Col>
               ))}
+            </Row>
+          </Col>
+        </Row>
+      </Col>
+      <Col className={`${styles.foot}`} span={24}>
+        <Row className='container'>
+          <Col span={24}>
+            <Row gutter={[30, 30]}>
+              <Col span={24} sm={{ span: 12 }} lg={{ span: 6 }} className={styles.footItem}>
+                <Space align='center' size={30}>
+                  <img src={require('@src/assets/images/home/plane.png')} alt='plane icon' className={styles.icon} />
+                  <Text className={styles.text}>
+                    Free <br /> Delivery
+                  </Text>
+                </Space>
+              </Col>
+              <Col span={24} sm={{ span: 12 }} lg={{ span: 6 }} className={styles.footItem}>
+                <Space size={30}>
+                  <img
+                    src={require('@src/assets/images/home/headphone.png')}
+                    alt='plane icon'
+                    className={styles.icon}
+                  />
+                  <Text className={styles.text}>
+                    Clients <br /> Discounts
+                  </Text>
+                </Space>
+              </Col>
+              <Col span={24} sm={{ span: 12 }} lg={{ span: 6 }} className={styles.footItem}>
+                <Space size={30}>
+                  <img src={require('@src/assets/images/home/exchange.png')} alt='plane icon' className={styles.icon} />
+                  <Text className={styles.text}>
+                    Return <br /> of goods
+                  </Text>
+                </Space>
+              </Col>
+              <Col span={24} sm={{ span: 12 }} lg={{ span: 6 }} className={styles.footItem}>
+                <Space size={30}>
+                  <img src={require('@src/assets/images/home/sketch.png')} alt='plane icon' className={styles.icon} />
+                  <Text className={styles.text}>
+                    Many <br /> Brands
+                  </Text>
+                </Space>
+              </Col>
             </Row>
           </Col>
         </Row>

@@ -128,4 +128,31 @@
       }
     }
   }
+  .foot {
+    margin-top: 80px;
+    padding: 30px 0;
+    background-color: #fbfbfb;
+    .footItem {
+      cursor: default;
+      @media(max-width: 575.98px) {
+        display: flex;
+        justify-content: center;
+      }
+      &:hover .icon {
+        transform: translateX(10px);
+      }
+      .icon {
+        width: 40px;
+        height: 40px;
+        object-fit: cover;
+        transition: all 0.3s ease-in-out;
+      }
+      .text {
+        color: #1a1a1a;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 1.4em;
+      }
+    }
+  }
 }

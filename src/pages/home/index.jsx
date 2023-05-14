@@ -2,13 +2,13 @@ import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import SlideShowCustom from '@components/widgets/SlideShowCustom';
 import { useMemo, useState } from 'react';
 
-import NewArrivals from '@src/components/elements/NewArrivals';
 import OutstandingStoreItem from '@src/components/elements/OutstandingItem';
 import ShoeItem from '@src/components/elements/ShoeItem';
 import SlideItem from '@src/components/elements/SlideItem';
 import { Button, Col, Row, Space, Typography } from 'antd';
 import styles from './style.module.scss';
-import { listTabBestSeller } from '@src/configs/const';
+import { listCollection, listTabBestSeller } from '@src/configs/const';
+import ProductItem from '@src/components/elements/ProductItem';
 
 const { Title, Text } = Typography;
 
@@ -27,32 +27,6 @@ const listSlide = [
     image: 'https://cdn.shopify.com/s/files/1/1811/9799/files/shoe9.jpg?v=1613156880',
     mobile: '//cdn.shopify.com/s/files/1/1811/9799/files/shoe9_768x940.jpg?v=1613156880',
     type: 3,
-  },
-];
-
-const listCategory = [
-  {
-    id: 1,
-    title: 'Gym sneakers',
-    image: 'https://cdn.shopify.com/s/files/1/1811/9799/files/collection3_large.jpg?v=1613156071',
-  },
-  {
-    id: 2,
-    title: 'Sport sneakers',
-    image:
-      'https://cdn.shopify.com/s/files/1/1811/9799/files/collection5_47277ffa-efcf-413d-a764-b4b5be9e4e99_large.jpg?v=1613157025',
-  },
-  {
-    id: 3,
-    title: 'Fashion shoes',
-    image:
-      'https://cdn.shopify.com/s/files/1/1811/9799/files/collection2_6fd1e403-7021-427d-8be1-8bf857c8aacf_large.jpg?v=1613157026',
-  },
-  {
-    id: 4,
-    title: 'Other',
-    image:
-      'https://cdn.shopify.com/s/files/1/1811/9799/files/collection4_1d1d931a-3265-4eae-ac45-7e8a9cb3702e_large.jpg?v=1613157026',
   },
 ];
 
@@ -125,7 +99,7 @@ export default function Home() {
     []
   );
   const slideElementNewArrivals = useMemo(
-    () => listNewArrivals?.map((e, i) => <NewArrivals data={e} key={e?.id} />),
+    () => listNewArrivals?.map((e, i) => <ProductItem data={e} key={e?.id} />),
     []
   );
 
@@ -155,7 +129,7 @@ export default function Home() {
             <Row gutter={[30, 30]}>
               <Col lg={{ span: 14 }} span={24}>
                 <Row gutter={[30, 30]}>
-                  {listCategory.map((category, index) => (
+                  {listCollection.map((category, index) => (
                     <Col key={index} span={24} sm={{ span: 12 }}>
                       <ShoeItem data={category} />
                     </Col>
@@ -308,7 +282,7 @@ export default function Home() {
             <Row gutter={[30, 30]}>
               {listNewArrivals.map((bestSellerItem) => (
                 <Col span={24} md={{ span: 12 }} xxl={{ span: 6 }}>
-                  <NewArrivals data={bestSellerItem} key={bestSellerItem?.id} />
+                  <ProductItem data={bestSellerItem} key={bestSellerItem?.id} />
                 </Col>
               ))}
             </Row>

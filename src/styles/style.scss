@@ -7,6 +7,15 @@
   --transition-default: all ease-in-out 0.25s;
 }
 
+button {
+  box-shadow: none !important;
+}
+
+::selection {
+  color: #fff;
+  background: var(--color-violet);
+}
+
 * {
   font-family: 'Poppins', sans-serif !important;
   box-sizing: border-box;

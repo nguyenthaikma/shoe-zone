@@ -65,24 +65,26 @@ export default function Header() {
             </Space>
           </Space>
           <Space size={10} wrap>
-            <Link href='/' className='hoverColor'>
+            <Link to='/' className='hoverColor'>
               Store Location
             </Link>
-            <Link href='/' className='hoverColor'>
+            <Link to='/' className='hoverColor'>
               Track Your Order
             </Link>
           </Space>
         </div>
       </div>
-      <div className={`container ${styles.bottomWrap} ${y > 100 && styles.fix}`}>
+      <div className={`container ${styles.bottomWrap} ${y > 300 && styles.fix}`}>
         <Col span={24}>
           <Row className={styles.bottom}>
             <Col className={styles.logoWrap}>
-              <img
-                src='https://cdn.shopify.com/s/files/1/1811/9799/files/shoe-logo-new_300x300.png?v=1613157234'
-                alt='SHOE ZONE'
-                className={styles.logo}
-              />
+              <Link to='/'>
+                <img
+                  src='https://cdn.shopify.com/s/files/1/1811/9799/files/shoe-logo-new_300x300.png?v=1613157234'
+                  alt='SHOE ZONE'
+                  className={styles.logo}
+                />
+              </Link>
             </Col>
             <Col className={styles.category}>
               <Row gutter={[30, 0]} align='center' className={styles.row}>
@@ -104,13 +106,13 @@ export default function Header() {
                   <MenuOutlined className={styles.icon} />
                   <Text className={styles.text}>Menu</Text>
                 </Space>
-                <Link href='/'>
+                <Link to='/'>
                   <SearchOutlined className={styles.icon} />
                 </Link>
-                <Link href='/'>
+                <Link to='/'>
                   <UserOutlined className={styles.icon} />
                 </Link>
-                <Link href='/'>
+                <Link to='/'>
                   <ShoppingCartOutlined className={styles.icon} />
                 </Link>
               </Space>

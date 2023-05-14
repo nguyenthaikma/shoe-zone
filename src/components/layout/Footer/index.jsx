@@ -36,16 +36,16 @@ export default function Footer() {
           </Col>
           <Col className={styles.social}>
             <Space size={30} wrap>
-              <Link href='/'>
+              <Link to='/'>
                 <TwitterOutlined className={styles.icon} />
               </Link>
-              <Link href='/'>
+              <Link to='/'>
                 <FacebookOutlined className={styles.icon} />
               </Link>
-              <Link href='/'>
+              <Link to='/'>
                 <GooglePlusOutlined className={styles.icon} />
               </Link>
-              <Link href='/'>
+              <Link to='/'>
                 <YuqueOutlined className={styles.icon} />
               </Link>
             </Space>
@@ -88,7 +88,7 @@ export default function Footer() {
               </Title>
               <Row gutter={[0, 15]}>
                 <Col span={24}>
-                  <Link href='/'>
+                  <Link to='/'>
                     <Space size={10} className={styles.hoverItem}>
                       <RightOutlined className={styles.arrow} />
                       <Text className={styles.text}>Search Terms</Text>
@@ -96,7 +96,7 @@ export default function Footer() {
                   </Link>
                 </Col>
                 <Col span={24}>
-                  <Link href='/'>
+                  <Link to='/'>
                     <Space size={10} className={styles.hoverItem}>
                       <RightOutlined className={styles.arrow} />
                       <Text className={styles.text}>Advanced Search</Text>
@@ -104,7 +104,7 @@ export default function Footer() {
                   </Link>
                 </Col>
                 <Col span={24}>
-                  <Link href='/'>
+                  <Link to='/'>
                     <Space size={10} className={styles.hoverItem}>
                       <RightOutlined className={styles.arrow} />
                       <Text className={styles.text}>Orders and Returns</Text>
@@ -112,7 +112,7 @@ export default function Footer() {
                   </Link>
                 </Col>
                 <Col span={24}>
-                  <Link href='/'>
+                  <Link to='/'>
                     <Space size={10} className={styles.hoverItem}>
                       <RightOutlined className={styles.arrow} />
                       <Text className={styles.text}>Consultant</Text>
@@ -120,7 +120,7 @@ export default function Footer() {
                   </Link>
                 </Col>
                 <Col span={24}>
-                  <Link href='/'>
+                  <Link to='/'>
                     <Space size={10} className={styles.hoverItem}>
                       <RightOutlined className={styles.arrow} />
                       <Text className={styles.text}>Help & FAQs</Text>
@@ -135,7 +135,7 @@ export default function Footer() {
               </Title>
               <Row gutter={[0, 15]}>
                 <Col span={24}>
-                  <Link href='/'>
+                  <Link to='/'>
                     <Space size={10} className={styles.hoverItem}>
                       <RightOutlined className={styles.arrow} />
                       <Text className={styles.text}>About</Text>
@@ -143,7 +143,7 @@ export default function Footer() {
                   </Link>
                 </Col>
                 <Col span={24}>
-                  <Link href='/'>
+                  <Link to='/'>
                     <Space size={10} className={styles.hoverItem}>
                       <RightOutlined className={styles.arrow} />
                       <Text className={styles.text}>Contact</Text>
@@ -151,7 +151,7 @@ export default function Footer() {
                   </Link>
                 </Col>
                 <Col span={24}>
-                  <Link href='/'>
+                  <Link to='/'>
                     <Space size={10} className={styles.hoverItem}>
                       <RightOutlined className={styles.arrow} />
                       <Text className={styles.text}>Privacy Policy</Text>
@@ -159,7 +159,7 @@ export default function Footer() {
                   </Link>
                 </Col>
                 <Col span={24}>
-                  <Link href='/'>
+                  <Link to='/'>
                     <Space size={10} className={styles.hoverItem}>
                       <RightOutlined className={styles.arrow} />
                       <Text className={styles.text}>Best sellers</Text>
@@ -167,7 +167,7 @@ export default function Footer() {
                   </Link>
                 </Col>
                 <Col span={24}>
-                  <Link href='/'>
+                  <Link to='/'>
                     <Space size={10} className={styles.hoverItem}>
                       <RightOutlined className={styles.arrow} />
                       <Text className={styles.text}>Support</Text>
@@ -182,7 +182,7 @@ export default function Footer() {
               </Title>
               <Row gutter={[0, 15]}>
                 <Col span={24}>
-                  <Link href='/'>
+                  <Link to='/'>
                     <Space size={10} className={styles.hoverItem}>
                       <RightOutlined className={styles.arrow} />
                       <Text className={styles.text}>Search Terms</Text>
@@ -190,7 +190,7 @@ export default function Footer() {
                   </Link>
                 </Col>
                 <Col span={24}>
-                  <Link href='/'>
+                  <Link to='/'>
                     <Space size={10} className={styles.hoverItem}>
                       <RightOutlined className={styles.arrow} />
                       <Text className={styles.text}>Advanced Search</Text>
@@ -198,7 +198,7 @@ export default function Footer() {
                   </Link>
                 </Col>
                 <Col span={24}>
-                  <Link href='/'>
+                  <Link to='/'>
                     <Space size={10} className={styles.hoverItem}>
                       <RightOutlined className={styles.arrow} />
                       <Text className={styles.text}>Orders and Returns</Text>
@@ -206,7 +206,7 @@ export default function Footer() {
                   </Link>
                 </Col>
                 <Col span={24}>
-                  <Link href='/'>
+                  <Link to='/'>
                     <Space size={10} className={styles.hoverItem}>
                       <RightOutlined className={styles.arrow} />
                       <Text className={styles.text}>Consultant</Text>
@@ -214,7 +214,7 @@ export default function Footer() {
                   </Link>
                 </Col>
                 <Col span={24}>
-                  <Link href='/'>
+                  <Link to='/'>
                     <Space size={10} className={styles.hoverItem}>
                       <RightOutlined className={styles.arrow} />
                       <Text className={styles.text}>Help & FAQs</Text>
@@ -227,19 +227,19 @@ export default function Footer() {
         </div>
       </Col>
       <Col span={24} className={styles.bottom}>
-        <Link href='/' className={styles.text}>
+        <Link to='/' className={styles.text}>
           <Text>Search Terms</Text>
         </Link>
-        <Link href='/' className={styles.text}>
+        <Link to='/' className={styles.text}>
           <Text>Advanced Search</Text>
         </Link>
-        <Link href='/' className={styles.text}>
+        <Link to='/' className={styles.text}>
           <Text>Orders and Returns</Text>
         </Link>
-        <Link href='/' className={styles.text}>
+        <Link to='/' className={styles.text}>
           <Text>Consultant</Text>
         </Link>
-        <Link href='/' className={styles.text}>
+        <Link to='/' className={styles.text}>
           <Text>Help& FAQs</Text>
         </Link>
       </Col>

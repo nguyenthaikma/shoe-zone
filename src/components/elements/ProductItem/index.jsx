@@ -1,21 +1,28 @@
 import { Col, Row, Typography } from 'antd';
 import { ShoppingCartOutlined } from '@ant-design/icons';
 import styles from './style.module.scss';
+import { Link, useLocation } from 'react-router-dom';
 
 const { Title, Text } = Typography;
 
-export default function NewArrivals({ data }) {
+export default function ProductItem({ data }) {
+  const pathname = useLocation()?.pathname;
+
   return (
     <Row className={styles.wrapper}>
-      <Col className={styles.thumbnailWrap} span={24}>
-        <img src={data?.image} alt={data?.name} className={styles.thumbnail} />
-      </Col>
+      <Link to={`${pathname}/product/${data?.id}`}>
+        <Col className={styles.thumbnailWrap} span={24}>
+          <img src={data?.image} alt={data?.name} className={styles.thumbnail} />
+        </Col>
+      </Link>
       <Col span={24} className={styles.content}>
         <Row gutter={[0, 6]}>
           <Col span={24}>
-            <Title className={styles.title} level={5}>
-              {data?.name}
-            </Title>
+            <Link to={`${pathname}/product/${data?.id}`}>
+              <Title className={styles.title} level={5}>
+                {data?.name}
+              </Title>
+            </Link>
           </Col>
           <Col span={24}>
             <Text className={styles.price}>${data?.price}</Text>

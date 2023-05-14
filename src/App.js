@@ -3,16 +3,26 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { BrowserRouter } from 'react-router-dom';
 import RouteApp from './route';
+import { ConfigProvider } from 'antd';
 
 function App() {
   const queryClient = new QueryClient();
   return (
-    <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
-        <RouteApp />
-      </BrowserRouter>
-      <ReactQueryDevtools initialIsOpen={false} position='bottom-right' />
-    </QueryClientProvider>
+    <ConfigProvider
+      theme={{
+        token: {
+          colorPrimary: '#571f7c',
+          borderRadius: 0,
+        },
+      }}
+    >
+      <QueryClientProvider client={queryClient}>
+        <BrowserRouter>
+          <RouteApp />
+        </BrowserRouter>
+        <ReactQueryDevtools initialIsOpen={false} position='bottom-right' />
+      </QueryClientProvider>
+    </ConfigProvider>
   );
 }
 

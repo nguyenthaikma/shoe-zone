@@ -1,0 +1,32 @@
+.breadCrumbWrap {
+  height: 250px;
+  display: flex;
+  .img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.4);
+  }
+  .titleRow {
+    margin: auto;
+    * {
+      text-align: center;
+    }
+    ol {
+      justify-content: center;
+    }
+    .title {
+      color: #fff;
+      font-weight: 500;
+    }
+    .breadCrumb {
+      li {
+        color: #fff;
+      }
+      a {
+        color: #fff;
+      }
+    }
+  }
+}

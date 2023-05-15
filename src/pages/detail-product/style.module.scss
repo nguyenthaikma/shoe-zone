@@ -23,5 +23,26 @@
         color: var(--color-violet);
       }
     }
+    .desc {
+      .title {
+        font-size: 24px;
+        font-weight: 500;
+      }
+      .text {
+        font-size: 14px;
+        .titleText {
+          font-weight: 700;
+        }
+      }
+    }
+    .recommend {
+      .title {
+        margin-top: 40px !important;
+        margin-bottom: 60px !important;
+        font-size: 25px;
+        text-align: center;
+        font-weight: 500;
+      }
+    }
   }
 }

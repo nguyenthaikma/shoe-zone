@@ -18,14 +18,20 @@ function RouteApp() {
     <Routes>
       <Route path='*' element={<Notfound />} />
       {!!token ? (
-        routerConfig.map(({ path, Element }, index) => (
+        routerConfig.map(({ path, Element, Layout }, index) => (
           <Route
             path={path}
             key={index}
             element={
-              <MainLayout>
-                <Element />
-              </MainLayout>
+              Layout ? (
+                <Layout>
+                  <Element />
+                </Layout>
+              ) : (
+                <MainLayout>
+                  <Element />
+                </MainLayout>
+              )
             }
           />
         ))

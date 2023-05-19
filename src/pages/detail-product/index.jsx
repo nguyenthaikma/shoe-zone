@@ -4,6 +4,7 @@ import styles from './style.module.scss';
 import BreadcrumbPage from '@src/components/elements/BreadcrumbPage';
 import { Button, Col, InputNumber, Row, Space, Typography } from 'antd';
 import ProductItem from '@src/components/elements/ProductItem';
+import { useNavigate } from 'react-router-dom';
 
 const data = {
   id: 1,
@@ -50,6 +51,8 @@ const listNewArrivals = [
 const { Title, Text } = Typography;
 
 export default function DetailProduct() {
+  const navigate = useNavigate();
+
   const [active, setActive] = useState();
 
   return (
@@ -167,7 +170,11 @@ export default function DetailProduct() {
                             <Button type='primary' size='large'>
                               ADD TO CART
                             </Button>
-                            <Button type='primary' size='large'>
+                            <Button
+                              onClick={() => navigate(`/checkouts/information/${data?.id}`)}
+                              type='primary'
+                              size='large'
+                            >
                               BUY IT NOW
                             </Button>
                           </Space>

@@ -18,13 +18,13 @@ function RouteApp() {
     <Routes>
       <Route path='*' element={<Notfound />} />
       {!!token ? (
-        routerConfig.map(({ path, Element, Layout }, index) => (
+        routerConfig.map(({ path, Element, Layout, _breadcrumbs }, index) => (
           <Route
             path={path}
             key={index}
             element={
               Layout ? (
-                <Layout>
+                <Layout _breadcrumbs={_breadcrumbs}>
                   <Element />
                 </Layout>
               ) : (

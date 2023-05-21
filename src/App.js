@@ -12,7 +12,10 @@ function App() {
       theme={{
         token: {
           colorPrimary: '#571f7c',
+          colorLink: '#571f7c',
+          colorLinkHover: '#571f7c',
           borderRadius: 0,
+          controlHeight: 48,
         },
       }}
     >

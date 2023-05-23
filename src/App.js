@@ -1,12 +1,23 @@
 import '@src/styles/style.scss';
+import { ConfigProvider, Drawer } from 'antd';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
+import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
+import DrawerCart from './components/elements/DrawerCart';
+import { onClose } from './redux/actions/drawerReducer';
 import RouteApp from './route';
-import { ConfigProvider } from 'antd';
 
 function App() {
   const queryClient = new QueryClient();
+  const dispatch = useDispatch();
+
+  const handleClose = () => {
+    dispatch(onClose());
+  };
+
+  const open = useSelector((state) => state.drawerReducer.open);
+
   return (
     <ConfigProvider
       theme={{
@@ -21,6 +32,9 @@ function App() {
     >
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
+          <Drawer title='Your cart' placement='right' width={300} onClose={handleClose} open={open}>
+            <DrawerCart />
+          </Drawer>
           <RouteApp />
         </BrowserRouter>
         <ReactQueryDevtools initialIsOpen={false} position='bottom-right' />

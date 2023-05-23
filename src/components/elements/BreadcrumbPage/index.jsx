@@ -6,7 +6,7 @@ import styles from './style.module.scss';
 
 const { Title } = Typography;
 
-export default function BreadcrumbPage() {
+export default function BreadcrumbPage({ title = ' COLLECTION' }) {
   const pathname = useLocation()?.pathname;
 
   const pathWithoutQuery = pathname.split('?')[0];
@@ -43,7 +43,7 @@ export default function BreadcrumbPage() {
       <Row className={styles.titleRow} gutter={[0, 15]}>
         <Col span={24}>
           <Title level={1} className={styles.title}>
-            COLLECTION
+            {title}
           </Title>
         </Col>
         <Col span={24}>

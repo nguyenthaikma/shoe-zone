@@ -84,7 +84,7 @@ export default function Payment() {
         </Row>
       </Col>
       <Col style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }} span={24}>
-        <Link to={`/checkouts/shipping/${idProduct}`}>Return to shipping</Link>
+        <Link to={`/checkouts/shipping?product=${idProduct}`}>Return to shipping</Link>
         <Button onClick={handlePay} type='primary' size='large'>
           Pay now
         </Button>

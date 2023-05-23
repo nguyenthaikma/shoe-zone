@@ -1,15 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import {
+  MailFilled,
+  MenuOutlined,
+  PhoneFilled,
   SearchOutlined,
   ShoppingCartOutlined,
   UserOutlined,
-  MenuOutlined,
-  PhoneFilled,
-  MailFilled,
 } from '@ant-design/icons';
 import { listCategory } from '@src/configs/const';
+import { onOpen } from '@src/redux/actions/drawerReducer';
 import { Col, Drawer, Row, Space, Typography } from 'antd';
+import { useDispatch } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 import styles from './style.module.scss';
 
@@ -17,10 +19,10 @@ const { Text } = Typography;
 
 export default function Header() {
   const [openDrawer, setOpenDrawer] = useState(false);
-  const location = useLocation();
   const onClose = () => {
     setOpenDrawer(false);
   };
+  const location = useLocation();
 
   const [y, setY] = useState(0);
   useEffect(() => {
@@ -34,6 +36,11 @@ export default function Header() {
       window.removeEventListener('scroll', handleScroll);
     };
   }, [y]);
+
+  const dispatch = useDispatch();
+  const handleOpen = () => {
+    dispatch(onOpen());
+  };
   return (
     <Row className={`${styles.wrapper}`}>
       <Drawer placement='right' width={300} onClose={onClose} open={openDrawer}>
@@ -112,9 +119,7 @@ export default function Header() {
                 <Link to='/'>
                   <UserOutlined className={styles.icon} />
                 </Link>
-                <Link to='/'>
-                  <ShoppingCartOutlined className={styles.icon} />
-                </Link>
+                <ShoppingCartOutlined onClick={handleOpen} className={styles.icon} />
               </Space>
             </Col>
           </Row>

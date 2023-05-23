@@ -29,8 +29,8 @@ export default function Shipping() {
         </Descriptions>
       </Col>
       <Col style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }} span={24}>
-        <Link to={`/checkouts/information/${idProduct}`}>Return to information</Link>
-        <Button onClick={() => navigate(`/checkouts/payment/${idProduct}`)} type='primary' size='large'>
+        <Link to={`/checkouts/information?product=${idProduct}`}>Return to information</Link>
+        <Button onClick={() => navigate(`/checkouts/payment?product=${idProduct}`)} type='primary' size='large'>
           Continue to payment
         </Button>
       </Col>

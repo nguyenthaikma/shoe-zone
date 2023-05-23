@@ -1,7 +1,4 @@
-import PaymentLayout from '@src/components/layout/PaymentLayout';
 import lazyLoading from '@src/libs/lazyLoading';
-import Payment from '@src/pages/checkout/payment';
-import Shipping from '@src/pages/checkout/shipping';
 
 const Home = lazyLoading(() => import('@src/pages/home'));
 const About = lazyLoading(() => import('@src/pages/about'));
@@ -9,6 +6,10 @@ const Collections = lazyLoading(() => import('@src/pages/collections'));
 const ListProduct = lazyLoading(() => import('@src/pages/list-product'));
 const DetailProduct = lazyLoading(() => import('@src/pages/detail-product'));
 const Information = lazyLoading(() => import('@src/pages/checkout/information'));
+const PaymentLayout = lazyLoading(() => import('@src/components/layout/PaymentLayout'));
+const Cart = lazyLoading(() => import('@src/pages/cart'));
+const Payment = lazyLoading(() => import('@src/pages/checkout/payment'));
+const Shipping = lazyLoading(() => import('@src/pages/checkout/shipping'));
 
 const routerConfig = [
   {
@@ -32,22 +33,26 @@ const routerConfig = [
     Element: DetailProduct,
   },
   {
-    path: '/checkouts/information/:idProduct',
+    path: '/checkouts/information',
     Element: Information,
     Layout: PaymentLayout,
     _breadcrumbs: [{ title: 'Infomation' }],
   },
   {
-    path: '/checkouts/shipping/:idProduct',
+    path: '/checkouts/shipping',
     Element: Shipping,
     Layout: PaymentLayout,
     _breadcrumbs: [{ title: 'Infomation' }, { title: 'Shipping' }],
   },
   {
-    path: '/checkouts/payment/:idProduct',
+    path: '/checkouts/payment',
     Element: Payment,
     Layout: PaymentLayout,
     _breadcrumbs: [{ title: 'Infomation' }, { title: 'Shipping' }, { title: 'Payment' }],
+  },
+  {
+    path: '/cart',
+    Element: Cart,
   },
 ];
 

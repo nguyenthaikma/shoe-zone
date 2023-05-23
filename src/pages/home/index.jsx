@@ -3,12 +3,12 @@ import SlideShowCustom from '@components/widgets/SlideShowCustom';
 import { useMemo, useState } from 'react';
 
 import OutstandingStoreItem from '@src/components/elements/OutstandingItem';
+import ProductItem from '@src/components/elements/ProductItem';
 import ShoeItem from '@src/components/elements/ShoeItem';
 import SlideItem from '@src/components/elements/SlideItem';
+import { listCollection, listTabBestSeller } from '@src/configs/const';
 import { Button, Col, Row, Space, Typography } from 'antd';
 import styles from './style.module.scss';
-import { listCollection, listTabBestSeller } from '@src/configs/const';
-import ProductItem from '@src/components/elements/ProductItem';
 
 const { Title, Text } = Typography;
 
@@ -281,8 +281,8 @@ export default function Home() {
             </Row>
             <Row gutter={[30, 30]}>
               {listNewArrivals.map((bestSellerItem) => (
-                <Col span={24} md={{ span: 12 }} xxl={{ span: 6 }}>
-                  <ProductItem data={bestSellerItem} key={bestSellerItem?.id} />
+                <Col key={bestSellerItem.id} span={24} md={{ span: 12 }} xxl={{ span: 6 }}>
+                  <ProductItem data={bestSellerItem} />
                 </Col>
               ))}
             </Row>

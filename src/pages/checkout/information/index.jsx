@@ -59,7 +59,7 @@ export default function Information() {
           </Row>
         </Col>
         <Col style={{ textAlign: 'right' }} span={24}>
-          <Button onClick={() => navigate(`/checkouts/shipping/${idProduct}`)} type='primary' size='large'>
+          <Button onClick={() => navigate(`/checkouts/shipping?product=${idProduct}`)} type='primary' size='large'>
             Continue to shipping
           </Button>
         </Col>

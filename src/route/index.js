@@ -24,11 +24,11 @@ function RouteApp() {
             key={index}
             element={
               Layout ? (
-                <Layout _breadcrumbs={_breadcrumbs}>
+                <Layout key={index} _breadcrumbs={_breadcrumbs}>
                   <Element />
                 </Layout>
               ) : (
-                <MainLayout>
+                <MainLayout key={index}>
                   <Element />
                 </MainLayout>
               )

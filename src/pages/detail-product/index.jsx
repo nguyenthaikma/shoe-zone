@@ -171,7 +171,7 @@ export default function DetailProduct() {
                               ADD TO CART
                             </Button>
                             <Button
-                              onClick={() => navigate(`/checkouts/information/${data?.id}`)}
+                              onClick={() => navigate(`/checkouts/information?product=${data?.id}`)}
                               type='primary'
                               size='large'
                             >

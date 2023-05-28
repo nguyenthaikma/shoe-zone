@@ -1,0 +1,19 @@
+.wrapper {
+  position: relative;
+  display: flex;
+
+  .form {
+    margin: 80px auto;
+    max-width: 600px;
+    padding: 30px;
+    background-color: #f7f7f7;
+  }
+  .bottom {
+    padding-top: 30px;
+    margin-top: 20px;
+    border-top: 1px solid #ccc;
+    .link {
+      font-size: 12px;
+    }
+  }
+}

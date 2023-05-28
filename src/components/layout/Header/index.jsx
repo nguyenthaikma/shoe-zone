@@ -116,7 +116,7 @@ export default function Header() {
                 <Link to='/'>
                   <SearchOutlined className={styles.icon} />
                 </Link>
-                <Link to='/'>
+                <Link to='/login'>
                   <UserOutlined className={styles.icon} />
                 </Link>
                 <ShoppingCartOutlined onClick={handleOpen} className={styles.icon} />

@@ -10,11 +10,21 @@ const PaymentLayout = lazyLoading(() => import('@src/components/layout/PaymentLa
 const Cart = lazyLoading(() => import('@src/pages/cart'));
 const Payment = lazyLoading(() => import('@src/pages/checkout/payment'));
 const Shipping = lazyLoading(() => import('@src/pages/checkout/shipping'));
+const Login = lazyLoading(() => import('@src/pages/login'));
+const Register = lazyLoading(() => import('@src/pages/register'));
 
 const routerConfig = [
   {
     path: '/',
     Element: Home,
+  },
+  {
+    path: '/register',
+    Element: Register,
+  },
+  {
+    path: '/login',
+    Element: Login,
   },
   {
     path: '/about',

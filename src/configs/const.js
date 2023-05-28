@@ -56,3 +56,9 @@ export const listCollection = [
       'https://cdn.shopify.com/s/files/1/1811/9799/files/collection4_1d1d931a-3265-4eae-ac45-7e8a9cb3702e_large.jpg?v=1613157026',
   },
 ];
+
+export const labelStyle = {
+  labelCol: { xs: 24, sm: 24, md: 8, lg: 6, xl: 5 },
+  wrapperCol: { xs: 24, sm: 24, md: 16, lg: 18, xl: 19 },
+  labelAlign: 'left',
+};

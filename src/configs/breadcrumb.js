@@ -3,4 +3,5 @@ export const pathHeadPage = {
   product: 'Product',
   cart: 'Your Shopping Cart',
   login: 'Login',
+  register: 'Register',
 };

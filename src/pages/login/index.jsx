@@ -2,9 +2,10 @@ import { Button, Col, Form, Input, Row } from 'antd';
 
 import BreadcrumbPage from '@src/components/elements/BreadcrumbPage';
 import styles from './style.module.scss';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function Login() {
+  const navigate = useNavigate();
   const onSubmit = (values) => {
     console.log(values);
   };
@@ -26,7 +27,7 @@ export default function Login() {
                 </Form.Item>
               </Col>
               <Col span={24}>
-                <Button type='primary' htmlType='submit'>
+                <Button onClick={() => navigate('/admin')} type='primary' htmlType='submit'>
                   SIGN IN
                 </Button>
               </Col>
@@ -35,13 +36,19 @@ export default function Login() {
           <div className={styles.bottom}>
             <Row gutter={[30, 0]}>
               <Col span={8}>
-                <Link className={styles.link} to='/'>Forgot your password?</Link>
+                <Link className={styles.link} to='/'>
+                  Forgot your password?
+                </Link>
               </Col>
               <Col span={8}>
-                <Link className={styles.link} to='/register'>Create account</Link>
+                <Link className={styles.link} to='/register'>
+                  Create account
+                </Link>
               </Col>
               <Col span={8}>
-                <Link className={styles.link} to='/'>Return to Store</Link>
+                <Link className={styles.link} to='/'>
+                  Return to Store
+                </Link>
               </Col>
             </Row>
           </div>

@@ -1,3 +1,4 @@
+import CreateProduct from '@src/cms/pages/product/create';
 import lazyLoading from '@src/libs/lazyLoading';
 
 const Home = lazyLoading(() => import('@src/pages/home'));
@@ -12,12 +13,16 @@ const Payment = lazyLoading(() => import('@src/pages/checkout/payment'));
 const Shipping = lazyLoading(() => import('@src/pages/checkout/shipping'));
 const Login = lazyLoading(() => import('@src/pages/login'));
 const Register = lazyLoading(() => import('@src/pages/register'));
+const Dashboard = lazyLoading(() => import('@src/cms/pages/dashboard'));
+const LayoutApp = lazyLoading(() => import('@src/cms/layout'));
 
 const routerConfig = [
   {
     path: '/',
     Element: Home,
   },
+  { path: '/admin', Element: Dashboard, Layout: LayoutApp },
+  { path: '/create-product', Element: CreateProduct, Layout: LayoutApp },
   {
     path: '/register',
     Element: Register,

@@ -11,25 +11,14 @@ const PaymentLayout = lazyLoading(() => import('@src/components/layout/PaymentLa
 const Cart = lazyLoading(() => import('@src/pages/cart'));
 const Payment = lazyLoading(() => import('@src/pages/checkout/payment'));
 const Shipping = lazyLoading(() => import('@src/pages/checkout/shipping'));
-const Login = lazyLoading(() => import('@src/pages/login'));
-const Register = lazyLoading(() => import('@src/pages/register'));
+
 const Dashboard = lazyLoading(() => import('@src/cms/pages/dashboard'));
 const LayoutApp = lazyLoading(() => import('@src/cms/layout'));
 
-const routerConfig = [
+export const userRouter = [
   {
     path: '/',
     Element: Home,
-  },
-  { path: '/admin', Element: Dashboard, Layout: LayoutApp },
-  { path: '/create-product', Element: CreateProduct, Layout: LayoutApp },
-  {
-    path: '/register',
-    Element: Register,
-  },
-  {
-    path: '/login',
-    Element: Login,
   },
   {
     path: '/about',
@@ -71,4 +60,7 @@ const routerConfig = [
   },
 ];
 
-export default routerConfig;
+export const adminRouter = [
+  { path: '/', Element: Dashboard, Layout: LayoutApp },
+  { path: '/create-product', Element: CreateProduct, Layout: LayoutApp },
+];

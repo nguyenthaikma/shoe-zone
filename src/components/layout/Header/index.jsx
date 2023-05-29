@@ -14,10 +14,14 @@ import { Col, Drawer, Row, Space, Typography } from 'antd';
 import { useDispatch } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 import styles from './style.module.scss';
+import { checkAuth } from '@src/libs/localStorage';
+import UserDropdownAuth from '@src/components/widgets/UserDropdown';
 
 const { Text } = Typography;
 
 export default function Header() {
+  const accessToken = checkAuth();
+
   const [openDrawer, setOpenDrawer] = useState(false);
   const onClose = () => {
     setOpenDrawer(false);
@@ -116,10 +120,14 @@ export default function Header() {
                 <Link to='/'>
                   <SearchOutlined className={styles.icon} />
                 </Link>
-                <Link to='/login'>
-                  <UserOutlined className={styles.icon} />
-                </Link>
                 <ShoppingCartOutlined onClick={handleOpen} className={styles.icon} />
+                {!!accessToken ? (
+                  <UserDropdownAuth color='#000' size={26} />
+                ) : (
+                  <Link to='/login'>
+                    <UserOutlined className={styles.icon} />
+                  </Link>
+                )}
               </Space>
             </Col>
           </Row>

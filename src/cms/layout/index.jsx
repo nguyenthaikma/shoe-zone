@@ -1,8 +1,11 @@
 import { DashboardOutlined, UserOutlined, DropboxOutlined } from '@ant-design/icons';
 import Breadcrumb from '@src/components/widgets/BreadCrumb';
+import UserDropdownAuth from '@src/components/widgets/UserDropdown';
 import { Col, Divider, Layout, Menu, Row } from 'antd';
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+
+import styles from './style.module.scss';
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -51,12 +54,13 @@ function LayoutApp({ children }) {
         style={{
           position: 'sticky',
           top: 0,
-          zIndex: 1200,
+          zIndex: 100,
           width: '100%',
           paddingLeft: 24,
           paddingRight: 24,
           height: 64,
         }}
+        className={styles.wrapper}
       >
         <Col span={24}>
           <Row justify='space-between' align='middle'>
@@ -68,6 +72,9 @@ function LayoutApp({ children }) {
                   width={120}
                 />
               </Link>
+            </Col>
+            <Col>
+              <UserDropdownAuth />
             </Col>
           </Row>
         </Col>

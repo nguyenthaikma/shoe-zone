@@ -1,13 +1,20 @@
 import { Button, Col, Form, Input, Row } from 'antd';
 
 import BreadcrumbPage from '@src/components/elements/BreadcrumbPage';
-import styles from './style.module.scss';
+import { useMutationLogin } from '@src/queries/hooks';
 import { Link, useNavigate } from 'react-router-dom';
+import styles from './style.module.scss';
 
 export default function Login() {
   const navigate = useNavigate();
+
+  const { mutate: Login } = useMutationLogin();
   const onSubmit = (values) => {
-    console.log(values);
+    Login(values, {
+      onSuccess: () => {
+        navigate('/');
+      },
+    });
   };
   return (
     <Row className={styles.wrapper}>
@@ -17,7 +24,7 @@ export default function Login() {
           <Form onFinish={onSubmit} layout='vertical'>
             <Row gutter={[0, 30]}>
               <Col span={24}>
-                <Form.Item name='email'>
+                <Form.Item name='username'>
                   <Input placeholder='Email' />
                 </Form.Item>
               </Col>
@@ -27,7 +34,7 @@ export default function Login() {
                 </Form.Item>
               </Col>
               <Col span={24}>
-                <Button onClick={() => navigate('/admin')} type='primary' htmlType='submit'>
+                <Button type='primary' htmlType='submit'>
                   SIGN IN
                 </Button>
               </Col>

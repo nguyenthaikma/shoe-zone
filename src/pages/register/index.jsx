@@ -2,12 +2,24 @@ import { Button, Col, Form, Input, Row } from 'antd';
 
 import BreadcrumbPage from '@src/components/elements/BreadcrumbPage';
 import styles from './style.module.scss';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useMutationRegister } from '@src/queries/hooks';
 
 export default function Register() {
+  const navigate = useNavigate();
+
+  const { mutate: Register } = useMutationRegister();
   const onSubmit = (values) => {
-    console.log(values);
+    Register(
+      { ...values, role: 'user' },
+      {
+        onSuccess: () => {
+          navigate('/login');
+        },
+      }
+    );
   };
+
   return (
     <Row className={styles.wrapper}>
       <BreadcrumbPage className={styles.breadCrumb} />
@@ -16,18 +28,23 @@ export default function Register() {
           <Form onFinish={onSubmit} layout='vertical'>
             <Row gutter={[0, 30]}>
               <Col span={24}>
-                <Form.Item name='firstName'>
-                  <Input placeholder='First Name' />
-                </Form.Item>
-              </Col>
-              <Col span={24}>
-                <Form.Item name='lastName'>
-                  <Input placeholder='Last Name' />
+                <Form.Item name='username'>
+                  <Input placeholder='Username' />
                 </Form.Item>
               </Col>
               <Col span={24}>
                 <Form.Item name='email'>
                   <Input placeholder='Email' />
+                </Form.Item>
+              </Col>
+              <Col span={24}>
+                <Form.Item name='address'>
+                  <Input placeholder='Address' />
+                </Form.Item>
+              </Col>
+              <Col span={24}>
+                <Form.Item name='mobile'>
+                  <Input placeholder='Phone number' />
                 </Form.Item>
               </Col>
               <Col span={24}>
@@ -37,7 +54,7 @@ export default function Register() {
               </Col>
               <Col span={24}>
                 <Button type='primary' htmlType='submit'>
-                 CREATE
+                  CREATE
                 </Button>
               </Col>
             </Row>

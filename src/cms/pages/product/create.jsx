@@ -29,7 +29,7 @@ function CreateProduct() {
               </Col>
               <Col span={24}>
                 <Collapse defaultActiveKey={['1']} expandIconPosition='end'>
-                  <Collapse.Panel header='Avatar' key='1'>
+                  <Collapse.Panel header='Thumbnail' key='1'>
                     <SelectSingleFileFormItem form={form} name='avatar' />
                   </Collapse.Panel>
                 </Collapse>

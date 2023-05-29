@@ -1,8 +1,7 @@
-const SIGNATURE = "signature";
+const SIGNATURE = 'signature';
 
 export function getStoredAuth() {
-  const storedAuth =
-    typeof window !== "undefined" ? localStorage.getItem(SIGNATURE) : "";
+  const storedAuth = typeof window !== 'undefined' ? localStorage.getItem(SIGNATURE) : '';
   return storedAuth ? JSON.parse(storedAuth) : null;
 }
 
@@ -10,9 +9,15 @@ export function checkAuth() {
   const signature = getStoredAuth();
   const accessToken = signature ? signature.accessToken : null;
   if (!!accessToken) return accessToken;
-  return "";
+  return '';
 }
 
+export function checkRole() {
+  const signature = getStoredAuth();
+  const role = signature ? signature.role : null;
+  if (!!role) return role;
+  return '';
+}
 export function setStoredAuth(auth) {
   localStorage.setItem(SIGNATURE, JSON.stringify(auth));
 }
@@ -23,6 +28,6 @@ export function clearStoredAuth() {
 
 // Set localStorage common
 export function getLocalStored(key) {
-  const stored = typeof window !== "undefined" ? localStorage.getItem(key) : "";
+  const stored = typeof window !== 'undefined' ? localStorage.getItem(key) : '';
   return stored ? JSON.parse(stored) : null;
 }

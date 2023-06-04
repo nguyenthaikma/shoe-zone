@@ -1,14 +1,17 @@
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import SlideShowCustom from '@components/widgets/SlideShowCustom';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import OutstandingStoreItem from '@src/components/elements/OutstandingItem';
 import ProductItem from '@src/components/elements/ProductItem';
 import ShoeItem from '@src/components/elements/ShoeItem';
 import SlideItem from '@src/components/elements/SlideItem';
-import { listCollection, listTabBestSeller } from '@src/configs/const';
+import { listCollection } from '@src/configs/const';
+import { useQueryListProduct } from '@src/queries/hooks';
 import { Button, Col, Row, Space, Typography } from 'antd';
+import moment from 'moment';
 import styles from './style.module.scss';
+import { useNavigate } from 'react-router-dom';
 
 const { Title, Text } = Typography;
 
@@ -51,59 +54,34 @@ const listStoreOutstanding = [
   },
 ];
 
-const listNewArrivals = [
-  {
-    id: 1,
-    image:
-      'https://cdn.shopify.com/s/files/1/1811/9799/products/shoe9_8a5e5186-31f5-47cb-a8cf-fecf2349bed7_600x.jpg?v=1494325511',
-    name: 'elevator shoes',
-    price: 389,
-    rate: 4,
-  },
-  {
-    id: 2,
-    image: 'https://cdn.shopify.com/s/files/1/1811/9799/products/shoe11_600x.jpg?v=1494314260',
-    name: 'boat shoes',
-    price: 389,
-    rate: 4,
-  },
-  {
-    id: 3,
-    image:
-      'https://cdn.shopify.com/s/files/1/1811/9799/products/shoe12_d236d83f-7f25-4d9e-b156-5131fead58c6_600x.jpg?v=1494317456',
-    name: 'adidas kampung',
-    price: 389,
-    rate: 4,
-  },
-  {
-    id: 4,
-    image: 'https://cdn.shopify.com/s/files/1/1811/9799/products/shoe13_600x.jpg?v=1494317190',
-    name: 'fashion boot',
-    price: 389,
-    rate: 4,
-  },
-  {
-    id: 5,
-    image:
-      'https://cdn.shopify.com/s/files/1/1811/9799/products/shoe9_0926fd04-01c0-4c74-b158-0fc24171828f_600x.jpg?v=1494317646',
-    name: 'roger dubuis',
-    price: 389,
-    rate: 4,
-  },
-];
-
 export default function Home() {
+  const navigate = useNavigate();
+
   const slideElement = useMemo(() => listSlide.map((e, i) => <SlideItem key={i} data={e} />), []);
   const slideElementSecond = useMemo(
     () => listStoreOutstanding.map((e) => <OutstandingStoreItem key={e?.id} data={e} />),
     []
   );
+
+  const { data: listProduct } = useQueryListProduct();
+
+  const [newArrivals, setNewArrivals] = useState([]);
+  useEffect(() => {
+    const listPrd = listProduct?.data;
+    const newArrivals = listPrd?.sort((a, b) => moment(b?.createdAt) - moment(a?.createdAt)).slice(0, 10);
+    setNewArrivals(newArrivals);
+  }, [listProduct]);
   const slideElementNewArrivals = useMemo(
-    () => listNewArrivals?.map((e, i) => <ProductItem data={e} key={e?.id} />),
-    []
+    () => newArrivals?.map((e) => <ProductItem data={e} key={e?.id} />),
+    [newArrivals]
   );
 
-  const [active, setActive] = useState(1);
+  const [bestSeller, setBestSeller] = useState([]);
+  useEffect(() => {
+    const listPrd = listProduct?.data;
+    const newArrivals = listPrd?.sort((a, b) => b?.price - a?.price).slice(0, 4);
+    setBestSeller(newArrivals);
+  }, [listProduct]);
 
   return (
     <Row className={`${styles.wrapper}`}>
@@ -235,7 +213,9 @@ export default function Home() {
                 </Title>
               </Col>
               <Col span={24}>
-                <button className={styles.btn}>SHOP NOW</button>
+                <button onClick={() => navigate('/collections/all')} className={styles.btn}>
+                  SHOP NOW
+                </button>
               </Col>
             </Row>
           </Col>
@@ -268,19 +248,8 @@ export default function Home() {
             </Row>
           </Col>
           <Col span={24}>
-            <Row gutter={[50, 20]} className={styles.tab} justify='center'>
-              {listTabBestSeller.map((tab) => (
-                <Col
-                  onClick={() => setActive(tab.id)}
-                  className={`${styles.tabItem} ${active === tab.id && styles.active}`}
-                  key={tab.id}
-                >
-                  {tab.name}
-                </Col>
-              ))}
-            </Row>
             <Row gutter={[30, 30]}>
-              {listNewArrivals.map((bestSellerItem) => (
+              {bestSeller.map((bestSellerItem) => (
                 <Col key={bestSellerItem.id} span={24} md={{ span: 12 }} xxl={{ span: 6 }}>
                   <ProductItem data={bestSellerItem} />
                 </Col>

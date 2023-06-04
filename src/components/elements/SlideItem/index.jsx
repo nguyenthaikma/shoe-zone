@@ -1,10 +1,12 @@
 import { Col, Row, Typography } from 'antd';
 
 import styles from './style.module.scss';
+import { useNavigate } from 'react-router-dom';
 
 const { Title, Text } = Typography;
 
 export default function SlideItem({ data }) {
+  const navigate = useNavigate();
   return (
     <Row className={styles.wrapper}>
       <img alt='carousel' className={styles.image} src={data?.image} />
@@ -20,7 +22,9 @@ export default function SlideItem({ data }) {
             <Text className={styles.subTitle}>The best Sellers from $99.00</Text>
           </Col>
           <Col span={24}>
-            <button className={styles.btn}>SHOP NOW</button>
+            <button onClick={() => navigate('/collections/gym')} className={styles.btn}>
+              SHOP NOW
+            </button>
           </Col>
         </Row>
       )}
@@ -35,7 +39,9 @@ export default function SlideItem({ data }) {
             <Text className={styles.subTitle}>$ 745</Text>
           </Col>
           <Col span={24}>
-            <button className={styles.btn}>View collection</button>
+            <button onClick={() => navigate('/collections')} className={styles.btn}>
+              View collection
+            </button>
           </Col>
         </Row>
       )}
@@ -56,7 +62,9 @@ export default function SlideItem({ data }) {
             </Text>
           </Col>
           <Col span={24}>
-            <button className={styles.btn}>Shop now</button>
+            <button onClick={() => navigate('/collections/sport')} className={styles.btn}>
+              Shop now
+            </button>
           </Col>
         </Row>
       )}

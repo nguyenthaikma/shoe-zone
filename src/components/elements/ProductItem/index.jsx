@@ -9,7 +9,7 @@ export default function ProductItem({ data }) {
 
   return (
     <Row className={styles.wrapper}>
-      <Link to={`/product/${data?.id}`}>
+      <Link to={`/product/${data?.productID}`}>
         <Col className={styles.thumbnailWrap} span={24}>
           <img src={data?.image} alt={data?.name} className={styles.thumbnail} />
         </Col>

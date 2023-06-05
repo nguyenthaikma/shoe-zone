@@ -22,12 +22,13 @@ function LayoutApp({ children }) {
   const location = useLocation();
 
   const [collapsed, setCollapsed] = useState(false);
-  const [selectedKeyMenu, setSelectedKeyMenu] = useState(['dashboard']);
 
+  const pathSnippets = location.pathname.split('/').filter((i) => i);
   useEffect(() => {
-    const pathSnippets = location.pathname.split('/').filter((i) => i);
     if (pathSnippets && pathSnippets?.length > 0) setSelectedKeyMenu(pathSnippets);
-  }, [location.pathname]);
+  }, []);
+
+  const [selectedKeyMenu, setSelectedKeyMenu] = useState(pathSnippets || ['dashboard']);
 
   const onSelectMenu = ({ keyPath }) => {
     setSelectedKeyMenu(keyPath);

@@ -249,7 +249,7 @@ export default function Home() {
           </Col>
           <Col span={24}>
             <Row gutter={[30, 30]}>
-              {bestSeller.map((bestSellerItem) => (
+              {bestSeller?.map((bestSellerItem) => (
                 <Col key={bestSellerItem.id} span={24} md={{ span: 12 }} xxl={{ span: 6 }}>
                   <ProductItem data={bestSellerItem} />
                 </Col>

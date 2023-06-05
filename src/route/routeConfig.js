@@ -1,4 +1,6 @@
+import Product from '@src/cms/pages/product';
 import CreateProduct from '@src/cms/pages/product/create';
+import DetailProductAdmin from '@src/cms/pages/product/detail';
 import lazyLoading from '@src/libs/lazyLoading';
 
 const Home = lazyLoading(() => import('@src/pages/home'));
@@ -62,5 +64,7 @@ export const userRouter = [
 
 export const adminRouter = [
   { path: '/', Element: Dashboard, Layout: LayoutApp },
+  { path: '/product', Element: Product, Layout: LayoutApp },
   { path: '/create-product', Element: CreateProduct, Layout: LayoutApp },
+  { path: '/product/:id', Element: DetailProductAdmin, Layout: LayoutApp },
 ];

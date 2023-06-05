@@ -9,7 +9,7 @@ function FormInput({ data }) {
         name='name'
         label='Product name'
         {...labelStyle}
-        initialValue={data?.username}
+        initialValue={data?.name}
         rules={[
           {
             required: true,
@@ -17,14 +17,14 @@ function FormInput({ data }) {
           },
         ]}
       >
-        <Input placeholder='Please enter username' />
+        <Input placeholder='Please enter name' />
       </Form.Item>
       <Form.Item
         style={{ marginBottom: 24 }}
-        name='categoryId'
+        name='categoryID'
         label='Category'
         {...labelStyle}
-        initialValue={data?.Category}
+        initialValue={data?.categoryID}
         rules={[
           {
             required: true,
@@ -33,7 +33,8 @@ function FormInput({ data }) {
         ]}
       >
         <Select placeholder='Select category'>
-          <Select.Option value='1'>Sport</Select.Option>
+          <Select.Option value='cate1'>Sport</Select.Option>
+          <Select.Option value='cate2'>Gym</Select.Option>
         </Select>
       </Form.Item>
       <Form.Item
@@ -41,7 +42,7 @@ function FormInput({ data }) {
         name='price'
         label='Price'
         {...labelStyle}
-        initialValue={data?.lastName}
+        initialValue={data?.price}
         rules={[
           {
             required: true,
@@ -61,7 +62,7 @@ function FormInput({ data }) {
         <Input placeholder='Please enter material' />
       </Form.Item>
       <Form.Item style={{ marginBottom: 24 }} name='vendor' label='Vendor' {...labelStyle} initialValue={data?.phone}>
-        <Input placeholder='Please enter phone' />
+        <Input placeholder='Please enter vendor' />
       </Form.Item>
     </>
   );

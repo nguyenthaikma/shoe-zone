@@ -1,56 +1,26 @@
-import { Button, Col, Form, Input, Row, Select, Space, Typography } from 'antd';
-import { Radio } from 'antd';
+import { Button, Col, Form, Input, Row, Select, Space, Spin, Typography } from 'antd';
 
 import BreadcrumbPage from '@src/components/elements/BreadcrumbPage';
-import styles from './style.module.scss';
 import ProductItem from '@src/components/elements/ProductItem';
-import { useNavigate } from 'react-router-dom';
+import { useQueryListProduct } from '@src/queries/hooks';
+import { useNavigate, useParams } from 'react-router-dom';
+import styles from './style.module.scss';
+import { useState } from 'react';
 
 const { Text } = Typography;
 
-const listNewArrivals = [
-  {
-    id: 1,
-    image:
-      'https://cdn.shopify.com/s/files/1/1811/9799/products/shoe9_8a5e5186-31f5-47cb-a8cf-fecf2349bed7_600x.jpg?v=1494325511',
-    name: 'elevator shoes',
-    price: 389,
-    rate: 4,
-  },
-  {
-    id: 2,
-    image: 'https://cdn.shopify.com/s/files/1/1811/9799/products/shoe11_600x.jpg?v=1494314260',
-    name: 'boat shoes',
-    price: 389,
-    rate: 4,
-  },
-  {
-    id: 3,
-    image:
-      'https://cdn.shopify.com/s/files/1/1811/9799/products/shoe12_d236d83f-7f25-4d9e-b156-5131fead58c6_600x.jpg?v=1494317456',
-    name: 'adidas kampung',
-    price: 389,
-    rate: 4,
-  },
-  {
-    id: 4,
-    image: 'https://cdn.shopify.com/s/files/1/1811/9799/products/shoe13_600x.jpg?v=1494317190',
-    name: 'fashion boot',
-    price: 389,
-    rate: 4,
-  },
-  {
-    id: 5,
-    image:
-      'https://cdn.shopify.com/s/files/1/1811/9799/products/shoe9_0926fd04-01c0-4c74-b158-0fc24171828f_600x.jpg?v=1494317646',
-    name: 'roger dubuis',
-    price: 389,
-    rate: 4,
-  },
-];
-
 export default function ListProduct() {
   const _breadcrumbs = [{ title: 'Home', href: '/' }, { title: 'Collections', href: '/collections' }, { title: '1' }];
+
+  const { id } = useParams();
+
+  const [from, setFrom] = useState();
+  const [to, setTo] = useState();
+  const [size, setSize] = useState();
+
+  const baseParams = { id };
+  const [params, setParams] = useState(baseParams);
+  const { data: listProduct, isLoading } = useQueryListProduct(params);
 
   const navigate = useNavigate();
   return (
@@ -63,30 +33,37 @@ export default function ListProduct() {
               <Row gutter={[0, 30]}>
                 <Col span={24} className={styles.sort}>
                   <Space align='center' size={4}>
-                    <Text>Pagination by</Text>
-                    <Select style={{ minWidth: 120 }} defaultValue={9}>
-                      <Select.Option value={9}>9</Select.Option>
-                      <Select.Option value={12}>12</Select.Option>
-                      <Select.Option value={16}>16</Select.Option>
-                      <Select.Option value={20}>20</Select.Option>
-                    </Select>
-                  </Space>
-                  <Space align='center' size={4}>
                     <Text>Sort by</Text>
-                    <Select style={{ minWidth: 120 }} defaultValue='feature'>
-                      <Select.Option value='feature'>Feature</Select.Option>
-                      <Select.Option value='price'>Price</Select.Option>
+                    <Select
+                      value={params?.sort_by}
+                      onChange={(value) => setParams({ ...params, sort_by: value })}
+                      style={{ minWidth: 200 }}
+                      defaultValue={null}
+                    >
+                      <Select.Option value={null}>Feature</Select.Option>
+                      <Select.Option value='title-ascending'>Alphabetically, A-Z</Select.Option>
+                      <Select.Option value='title-descending'>Alphabetically, Z-A</Select.Option>
+                      <Select.Option value='price-ascending'>Price, low to high</Select.Option>
+                      <Select.Option value='price-descending'>Price, high to low</Select.Option>
+                      <Select.Option value='created-ascending'>Date, old to new</Select.Option>
+                      <Select.Option value='created-descending'>Date, new to old</Select.Option>
                     </Select>
                   </Space>
                 </Col>
                 <Col span={24}>
-                  <Row gutter={[30, 30]}>
-                    {listNewArrivals.map((item) => (
-                      <Col xl={{ span: 8 }} md={{ span: 12 }} span={24}>
-                        <ProductItem data={item} key={item.id} />
-                      </Col>
-                    ))}
-                  </Row>
+                  {isLoading ? (
+                    <Col style={{ display: 'flex' }}>
+                      <Spin style={{ margin: 'auto' }} />
+                    </Col>
+                  ) : (
+                    <Row gutter={[30, 30]}>
+                      {listProduct?.data?.map((item) => (
+                        <Col xl={{ span: 8 }} md={{ span: 12 }} span={24}>
+                          <ProductItem data={item} key={item.id} />
+                        </Col>
+                      ))}
+                    </Row>
+                  )}
                 </Col>
               </Row>
             </Col>
@@ -95,20 +72,38 @@ export default function ListProduct() {
                 <Col span={24}>
                   <Row gutter={[0, 30]}>
                     <Col span={24}>
-                      <Text className={styles.title}>Availability</Text>
+                      <Text className={styles.title}>Sizes</Text>
                     </Col>
                     <Col span={24}>
-                      <Space size={20} direction='vertical'>
-                        <Space size={15} direction='vertical'>
-                          <Radio value='1'>In stock</Radio>
-                          <Radio value='2'>Out of stock</Radio>
-                        </Space>
-                      </Space>
+                      <Select
+                        value={size}
+                        onChange={(value) => setSize(value)}
+                        placeholder='Choose your size'
+                        style={{ width: '100%' }}
+                      >
+                        <Select.Option value={39}>39</Select.Option>
+                        <Select.Option value={40}>40</Select.Option>
+                        <Select.Option value={41}>41</Select.Option>
+                        <Select.Option value={42}>42</Select.Option>
+                        <Select.Option value={43}>43</Select.Option>
+                        <Select.Option value={44}>44</Select.Option>
+                        <Select.Option value={45}>45</Select.Option>
+                      </Select>
                     </Col>
                     <Col span={24}>
                       <Space size={8}>
-                        <Button type='primary'>CLEAR</Button>
-                        <Button type='primary'>APPLY</Button>
+                        <Button
+                          onClick={() => {
+                            setSize(undefined);
+                            setParams(baseParams);
+                          }}
+                          type='primary'
+                        >
+                          CLEAR
+                        </Button>
+                        <Button onClick={() => setParams({ ...params, size })} type='primary'>
+                          APPLY
+                        </Button>
                       </Space>
                     </Col>
                   </Row>
@@ -125,24 +120,45 @@ export default function ListProduct() {
                       <Space style={{ marginTop: 12 }} size={20} direction='vertical'>
                         <Space size={15} direction='vertical'>
                           <Form.Item style={{ marginBottom: 0 }} labelCol={{ span: 24 }} label='From $'>
-                            <Input placeholder='0' />
+                            <Input value={from} onChange={(event) => setFrom(event.target.value)} placeholder='0' />
                           </Form.Item>
                           <Form.Item style={{ marginBottom: 0 }} labelCol={{ span: 24 }} label='To $'>
-                            <Input placeholder='389' />
+                            <Input value={to} onChange={(event) => setTo(event.target.value)} placeholder='389' />
                           </Form.Item>
                         </Space>
                       </Space>
                     </Col>
                     <Col span={24}>
                       <Space size={8}>
-                        <Button type='primary'>CLEAR</Button>
-                        <Button type='primary'>APPLY</Button>
+                        <Button
+                          onClick={() => {
+                            setFrom(undefined);
+                            setTo(undefined);
+                            setParams(baseParams);
+                          }}
+                          type='primary'
+                        >
+                          CLEAR
+                        </Button>
+                        <Button onClick={() => setParams({ ...params, from, to })} type='primary'>
+                          APPLY
+                        </Button>
                       </Space>
                     </Col>
                   </Row>
                 </Col>
                 <Col span={24}>
-                  <Button type='primary' size='large' block>
+                  <Button
+                    onClick={() => {
+                      setFrom(undefined);
+                      setTo(undefined);
+                      setSize(undefined);
+                      setParams(baseParams);
+                    }}
+                    type='primary'
+                    size='large'
+                    block
+                  >
                     CLEAR ALL
                   </Button>
                 </Col>

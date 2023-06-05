@@ -20,27 +20,27 @@ export const listTabBestSeller = [
 export const listCategory = [
   { id: 1, name: 'Home', href: '/' },
   { id: 2, name: 'collection', href: '/collections' },
-  { id: 3, name: 'Shoes', href: '/collections/all' },
-  { id: 5, name: 'Gym', href: '/collections/gym' },
-  { id: 6, name: 'Sport', href: '/collections/sport' },
+  { id: 3, name: 'Shoes', href: '/collections/list' },
+  { id: 5, name: 'Gym', href: '/collections/gymShoe' },
+  { id: 6, name: 'Sport', href: '/collections/sportShoe' },
 ];
 
 export const listCollection = [
   {
-    id: 'gym',
+    id: 'gymShoe',
     total: 4,
     title: 'Gym sneakers',
     image: 'https://cdn.shopify.com/s/files/1/1811/9799/files/collection3_large.jpg?v=1613156071',
   },
   {
-    id:'sport',
+    id: 'sportShoe',
     total: 4,
     title: 'Sport sneakers',
     image:
       'https://cdn.shopify.com/s/files/1/1811/9799/files/collection5_47277ffa-efcf-413d-a764-b4b5be9e4e99_large.jpg?v=1613157025',
   },
   {
-    id: 'all',
+    id: 'list',
     total: 4,
     title: 'Other',
     image:

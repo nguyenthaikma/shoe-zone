@@ -1,5 +1,5 @@
-import { useMutation, useQuery } from 'react-query';
-import { getDetailProduct, getListProduct, updateProduct } from '../apis';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { createProduct, deleteProduct, getDetailProduct, getListProduct, updateProduct } from '../apis';
 import { notification } from 'antd';
 
 export const useQueryListProduct = (params = { id: 'list' }) => {
@@ -19,6 +19,34 @@ export const useMutationUpdateProduct = () => {
     },
     onError: (error) => {
       notification.error({ message: error.message || 'Update failure!' });
+    },
+  });
+};
+
+export const useMutationCreateProduct = () => {
+  const queryClient = useQueryClient();
+  return useMutation(createProduct, {
+    onSuccess: async (data) => {
+      if (data.status === 200) {
+        notification.success({ message: 'Create Success!' });
+        queryClient.invalidateQueries('LIST_PRODUCT');
+      }
+    },
+    onError: (error) => {
+      notification.error({ message: error.message || 'Create failure!' });
+    },
+  });
+};
+
+export const useMutationDeleteProduct = () => {
+  return useMutation(deleteProduct, {
+    onSuccess: async (data) => {
+      if (data.status === 200) {
+        notification.success({ message: 'Delete Success!' });
+      }
+    },
+    onError: (error) => {
+      notification.error({ message: error.message || 'Delete failure!' });
     },
   });
 };

@@ -4,5 +4,9 @@ import axios from 'axios';
 export const getListProduct = (params) =>
   axios({ url: `${REACT_APP_BASE_URL}/product/${params.id}`, method: 'GET', params });
 
-export const getDetailProduct = (id) => axios({ url: `${REACT_APP_BASE_URL}/product/${id}`, method: 'GET' });
+export const getDetailProduct = (id) =>
+  axios({ url: `${REACT_APP_BASE_URL}/product/product_detail/${id}`, method: 'GET' });
+export const createProduct = (data) => axios({ url: `${REACT_APP_BASE_URL}/product/add`, method: 'POST', data });
 export const updateProduct = (data) => axios({ url: `${REACT_APP_BASE_URL}/product/update`, method: 'POST', data });
+export const deleteProduct = (id) =>
+  axios({ url: `${REACT_APP_BASE_URL}/product/delete`, method: 'DELETE', data: { productID: id } });

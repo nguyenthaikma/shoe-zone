@@ -4,6 +4,7 @@
     cursor: pointer;
     border: 2px solid transparent;
     transition: all ease-in-out 0.25s;
+    width: 100%;
     &:hover {
       border-color: #000;
     }

@@ -3,10 +3,10 @@ import { media } from '@src/assets/images/media';
 import FormSidebar from '@src/cms/layout/FormSidebar';
 import ActionPublish from '@src/components/widgets/ActionPublish';
 import PageHeader from '@src/components/widgets/PageHeader';
-import { useMutationUpdateProduct, useQueryDetailProduct } from '@src/queries/hooks';
+import { useMutationDeleteProduct, useMutationUpdateProduct, useQueryDetailProduct } from '@src/queries/hooks';
 import { Button, Card, Col, Collapse, Form, Image, Modal, Row, Space, Typography } from 'antd';
 import { useMemo, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import FormInput from './components/FormInput';
 
 const { Text } = Typography;
@@ -14,12 +14,12 @@ const { Text } = Typography;
 function DetailProductAdmin() {
   const { id } = useParams();
   const [form] = Form.useForm();
+  const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const { data: detailProduct } = useQueryDetailProduct(id);
   const { mutate: updateProduct } = useMutationUpdateProduct();
-
-  console.log(detailProduct);
+  const { mutate: deleteProduct } = useMutationDeleteProduct();
 
   const defaultImg = useMemo(() => detailProduct?.data[0]?.image, [detailProduct]);
   const [active, setActive] = useState(defaultImg);
@@ -29,7 +29,11 @@ function DetailProductAdmin() {
   };
 
   const onDelete = () => {
-    console.log(1);
+    deleteProduct(id, {
+      onSuccess: () => {
+        navigate('/product');
+      },
+    });
   };
 
   const showModal = () => {
@@ -103,9 +107,10 @@ function DetailProductAdmin() {
                           ) : (
                             <Text>No file selected</Text>
                           )}
-                          <Button onClick={showModal}>{active ? <EditFilled /> : <Text>No file selected</Text>}</Button>
+                          <Button onClick={showModal}>
+                            {defaultImg || active ? <EditFilled /> : <Text>No file selected</Text>}
+                          </Button>
                         </Space>
-                        {console.log(media.find((item) => item.key === (active || defaultImg)))}
                       </Form.Item>
                     </Collapse.Panel>
                   </Collapse>

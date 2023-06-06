@@ -7,7 +7,7 @@ import { columnsTableUser } from './configs/table.config';
 function Product() {
   const columns = columnsTableUser();
 
-  const { data: listProduct } = useQueryListProduct({ id: 'list' });
+  const { data: listProduct } = useQueryListProduct({ id: 'list', from: 0 });
 
   return (
     <Col span={24}>

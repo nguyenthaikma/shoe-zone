@@ -2,16 +2,20 @@ import { ShoppingCartOutlined } from '@ant-design/icons';
 import { Col, Row, Typography } from 'antd';
 import { Link } from 'react-router-dom';
 import styles from './style.module.scss';
+import { media } from '@src/assets/images/media';
 
 const { Title, Text } = Typography;
 
 export default function ProductItem({ data }) {
-
   return (
     <Row className={styles.wrapper}>
-      <Link to={`/product/${data?.productID}`}>
+      <Link style={{ display: 'block', width: '100%' }} to={`/product/${data?.productID}`}>
         <Col className={styles.thumbnailWrap} span={24}>
-          <img src={data?.image} alt={data?.name} className={styles.thumbnail} />
+          <img
+            src={media.find((item) => item.key === data?.image)?.value}
+            alt={data?.name}
+            className={styles.thumbnail}
+          />
         </Col>
       </Link>
       <Col span={24} className={styles.content}>

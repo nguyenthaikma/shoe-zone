@@ -62,7 +62,7 @@ export default function Register() {
           <div className={styles.bottom}>
             <Row gutter={[30, 0]}>
               <Col span={8}>
-                <Link className={styles.link} to='/'>
+                <Link className={styles.link} to='/login'>
                   Login
                 </Link>
               </Col>

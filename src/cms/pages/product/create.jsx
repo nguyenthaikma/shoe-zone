@@ -7,15 +7,17 @@ import FormSidebar from '@src/cms/layout/FormSidebar';
 import FormInput from './components/FormInput';
 import { useState } from 'react';
 import { media } from '@src/assets/images/media';
+import { useMutationCreateProduct } from '@src/queries/hooks';
+import moment from 'moment';
+import { useNavigate } from 'react-router-dom';
 
 const { Text } = Typography;
 
 function CreateProduct() {
   const [form] = Form.useForm();
+  const navigate = useNavigate();
 
-  const onFinish = (values) => {
-    console.log(values);
-  };
+  const { mutate: createProduct } = useMutationCreateProduct();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [active, setActive] = useState();
@@ -32,6 +34,21 @@ function CreateProduct() {
     setIsModalOpen(false);
   };
 
+  const onFinish = (values) => {
+    createProduct(
+      {
+        ...values,
+        createDate: moment(Date.now()).format('YYYY-MM-DD'),
+        productID: Math.random(),
+      },
+      {
+        onSuccess: () => {
+          navigate('/product');
+        },
+      }
+    );
+  };
+
   return (
     <Col span={24}>
       <FormSidebar form={form} scrollToFirstError onFinish={onFinish}>
@@ -44,17 +61,17 @@ function CreateProduct() {
                     form.setFieldsValue({
                       image: `anh${index + 1}`,
                     });
-                    setActive(index);
+                    setActive(`anh${index + 1}`);
                   }}
                   style={{ margin: 15, cursor: 'pointer', height: 'fit-content' }}
                   span={4}
                 >
                   <Image
-                    className={active === index && 'activeSelect'}
+                    className={active === `anh${index + 1}` && 'activeSelect'}
                     preview={false}
                     height={200}
                     style={{ display: 'block' }}
-                    src={media[item]}
+                    src={media.find((item) => item.key === `anh${index + 1}`).value}
                   />
                 </Col>
               );
@@ -77,10 +94,13 @@ function CreateProduct() {
                   <Collapse.Panel header='Thumbnail' key='1'>
                     <Form.Item name='image'>
                       <Space size={10} align='center'>
-                        {active ? <Image src={media[active]} /> : <Text>No file selected</Text>}
-
+                        {active ? (
+                          <Image src={media.find((item) => item.key === active).value} />
+                        ) : (
+                          <Text>No file selected</Text>
+                        )}
                         <Button onClick={showModal}>{active ? <EditFilled /> : <Text>No file selected</Text>}</Button>
-                      </Space>
+                      </Space>{' '}
                     </Form.Item>
                   </Collapse.Panel>
                 </Collapse>

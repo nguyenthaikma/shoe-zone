@@ -4,23 +4,26 @@ import { useEffect, useState } from 'react';
 import styles from './style.module.scss';
 import { useDispatch } from 'react-redux';
 import { addItemAction } from '@src/redux/actions/drawerReducer';
+import { media } from '@src/assets/images/media';
+import { useMutationRemoveCart } from '@src/queries/hooks/cart';
 
 const { Text } = Typography;
 
-const data = {
-  id: 1,
-  image:
-    'https://cdn.shopify.com/s/files/1/1811/9799/products/shoe9_8a5e5186-31f5-47cb-a8cf-fecf2349bed7_600x.jpg?v=1494325511',
-  name: 'elevator shoes',
-  price: 389,
-  rate: 4,
-};
-
-export default function CartItemSmall() {
+export default function CartItemSmall({ data }) {
   const dispatch = useDispatch();
 
-  const [quantity, setQuantity] = useState(1);
+  console.log(data);
+
+  const [quantity, setQuantity] = useState(data?.number);
+  useEffect(() => {
+    setQuantity(data?.number);
+  }, [data]);
   const [price] = useState(100);
+  const { mutate: deleteCart } = useMutationRemoveCart();
+
+  const handleDelete = () => {
+    deleteCart({ cartID: data?.cartID });
+  };
 
   useEffect(() => {
     dispatch(addItemAction(price));
@@ -32,7 +35,11 @@ export default function CartItemSmall() {
         <Row gutter={[20, 14]} className={styles.content}>
           <Col>
             <div className={styles.imgWrap}>
-              <img src={data?.image} alt={data?.name} className={styles.img} />
+              <img
+                src={media.find((item) => item.key === data?.image)?.value}
+                alt={data?.name}
+                className={styles.img}
+              />
             </div>
           </Col>
           <Col flex={1} style={{ display: 'flex' }}>
@@ -41,12 +48,12 @@ export default function CartItemSmall() {
                 <div className={styles.content}>
                   <Space size={0} direction='vertical'>
                     <Text className={styles.name}>{data?.name}</Text>
-                    <Text className={styles.property}>8 / green / rubber</Text>
+                    <Text className={styles.property}>Size: {data?.size}</Text>
                   </Space>
                 </div>
               </Col>
               <Col span={24}>
-                <Text strong>${price * quantity}</Text>
+                <Text strong>${data?.price}</Text>
               </Col>
               <Col span={24}>
                 <InputNumber
@@ -57,9 +64,9 @@ export default function CartItemSmall() {
                     <Button
                       disabled={quantity === 0}
                       onClick={() => {
-                        if (quantity > 0) {
-                          setQuantity(quantity - 1);
-                        }
+                        // if (quantity > 0) {
+                        //   setQuantity(quantity - 1);
+                        // }
                       }}
                       block
                       type='primary'
@@ -69,7 +76,7 @@ export default function CartItemSmall() {
                     </Button>
                   }
                   addonAfter={
-                    <Button onClick={() => setQuantity(quantity + 1)} block type='primary' size='small'>
+                    <Button block type='primary' size='small'>
                       +
                     </Button>
                   }
@@ -79,6 +86,9 @@ export default function CartItemSmall() {
               </Col>
             </Row>
           </Col>
+          <Button style={{ color: 'red' }} type='error' onClick={handleDelete}>
+            Xoá
+          </Button>
         </Row>
       </Col>
     </Row>

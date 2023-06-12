@@ -1,5 +1,13 @@
 import { useMutation, useQuery, useQueryClient } from 'react-query';
-import { createProduct, deleteProduct, getDetailProduct, getListProduct, updateProduct } from '../apis';
+import {
+  createProduct,
+  deleteProduct,
+  getDetailProduct,
+  getListProduct,
+  getListSize,
+  getRelatedProduct,
+  updateProduct,
+} from '../apis';
 import { notification } from 'antd';
 
 export const useQueryListProduct = (params = { id: 'list' }) => {
@@ -8,6 +16,14 @@ export const useQueryListProduct = (params = { id: 'list' }) => {
 
 export const useQueryDetailProduct = (id) => {
   return useQuery(['DETAIL_PRODUCT', id], () => getDetailProduct(id));
+};
+
+export const useQueryRelatedProduct = (id, params) => {
+  return useQuery(['RELATED_PRODUCT', id, params], () => getRelatedProduct(id));
+};
+
+export const useQueryListSize = (id) => {
+  return useQuery(['SIZE_PRODUCT', id], () => getListSize(id));
 };
 
 export const useMutationUpdateProduct = () => {

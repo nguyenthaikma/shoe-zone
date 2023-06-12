@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 
 import styles from './style.module.scss';
 import BreadcrumbPage from '@src/components/elements/BreadcrumbPage';
 import { Button, Col, InputNumber, Row, Space, Typography } from 'antd';
 import ProductItem from '@src/components/elements/ProductItem';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useQueryDetailProduct, useQueryRelatedProduct } from '@src/queries/hooks';
 
 const data = {
   id: 1,
@@ -52,8 +53,14 @@ const { Title, Text } = Typography;
 
 export default function DetailProduct() {
   const navigate = useNavigate();
-
   const [active, setActive] = useState();
+  const { idProduct } = useParams();
+
+  const { data: fetchProduct } = useQueryDetailProduct(idProduct);
+  const detailProduct = useMemo(() => fetchProduct?.data[0], [fetchProduct]);
+
+  const { data: fetchRelatedProduct } = useQueryRelatedProduct(idProduct, { categoryID: detailProduct?.categoryID });
+  console.log(fetchRelatedProduct);
 
   return (
     <Row className={styles.wrapper}>
@@ -69,7 +76,7 @@ export default function DetailProduct() {
                 <Col span={12}>
                   <Row gutter={[0, 40]}>
                     <Col span={24}>
-                      <Title level={1}>{data.name}</Title>
+                      <Title level={1}>{detailProduct?.name}</Title>
                     </Col>
                     <Col span={24}>
                       <Row gutter={[0, 20]}>
@@ -80,7 +87,7 @@ export default function DetailProduct() {
                             </Col>
                             <Col span={18}>
                               <Text style={{ color: 'var(--color-violet)', fontSize: 16 }} strong>
-                                ${data.price}
+                                ${detailProduct?.price}
                               </Text>
                             </Col>
                           </Row>
@@ -92,7 +99,7 @@ export default function DetailProduct() {
                             </Col>
                             <Col span={18}>
                               <Space size={10}>
-                                {[7, 8, 9].map((item) => (
+                                {[37, 38, 39, 40, 41, 42, 43, 44].map((item) => (
                                   <div
                                     key={item}
                                     className={`${styles.size} ${active === item && styles.active}`}
@@ -121,7 +128,7 @@ export default function DetailProduct() {
                               <Text className={styles.label}>Material:</Text>
                             </Col>
                             <Col span={18} className={styles.labelWrap}>
-                              <Text style={{ fontSize: 12 }}>ruber</Text>
+                              <Text style={{ fontSize: 12 }}>{detailProduct?.metarial}</Text>
                             </Col>
                           </Row>
                         </Col>
@@ -131,7 +138,7 @@ export default function DetailProduct() {
                               <Text className={styles.label}>Vendor:</Text>
                             </Col>
                             <Col span={18} className={styles.labelWrap}>
-                              <Text style={{ fontSize: 12 }}>Havaianas</Text>
+                              <Text style={{ fontSize: 12 }}>{detailProduct?.vendor}</Text>
                             </Col>
                           </Row>
                         </Col>
@@ -141,7 +148,10 @@ export default function DetailProduct() {
                               <Text className={styles.label}>Type:</Text>
                             </Col>
                             <Col span={18} className={styles.labelWrap}>
-                              <Text style={{ fontSize: 12 }}>shoes</Text>
+                              <Text style={{ fontSize: 12 }}>
+                                {(detailProduct?.categoryID === 'cate1' && 'Sport') ||
+                                  (detailProduct?.categoryID === 'cate2' && 'Gym')}
+                              </Text>
                             </Col>
                           </Row>
                         </Col>

@@ -17,3 +17,15 @@ export const addItemAction = (price) => {
     dispatch(testReducer.actions.addItem({ price }));
   };
 };
+
+export const openAddSizeAction = (id, price, image) => {
+  return (dispatch, getState) => {
+    dispatch(testReducer.actions.openAddSize(id, price, image));
+  };
+};
+
+export const closeAddSizeAction = () => {
+  return (dispatch, getState) => {
+    dispatch(testReducer.actions.closeAddSize());
+  };
+};

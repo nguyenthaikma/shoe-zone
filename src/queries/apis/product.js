@@ -10,3 +10,7 @@ export const createProduct = (data) => axios({ url: `${REACT_APP_BASE_URL}/produ
 export const updateProduct = (data) => axios({ url: `${REACT_APP_BASE_URL}/product/update`, method: 'POST', data });
 export const deleteProduct = (id) =>
   axios({ url: `${REACT_APP_BASE_URL}/product/delete`, method: 'DELETE', data: { productID: id } });
+
+export const getRelatedProduct = (id, params) =>
+  axios({ url: `${REACT_APP_BASE_URL}/product/recommend/${id}`, method: 'GET', data: { ...params } });
+export const getListSize = (id) => axios({ url: `${REACT_APP_BASE_URL}/product/size/${id}`, method: 'GET' });

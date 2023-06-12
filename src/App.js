@@ -7,9 +7,11 @@ import { BrowserRouter } from 'react-router-dom';
 import DrawerCart from './components/elements/DrawerCart';
 import { onClose } from './redux/actions/drawerReducer';
 import RouteApp from './route';
+import ModalAddSizes from './components/elements/ModalAddSize';
+
+export const queryClient = new QueryClient();
 
 function App() {
-  const queryClient = new QueryClient();
   const dispatch = useDispatch();
 
   const handleClose = () => {
@@ -35,6 +37,7 @@ function App() {
           <Drawer title='Your cart' placement='right' width={300} onClose={handleClose} open={open}>
             <DrawerCart />
           </Drawer>
+          <ModalAddSizes />
           <RouteApp />
         </BrowserRouter>
         <ReactQueryDevtools initialIsOpen={false} position='bottom-right' />

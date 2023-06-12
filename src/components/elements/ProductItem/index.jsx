@@ -1,12 +1,20 @@
 import { ShoppingCartOutlined } from '@ant-design/icons';
+import { media } from '@src/assets/images/media';
+import { openAddSizeAction } from '@src/redux/actions/drawerReducer';
 import { Col, Row, Typography } from 'antd';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styles from './style.module.scss';
-import { media } from '@src/assets/images/media';
 
 const { Title, Text } = Typography;
 
 export default function ProductItem({ data }) {
+  const dispatch = useDispatch();
+
+  const handleAddToCart = () => {
+    dispatch(openAddSizeAction({ productIdSize: data?.productID, priceSize: data?.price, image: data?.image }));
+  };
+
   return (
     <Row className={styles.wrapper}>
       <Link style={{ display: 'block', width: '100%' }} to={`/product/${data?.productID}`}>
@@ -67,7 +75,7 @@ export default function ProductItem({ data }) {
                 </Row>
               </Col>
               <Col>
-                <ShoppingCartOutlined className={styles.cart} />
+                <ShoppingCartOutlined onClick={handleAddToCart} className={styles.cart} />
               </Col>
             </Row>
           </Col>

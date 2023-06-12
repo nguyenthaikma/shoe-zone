@@ -1,16 +1,20 @@
+import { getLocalStored } from '@src/libs/localStorage';
+import { useQueryListCart } from '@src/queries/hooks/cart';
+import { onClose } from '@src/redux/actions/drawerReducer';
 import { Button, Col, Row, Space, Typography } from 'antd';
-import { useDispatch, useSelector } from 'react-redux';
+import { useMemo } from 'react';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import CartItemSmall from '../CartItemSmall';
 import styles from './style.module.scss';
-import { onClose } from '@src/redux/actions/drawerReducer';
 
 const { Text } = Typography;
 
 export default function DrawerCart() {
   const navigate = useNavigate();
 
-  const totalPrice = useSelector((state) => state.drawerReducer.totalPrice);
+  const signature = getLocalStored('signature');
+
   const dispatch = useDispatch();
 
   const handleViewCart = () => {
@@ -18,23 +22,19 @@ export default function DrawerCart() {
     navigate('/cart');
   };
 
+  const { data: listCart } = useQueryListCart(signature?.userID);
+  const totalPrice = useMemo(
+    () => listCart?.data?.reduce((total, item) => (total += item.price * item.number), 0),
+    [listCart]
+  );
+
   return (
     <Row gutter={[0, 15]} className={styles.wrapper}>
-      <Col span={24}>
-        <CartItemSmall />
-      </Col>
-      <Col span={24}>
-        <CartItemSmall />
-      </Col>
-      <Col span={24}>
-        <CartItemSmall />
-      </Col>
-      <Col span={24}>
-        <CartItemSmall />
-      </Col>
-      <Col span={24}>
-        <CartItemSmall />
-      </Col>
+      {listCart?.data?.map((item, index) => (
+        <Col span={24} key={index}>
+          <CartItemSmall data={item} />
+        </Col>
+      ))}
       <Col span={24} className={styles.total}>
         <Row justify='space-between' align='center'>
           <Col>

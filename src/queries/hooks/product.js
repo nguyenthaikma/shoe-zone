@@ -6,6 +6,8 @@ import {
   getListProduct,
   getListSize,
   getRelatedProduct,
+  paymentCheckout,
+  paymentTT,
   updateProduct,
 } from '../apis';
 import { notification } from 'antd';
@@ -63,6 +65,32 @@ export const useMutationDeleteProduct = () => {
     },
     onError: (error) => {
       notification.error({ message: error.message || 'Delete failure!' });
+    },
+  });
+};
+
+export const useMutationPaymentTT = () => {
+  return useMutation(paymentTT, {
+    onSuccess: async (data) => {
+      if (data.status === 200) {
+        notification.success({ message: 'Payment success' });
+      }
+    },
+    onError: (error) => {
+      notification.error({ message: error.message || 'Create order failure!' });
+    },
+  });
+};
+
+export const useMutationPaymentCheckout = () => {
+  return useMutation(paymentCheckout, {
+    onSuccess: async (data) => {
+      if (data.status === 200) {
+        notification.success({ message: 'Payment success' });
+      }
+    },
+    onError: (error) => {
+      notification.error({ message: error.message || 'Create order failure!' });
     },
   });
 };

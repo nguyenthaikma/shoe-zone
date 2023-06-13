@@ -1,33 +1,22 @@
 import { Button, Col, InputNumber, Row, Space, Typography } from 'antd';
-import { useEffect, useState } from 'react';
 
-import styles from './style.module.scss';
-import { useDispatch } from 'react-redux';
-import { addItemAction } from '@src/redux/actions/drawerReducer';
 import { media } from '@src/assets/images/media';
-import { useMutationRemoveCart } from '@src/queries/hooks/cart';
+import { useMutationPlusCart, useMutationRemoveCart } from '@src/queries/hooks/cart';
+import styles from './style.module.scss';
 
 const { Text } = Typography;
 
 export default function CartItemSmall({ data }) {
-  const dispatch = useDispatch();
+  const { mutate: plusInCart } = useMutationPlusCart();
+  const handlePlusCart = () => {
+    plusInCart({ cartID: data?.cartID });
+  };
 
-  console.log(data);
-
-  const [quantity, setQuantity] = useState(data?.number);
-  useEffect(() => {
-    setQuantity(data?.number);
-  }, [data]);
-  const [price] = useState(100);
   const { mutate: deleteCart } = useMutationRemoveCart();
 
   const handleDelete = () => {
     deleteCart({ cartID: data?.cartID });
   };
-
-  useEffect(() => {
-    dispatch(addItemAction(price));
-  }, [quantity, price, dispatch]);
 
   return (
     <Row gutter={[0, 21]} className={styles.row}>
@@ -61,27 +50,17 @@ export default function CartItemSmall({ data }) {
                   controls={false}
                   size='small'
                   addonBefore={
-                    <Button
-                      disabled={quantity === 0}
-                      onClick={() => {
-                        // if (quantity > 0) {
-                        //   setQuantity(quantity - 1);
-                        // }
-                      }}
-                      block
-                      type='primary'
-                      size='small'
-                    >
+                    <Button onClick={handleDelete} block type='primary' size='small'>
                       -
                     </Button>
                   }
                   addonAfter={
-                    <Button block type='primary' size='small'>
+                    <Button onClick={handlePlusCart} block type='primary' size='small'>
                       +
                     </Button>
                   }
                   min={0}
-                  value={quantity}
+                  value={data?.number}
                 />
               </Col>
             </Row>

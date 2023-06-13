@@ -4,7 +4,7 @@ import { onClose } from '@src/redux/actions/drawerReducer';
 import { Button, Col, Row, Space, Typography } from 'antd';
 import { useMemo } from 'react';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import CartItemSmall from '../CartItemSmall';
 import styles from './style.module.scss';
 
@@ -13,8 +13,6 @@ const { Text } = Typography;
 export default function DrawerCart() {
   const navigate = useNavigate();
 
-  const signature = getLocalStored('signature');
-
   const dispatch = useDispatch();
 
   const handleViewCart = () => {
@@ -22,11 +20,9 @@ export default function DrawerCart() {
     navigate('/cart');
   };
 
+  const signature = getLocalStored('signature');
   const { data: listCart } = useQueryListCart(signature?.userID);
-  const totalPrice = useMemo(
-    () => listCart?.data?.reduce((total, item) => (total += item.price * item.number), 0),
-    [listCart]
-  );
+  const totalPrice = useMemo(() => listCart?.data?.reduce((total, item) => (total += item.price), 0), [listCart]);
 
   return (
     <Row gutter={[0, 15]} className={styles.wrapper}>
@@ -35,6 +31,12 @@ export default function DrawerCart() {
           <CartItemSmall data={item} />
         </Col>
       ))}
+      {listCart?.data?.length === 0 && (
+        <Text>
+          You have no items in your shopping cart!!{'  '}
+          <Link to='/collections'>Buy now</Link>
+        </Text>
+      )}
       <Col span={24} className={styles.total}>
         <Row justify='space-between' align='center'>
           <Col>
@@ -50,7 +52,7 @@ export default function DrawerCart() {
       </Col>
       <Col span={24}>
         <Space style={{ width: '100%' }} size={8} direction='vertical'>
-          <Button type='primary' block>
+          <Button onClick={() => navigate('/checkouts/payment')} type='primary' block>
             PROCEED TO CHECKOUT
           </Button>
           <Button onClick={handleViewCart} type='primary' block>

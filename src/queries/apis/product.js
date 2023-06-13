@@ -14,3 +14,6 @@ export const deleteProduct = (id) =>
 export const getRelatedProduct = (id, params) =>
   axios({ url: `${REACT_APP_BASE_URL}/product/recommend/${id}`, method: 'GET', data: { ...params } });
 export const getListSize = (id) => axios({ url: `${REACT_APP_BASE_URL}/product/size/${id}`, method: 'GET' });
+
+export const paymentTT = (data) => axios({ url: `${REACT_APP_BASE_URL}/order/BuyItNow`, method: 'POST', data });
+export const paymentCheckout = (data) => axios({ url: `${REACT_APP_BASE_URL}/order/checkout`, method: 'POST', data });

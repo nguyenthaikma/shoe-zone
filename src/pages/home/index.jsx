@@ -213,7 +213,7 @@ export default function Home() {
                 </Title>
               </Col>
               <Col span={24}>
-                <button onClick={() => navigate('/collections/all')} className={styles.btn}>
+                <button onClick={() => navigate('/collections/list')} className={styles.btn}>
                   SHOP NOW
                 </button>
               </Col>

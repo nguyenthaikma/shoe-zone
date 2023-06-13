@@ -1,20 +1,25 @@
 import { Badge, Breadcrumb, Col, Row, Space, Typography } from 'antd';
 
 import styles from './style.module.scss';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
+import { useQueryDetailProduct } from '@src/queries/hooks';
+import { useMemo } from 'react';
+import { media } from '@src/assets/images/media';
 
 const { Text } = Typography;
 
-const product = {
-  id: 1,
-  image:
-    'https://cdn.shopify.com/s/files/1/1811/9799/products/shoe9_8a5e5186-31f5-47cb-a8cf-fecf2349bed7_600x.jpg?v=1494325511',
-  name: 'elevator shoes',
-  price: 389,
-  rate: 4,
-};
+export default function PaymentLayout({ children, _breadcrumbs }) {
+  const [searchParams] = useSearchParams();
+  const params = {};
+  for (const entry of searchParams.entries()) {
+    const [param, value] = entry;
+    params[param] = value;
+  }
 
-export default function PaymentLayout({ data = product, children, _breadcrumbs }) {
+  const { data: fetchProduct } = useQueryDetailProduct(params.product);
+  const data = useMemo(() => fetchProduct?.data[0], [fetchProduct]);
+  console.log(params);
+
   return (
     <Row className={styles.wrapper}>
       <Col span={24} xl={{ span: 14 }}>
@@ -48,9 +53,13 @@ export default function PaymentLayout({ data = product, children, _breadcrumbs }
               <Col span={24}>
                 <Row gutter={[20, 14]}>
                   <Col>
-                    <Badge color='var(--color-violet)' count={1}>
+                    <Badge color='var(--color-violet)' count={params.quantity}>
                       <div className={styles.imgWrap}>
-                        <img src={data?.image} alt={data?.name} className={styles.img} />
+                        <img
+                          src={media.find((item) => item.key === data?.image)?.value}
+                          alt={data?.name}
+                          className={styles.img}
+                        />
                       </div>
                     </Badge>
                   </Col>
@@ -58,9 +67,9 @@ export default function PaymentLayout({ data = product, children, _breadcrumbs }
                     <div className={styles.content}>
                       <Space size={0} direction='vertical'>
                         <Text className={styles.name}>{data?.name}</Text>
-                        <Text className={styles.property}>8 / green / rubber</Text>
+                        <Text className={styles.property}>Size: {params?.size}</Text>
                       </Space>
-                      <Text strong>$900</Text>
+                      <Text strong>${data?.price}</Text>
                     </div>
                   </Col>
                 </Row>
@@ -70,7 +79,7 @@ export default function PaymentLayout({ data = product, children, _breadcrumbs }
                   <Col className={styles.colValue} span={24}>
                     <Text className={styles.label}>Subtotal</Text>
                     <Text className={styles.value} strong>
-                      $900
+                      ${params.quantity * data?.price}
                     </Text>
                   </Col>
                   <Col className={styles.colValue} span={24}>
@@ -84,7 +93,7 @@ export default function PaymentLayout({ data = product, children, _breadcrumbs }
                       Total
                     </Text>
                     <Text className={styles.totalValue} strong>
-                      $920
+                      ${params.quantity * data?.price + 20}
                     </Text>
                   </Col>
                 </Row>

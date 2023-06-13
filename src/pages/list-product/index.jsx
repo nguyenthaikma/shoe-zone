@@ -19,8 +19,8 @@ export default function ListProduct() {
   const [size, setSize] = useState();
 
   const baseParams = { id };
-  const [params, setParams] = useState(baseParams);
-  const { data: listProduct, isLoading } = useQueryListProduct(params);
+  const [params, setParams] = useState();
+  const { data: listProduct, isLoading } = useQueryListProduct({ ...params, id });
 
   const navigate = useNavigate();
   return (

@@ -14,7 +14,6 @@ function ModalAddSizes({ id }, ref) {
   const [select, setSelect] = useState();
 
   const { data: listSize } = useQueryListSize(productIdSize);
-  console.log(listSize);
   const { mutate: addCart } = useMutationAddCart();
 
   const handleOk = () => {

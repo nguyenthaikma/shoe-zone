@@ -29,8 +29,8 @@ export default function ProductItem({ data }) {
       <Col span={24} className={styles.content}>
         <Row gutter={[0, 6]}>
           <Col span={24}>
-            <Link to={`/product/${data?.id}`}>
-              <Title className={styles.title} level={5}>
+            <Link to={`/product/${data?.productID}`}>
+              <Title style={{ minHeight: 70 }} className={styles.title} level={5}>
                 {data?.name}
               </Title>
             </Link>
@@ -43,7 +43,7 @@ export default function ProductItem({ data }) {
               <Col className={styles.rate}>
                 <Row>
                   {Array.from({ length: 5 }, (_, index) => index + 1).map((_) => {
-                    if (_ <= data?.rate) {
+                    if (_ <= 4) {
                       return (
                         <Col key={_}>
                           <svg

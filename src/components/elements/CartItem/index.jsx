@@ -1,30 +1,26 @@
 import { Button, Col, InputNumber, Row, Space, Typography } from 'antd';
-import { useEffect, useState } from 'react';
+import { useMemo } from 'react';
 
+import { media } from '@src/assets/images/media';
+import { useQueryDetailProduct } from '@src/queries/hooks';
+import { useMutationPlusCart, useMutationRemoveCart } from '@src/queries/hooks/cart';
 import styles from './style.module.scss';
-import { useDispatch } from 'react-redux';
-import { addItemAction } from '@src/redux/actions/drawerReducer';
 
 const { Text } = Typography;
 
-const data = {
-  id: 1,
-  image:
-    'https://cdn.shopify.com/s/files/1/1811/9799/products/shoe9_8a5e5186-31f5-47cb-a8cf-fecf2349bed7_600x.jpg?v=1494325511',
-  name: 'elevator shoes',
-  price: 389,
-  rate: 4,
-};
+export default function CartItem({ data: dataCart }) {
+  const { data: fetchProduct } = useQueryDetailProduct(dataCart?.productID);
+  const data = useMemo(() => fetchProduct?.data[0], [fetchProduct]);
 
-export default function CartItem() {
-  const dispatch = useDispatch();
+  const { mutate: plusInCart } = useMutationPlusCart();
+  const handlePlusCart = () => {
+    plusInCart({ cartID: dataCart?.cartID });
+  };
 
-  const [quantity, setQuantity] = useState(1);
-  const [price] = useState(100);
-
-  useEffect(() => {
-    dispatch(addItemAction(price));
-  }, [quantity, price, dispatch]);
+  const { mutate: deleteCart } = useMutationRemoveCart();
+  const handleDelete = () => {
+    deleteCart({ cartID: dataCart?.cartID });
+  };
 
   return (
     <Row gutter={[0, 21]} className={styles.row}>
@@ -32,7 +28,11 @@ export default function CartItem() {
         <Row gutter={[20, 14]} className={styles.content}>
           <Col>
             <div className={styles.imgWrap}>
-              <img src={data?.image} alt={data?.name} className={styles.img} />
+              <img
+                src={media.find((item) => item.key === dataCart?.image)?.value}
+                alt={data?.name}
+                className={styles.img}
+              />
             </div>
           </Col>
           <Col style={{ display: 'flex', alignItems: 'center', marginRight: 'auto' }}>
@@ -41,13 +41,13 @@ export default function CartItem() {
                 <div className={styles.content}>
                   <Space size={0} direction='vertical'>
                     <Text className={styles.name}>{data?.name}</Text>
-                    <Text className={styles.property}>8 / green / rubber</Text>
+                    <Text className={styles.property}>Size: {dataCart?.size}</Text>
                   </Space>
                 </div>
               </Col>
               <Col span={24}>
                 <Text className={styles.total} strong>
-                  ${price * quantity}
+                  ${dataCart?.price}
                 </Text>
               </Col>
               <Col span={24}>
@@ -56,27 +56,17 @@ export default function CartItem() {
                   controls={false}
                   size='small'
                   addonBefore={
-                    <Button
-                      disabled={quantity === 0}
-                      onClick={() => {
-                        if (quantity > 0) {
-                          setQuantity(quantity - 1);
-                        }
-                      }}
-                      block
-                      type='primary'
-                      size='small'
-                    >
+                    <Button onClick={handleDelete} block type='primary' size='small'>
                       -
                     </Button>
                   }
                   addonAfter={
-                    <Button onClick={() => setQuantity(quantity + 1)} block type='primary' size='small'>
+                    <Button onClick={handlePlusCart} block type='primary' size='small'>
                       +
                     </Button>
                   }
                   min={0}
-                  value={quantity}
+                  value={dataCart?.number}
                 />
               </Col>
             </Row>

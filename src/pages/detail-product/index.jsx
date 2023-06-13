@@ -1,53 +1,13 @@
-import React, { useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 
-import styles from './style.module.scss';
+import { media } from '@src/assets/images/media';
 import BreadcrumbPage from '@src/components/elements/BreadcrumbPage';
-import { Button, Col, InputNumber, Row, Space, Typography } from 'antd';
-import ProductItem from '@src/components/elements/ProductItem';
+import { getStoredAuth } from '@src/libs/localStorage';
+import { useQueryDetailProduct, useQueryListSize } from '@src/queries/hooks';
+import { useMutationAddCart } from '@src/queries/hooks/cart';
+import { Button, Col, InputNumber, Row, Space, Typography, notification } from 'antd';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useQueryDetailProduct, useQueryRelatedProduct } from '@src/queries/hooks';
-
-const data = {
-  id: 1,
-  image:
-    'https://cdn.shopify.com/s/files/1/1811/9799/products/shoe9_8a5e5186-31f5-47cb-a8cf-fecf2349bed7_600x.jpg?v=1494325511',
-  name: 'elevator shoes',
-  price: 389,
-  rate: 4,
-};
-
-const listNewArrivals = [
-  {
-    id: 1,
-    image:
-      'https://cdn.shopify.com/s/files/1/1811/9799/products/shoe9_8a5e5186-31f5-47cb-a8cf-fecf2349bed7_600x.jpg?v=1494325511',
-    name: 'elevator shoes',
-    price: 389,
-    rate: 4,
-  },
-  {
-    id: 2,
-    image: 'https://cdn.shopify.com/s/files/1/1811/9799/products/shoe11_600x.jpg?v=1494314260',
-    name: 'boat shoes',
-    price: 389,
-    rate: 4,
-  },
-  {
-    id: 3,
-    image:
-      'https://cdn.shopify.com/s/files/1/1811/9799/products/shoe12_d236d83f-7f25-4d9e-b156-5131fead58c6_600x.jpg?v=1494317456',
-    name: 'adidas kampung',
-    price: 389,
-    rate: 4,
-  },
-  {
-    id: 4,
-    image: 'https://cdn.shopify.com/s/files/1/1811/9799/products/shoe13_600x.jpg?v=1494317190',
-    name: 'fashion boot',
-    price: 389,
-    rate: 4,
-  },
-];
+import styles from './style.module.scss';
 
 const { Title, Text } = Typography;
 
@@ -55,12 +15,30 @@ export default function DetailProduct() {
   const navigate = useNavigate();
   const [active, setActive] = useState();
   const { idProduct } = useParams();
+  const profile = getStoredAuth();
+
+  const [quantity, setQuantity] = useState(1);
 
   const { data: fetchProduct } = useQueryDetailProduct(idProduct);
   const detailProduct = useMemo(() => fetchProduct?.data[0], [fetchProduct]);
 
-  const { data: fetchRelatedProduct } = useQueryRelatedProduct(idProduct, { categoryID: detailProduct?.categoryID });
-  console.log(fetchRelatedProduct);
+  const { data: listSize } = useQueryListSize(detailProduct?.productID);
+  const { mutate: addCart } = useMutationAddCart();
+  const handleAdd = () => {
+    addCart(
+      {
+        userID: profile.userID,
+        productID: detailProduct?.productID,
+        size: active,
+        price: detailProduct?.price,
+        image: detailProduct?.image,
+      },
+      { onSuccess: () => navigate('/cart') }
+    );
+  };
+
+  // const { data: fetchRelatedProduct } = useQueryRelatedProduct(idProduct, { categoryID: detailProduct?.categoryID });
+  // console.log(fetchRelatedProduct);
 
   return (
     <Row className={styles.wrapper}>
@@ -71,7 +49,13 @@ export default function DetailProduct() {
             <Col span={24}>
               <Row gutter={[60, 30]}>
                 <Col span={12}>
-                  <img src={data.image} alt={data.name} width={505} height={505} style={{ objectFit: 'cover' }} />
+                  <img
+                    src={media.find((item) => item.key === detailProduct?.image)?.value}
+                    alt={detailProduct?.name}
+                    width={505}
+                    height={505}
+                    style={{ objectFit: 'cover' }}
+                  />
                 </Col>
                 <Col span={12}>
                   <Row gutter={[0, 40]}>
@@ -99,26 +83,16 @@ export default function DetailProduct() {
                             </Col>
                             <Col span={18}>
                               <Space size={10}>
-                                {[37, 38, 39, 40, 41, 42, 43, 44].map((item) => (
+                                {listSize?.data?.map((item) => (
                                   <div
-                                    key={item}
-                                    className={`${styles.size} ${active === item && styles.active}`}
-                                    onClick={() => setActive(item)}
+                                    key={item.size}
+                                    className={`${styles.size} ${active === item.size && styles.active}`}
+                                    onClick={() => setActive(item.size)}
                                   >
-                                    {item}
+                                    {item.size}
                                   </div>
                                 ))}
                               </Space>
-                            </Col>
-                          </Row>
-                        </Col>
-                        <Col span={24}>
-                          <Row>
-                            <Col span={6} className={styles.labelWrap}>
-                              <Text className={styles.label}>Color:</Text>
-                            </Col>
-                            <Col span={18} className={styles.labelWrap}>
-                              <Text style={{ fontSize: 12 }}>Violet</Text>
                             </Col>
                           </Row>
                         </Col>
@@ -171,17 +145,25 @@ export default function DetailProduct() {
                               <Text className={styles.label}>Quantity:</Text>
                             </Col>
                             <Col span={18} className={styles.labelWrap}>
-                              <InputNumber defaultValue={1} min={1} />
+                              <InputNumber onChange={(value) => setQuantity(value)} defaultValue={1} min={1} />
                             </Col>
                           </Row>
                         </Col>
                         <Col span={24}>
                           <Space size={16}>
-                            <Button type='primary' size='large'>
+                            <Button onClick={handleAdd} type='primary' size='large'>
                               ADD TO CART
                             </Button>
                             <Button
-                              onClick={() => navigate(`/checkouts/information?product=${data?.id}`)}
+                              onClick={() => {
+                                if (active && quantity) {
+                                  navigate(
+                                    `/checkouts/information?product=${detailProduct?.productID}&size=${active}&quantity=${quantity}`
+                                  );
+                                } else {
+                                  notification.error({ message: 'Please choose size and quantity!' });
+                                }
+                              }}
                               type='primary'
                               size='large'
                             >
@@ -236,13 +218,13 @@ export default function DetailProduct() {
               <Title level={3} className={styles.title}>
                 Recommended products
               </Title>
-              <Row gutter={[30, 30]}>
+              {/* <Row gutter={[30, 30]}>
                 {listNewArrivals.map((item) => (
                   <Col span={24} md={{ span: 12 }} xl={{ span: 6 }}>
                     <ProductItem key={item.id} data={item} />
                   </Col>
                 ))}
-              </Row>
+              </Row> */}
             </Col>
           </Row>
         </div>

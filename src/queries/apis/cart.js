@@ -5,3 +5,5 @@ export const getListCart = (params) => axios({ url: `${REACT_APP_BASE_URL}/cart/
 
 export const addToCart = (data) => axios({ url: `${REACT_APP_BASE_URL}/cart/add`, method: 'POST', data });
 export const rmCart = (data) => axios({ url: `${REACT_APP_BASE_URL}/cart/deleteCart`, method: 'POST', data });
+
+export const plusInCart = (data) => axios({ url: `${REACT_APP_BASE_URL}/cart/addToCart`, method: 'POST', data });

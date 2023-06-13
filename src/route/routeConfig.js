@@ -41,8 +41,6 @@ export const userRouter = [
   {
     path: '/checkouts/information',
     Element: Information,
-    Layout: PaymentLayout,
-    _breadcrumbs: [{ title: 'Infomation' }],
   },
   {
     path: '/checkouts/shipping',
@@ -53,8 +51,6 @@ export const userRouter = [
   {
     path: '/checkouts/payment',
     Element: Payment,
-    Layout: PaymentLayout,
-    _breadcrumbs: [{ title: 'Infomation' }, { title: 'Shipping' }, { title: 'Payment' }],
   },
   {
     path: '/cart',

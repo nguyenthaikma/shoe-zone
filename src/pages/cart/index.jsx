@@ -1,17 +1,21 @@
 import BreadcrumbPage from '@src/components/elements/BreadcrumbPage';
 import { Button, Col, Row, Space, Typography } from 'antd';
-import React from 'react';
+import { useMemo } from 'react';
 
-import styles from './style.module.scss';
-import { useSelector } from 'react-redux';
 import CartItem from '@src/components/elements/CartItem';
-import { useNavigate } from 'react-router-dom';
+import { getLocalStored } from '@src/libs/localStorage';
+import { useQueryListCart } from '@src/queries/hooks/cart';
+import { Link, useNavigate } from 'react-router-dom';
+import styles from './style.module.scss';
 
 const { Text } = Typography;
 
 export default function Cart() {
   const navigate = useNavigate();
-  const totalPrice = useSelector((state) => state.drawerReducer.totalPrice);
+
+  const signature = getLocalStored('signature');
+  const { data: listCart } = useQueryListCart(signature?.userID);
+  const totalPrice = useMemo(() => listCart?.data?.reduce((total, item) => (total += item.price), 0), [listCart]);
 
   return (
     <Row className={styles.wrapper}>
@@ -23,31 +27,27 @@ export default function Cart() {
               <Col span={24} lg={{ span: 16 }}>
                 <Text className={styles.head}>Products</Text>
                 <Row gutter={[0, 30]}>
-                  <Col span={24}>
-                    <CartItem />
-                  </Col>
-                  <Col span={24}>
-                    <CartItem />
-                  </Col>
-                  <Col span={24}>
-                    <CartItem />
-                  </Col>
-                  <Col span={24}>
-                    <CartItem />
-                  </Col>
-                  <Col span={24}>
-                    <CartItem />
-                  </Col>
+                  {listCart?.data?.map((item, index) => (
+                    <Col key={index} span={24}>
+                      <CartItem data={item} />
+                    </Col>
+                  ))}
+                  {listCart?.data?.length === 0 && (
+                    <Text>
+                      You have no items in your shopping cart!!{'  '}
+                      <Link to='/collections'>Buy now</Link>
+                    </Text>
+                  )}
                 </Row>
               </Col>
-              <Col style={{ position: 'sticky', top: 130 , height: 'fit-content'}} span={24} lg={{ span: 8 }}>
+              <Col style={{ position: 'sticky', top: 130, height: 'fit-content' }} span={24} lg={{ span: 8 }}>
                 <Text className={styles.head}>Order Summary</Text>
                 <Space direction='vertical' size={12}>
                   <Text strong style={{ color: 'var(--color-violet)' }}>
                     Sub total: ${totalPrice}
                   </Text>
                   <Text fontSize='xs'>Shipping, taxes, and discounts will be calculated at checkout.</Text>
-                  <Button onClick={() => navigate('/checkouts/information')} type='primary' block>
+                  <Button onClick={() => navigate('/checkouts/payment')} type='primary' block>
                     PROCEED TO CHECKOUT
                   </Button>
                 </Space>

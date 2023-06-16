@@ -3,7 +3,12 @@ import { media } from '@src/assets/images/media';
 import FormSidebar from '@src/cms/layout/FormSidebar';
 import ActionPublish from '@src/components/widgets/ActionPublish';
 import PageHeader from '@src/components/widgets/PageHeader';
-import { useMutationDeleteProduct, useMutationUpdateProduct, useQueryDetailProduct } from '@src/queries/hooks';
+import {
+  useMutationDeleteProduct,
+  useMutationUpdateProduct,
+  useQueryDetailProduct,
+  useQueryListSize,
+} from '@src/queries/hooks';
 import { Button, Card, Col, Collapse, Form, Image, Modal, Row, Space, Typography } from 'antd';
 import { useMemo, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -21,6 +26,7 @@ function DetailProductAdmin() {
   const token = checkAuth();
 
   const { data: detailProduct } = useQueryDetailProduct(id);
+  const { data: listSize } = useQueryListSize(id);
   const { mutate: updateProduct } = useMutationUpdateProduct(token);
   const { mutate: deleteProduct } = useMutationDeleteProduct(token);
 
@@ -28,7 +34,7 @@ function DetailProductAdmin() {
   const [active, setActive] = useState(defaultImg);
 
   const onFinish = (values) => {
-    updateProduct({ ...values, productID: id });
+    updateProduct({ ...values, productID: id, image: active || defaultImg });
   };
 
   const onDelete = () => {
@@ -84,7 +90,13 @@ function DetailProductAdmin() {
           <>
             <FormSidebar.Content>
               <Card hoverable title={<PageHeader title={'Detail product'} inCard isSearch={false} />}>
-                {detailProduct && <FormInput form={form} data={detailProduct.data[0]} />}
+                {detailProduct && listSize && (
+                  <FormInput
+                    listSize={listSize.data.map((item) => item.size)}
+                    form={form}
+                    data={detailProduct.data[0]}
+                  />
+                )}
               </Card>
             </FormSidebar.Content>
             <FormSidebar.Sidebar>

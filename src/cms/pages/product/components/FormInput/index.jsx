@@ -1,7 +1,7 @@
 import { labelStyle } from '@src/configs/const';
 import { Form, Input, Select } from 'antd';
 
-function FormInput({ data }) {
+function FormInput({ data, listSize }) {
   return (
     <>
       <Form.Item
@@ -57,7 +57,7 @@ function FormInput({ data }) {
         name='sizes'
         label='Size'
         {...labelStyle}
-        initialValue={data?.sizes}
+        initialValue={listSize}
         rules={[
           {
             required: true,

@@ -1,7 +1,9 @@
 import Product from '@src/cms/pages/product';
 import CreateProduct from '@src/cms/pages/product/create';
 import DetailProductAdmin from '@src/cms/pages/product/detail';
+import ListUser from '@src/cms/pages/user';
 import lazyLoading from '@src/libs/lazyLoading';
+import SearchProduct from '@src/pages/search';
 
 const Home = lazyLoading(() => import('@src/pages/home'));
 const About = lazyLoading(() => import('@src/pages/about'));
@@ -56,6 +58,10 @@ export const userRouter = [
     path: '/cart',
     Element: Cart,
   },
+  {
+    path: '/search',
+    Element: SearchProduct,
+  },
 ];
 
 export const adminRouter = [
@@ -63,4 +69,5 @@ export const adminRouter = [
   { path: '/product', Element: Product, Layout: LayoutApp },
   { path: '/create-product', Element: CreateProduct, Layout: LayoutApp },
   { path: '/product/:id', Element: DetailProductAdmin, Layout: LayoutApp },
+  { path: '/user', Element: ListUser, Layout: LayoutApp },
 ];

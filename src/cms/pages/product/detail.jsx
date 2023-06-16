@@ -8,6 +8,7 @@ import { Button, Card, Col, Collapse, Form, Image, Modal, Row, Space, Typography
 import { useMemo, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import FormInput from './components/FormInput';
+import { checkAuth } from '@src/libs/localStorage';
 
 const { Text } = Typography;
 
@@ -17,9 +18,11 @@ function DetailProductAdmin() {
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const token = checkAuth();
+
   const { data: detailProduct } = useQueryDetailProduct(id);
-  const { mutate: updateProduct } = useMutationUpdateProduct();
-  const { mutate: deleteProduct } = useMutationDeleteProduct();
+  const { mutate: updateProduct } = useMutationUpdateProduct(token);
+  const { mutate: deleteProduct } = useMutationDeleteProduct(token);
 
   const defaultImg = useMemo(() => detailProduct?.data[0]?.image, [detailProduct]);
   const [active, setActive] = useState(defaultImg);

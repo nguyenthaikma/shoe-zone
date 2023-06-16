@@ -6,10 +6,25 @@ export const getListProduct = (params) =>
 
 export const getDetailProduct = (id) =>
   axios({ url: `${REACT_APP_BASE_URL}/product/product_detail/${id}`, method: 'GET' });
-export const createProduct = (data) => axios({ url: `${REACT_APP_BASE_URL}/product/add`, method: 'POST', data });
-export const updateProduct = (data) => axios({ url: `${REACT_APP_BASE_URL}/product/update`, method: 'POST', data });
-export const deleteProduct = (id) =>
-  axios({ url: `${REACT_APP_BASE_URL}/product/delete`, method: 'DELETE', data: { productID: id } });
+export const createProduct = (data, token) =>
+  axios.post(`${REACT_APP_BASE_URL}/product/add`, data, {
+    headers: {
+      token: `beare ${token}`,
+    },
+  });
+export const updateProduct = (data, token) =>
+  axios.post(`${REACT_APP_BASE_URL}/product/update`, data, {
+    headers: {
+      token: `beare ${token}`,
+    },
+  });
+export const deleteProduct = (id, token) =>
+  axios.delete(`${REACT_APP_BASE_URL}/product/delete`, {
+    headers: {
+      token: `beare ${token}`,
+    },
+    data: { productID: id },
+  });
 
 export const getRelatedProduct = (id, params) =>
   axios({ url: `${REACT_APP_BASE_URL}/product/recommend/${id}`, method: 'GET', data: { ...params } });

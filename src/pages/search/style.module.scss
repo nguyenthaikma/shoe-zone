@@ -1,0 +1,27 @@
+.wrapper {
+  position: relative;
+  display: flex;
+
+  .listProduct {
+    margin: 80px 0;
+  }
+  .sort {
+    display: flex;
+    justify-content: space-between;
+    @media (max-width: 767.98px) {
+      flex-direction: column;
+      > div {
+        margin-bottom: 20px;
+      }
+    }
+  }
+  .filter {
+    .title {
+      display: block;
+      border-bottom: 2px solid var(--color-violet);
+      line-height: 1.4em;
+      font-size: 18px;
+      padding-bottom: 10px;
+    }
+  }
+}

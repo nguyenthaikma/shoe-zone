@@ -8,6 +8,7 @@ import DrawerCart from './components/elements/DrawerCart';
 import { onClose } from './redux/actions/drawerReducer';
 import RouteApp from './route';
 import ModalAddSizes from './components/elements/ModalAddSize';
+import ScrollToTop from './components/widgets/ScrollTop';
 
 export const queryClient = new QueryClient();
 
@@ -38,7 +39,9 @@ function App() {
             <DrawerCart />
           </Drawer>
           <ModalAddSizes />
-          <RouteApp />
+          <ScrollToTop>
+            <RouteApp />
+          </ScrollToTop>
         </BrowserRouter>
         <ReactQueryDevtools initialIsOpen={false} position='bottom-right' />
       </QueryClientProvider>

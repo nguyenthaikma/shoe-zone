@@ -10,14 +10,16 @@ import { media } from '@src/assets/images/media';
 import { useMutationCreateProduct } from '@src/queries/hooks';
 import moment from 'moment';
 import { useNavigate } from 'react-router-dom';
+import { checkAuth } from '@src/libs/localStorage';
 
 const { Text } = Typography;
 
 function CreateProduct() {
   const [form] = Form.useForm();
   const navigate = useNavigate();
+  const token = checkAuth();
 
-  const { mutate: createProduct } = useMutationCreateProduct();
+  const { mutate: createProduct } = useMutationCreateProduct(token);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [active, setActive] = useState();

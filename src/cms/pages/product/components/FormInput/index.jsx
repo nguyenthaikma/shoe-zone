@@ -54,6 +54,27 @@ function FormInput({ data }) {
       </Form.Item>
       <Form.Item
         style={{ marginBottom: 24 }}
+        name='sizes'
+        label='Size'
+        {...labelStyle}
+        initialValue={data?.sizes}
+        rules={[
+          {
+            required: true,
+            message: 'Size is required!',
+          },
+        ]}
+      >
+        <Select placeholder='Select size' mode='multiple'>
+          {[36, 37, 38, 39, 40, 41, 42, 43, 44].map((item) => (
+            <Select.Option value={item} key={item}>
+              {item}
+            </Select.Option>
+          ))}
+        </Select>
+      </Form.Item>
+      <Form.Item
+        style={{ marginBottom: 24 }}
         name='metarial'
         label='Material'
         {...labelStyle}

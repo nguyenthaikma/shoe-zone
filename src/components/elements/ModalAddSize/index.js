@@ -2,9 +2,11 @@ import { getStoredAuth } from '@src/libs/localStorage';
 import { useQueryListSize } from '@src/queries/hooks';
 import { useMutationAddCart } from '@src/queries/hooks/cart';
 import { closeAddSizeAction } from '@src/redux/actions/drawerReducer';
-import { Modal, Select } from 'antd';
+import { Modal, Select, Typography } from 'antd';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
+const { Text } = Typography;
 
 function ModalAddSizes({ id }, ref) {
   const dispatch = useDispatch();
@@ -14,6 +16,7 @@ function ModalAddSizes({ id }, ref) {
   const [select, setSelect] = useState();
 
   const { data: listSize } = useQueryListSize(productIdSize);
+
   const { mutate: addCart } = useMutationAddCart();
 
   const handleOk = () => {
@@ -37,11 +40,14 @@ function ModalAddSizes({ id }, ref) {
         onChange={(value) => setSelect(value)}
         label='Choose size'
         placeholder='Choose size'
-        style={{ minWidth: 200 }}
+        style={{ width: '80%' }}
       >
         {listSize?.data?.map((item, index) => (
-          <Select.Option key={index} value={item.size}>
-            {item.size}
+          <Select.Option disabled={item.quanlity <= 0} key={index} value={item.size}>
+            <Text style={{ display: 'flex' }}>{item.size}</Text>
+            <Text>
+              Available: <Text strong>{item.quanlity}</Text>
+            </Text>
           </Select.Option>
         ))}
       </Select>

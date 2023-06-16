@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import {
   MailFilled,
@@ -10,12 +10,13 @@ import {
 } from '@ant-design/icons';
 import { listCategory } from '@src/configs/const';
 import { onOpen } from '@src/redux/actions/drawerReducer';
-import { Col, Drawer, Row, Space, Typography } from 'antd';
+import { Badge, Col, Drawer, Row, Space, Typography } from 'antd';
 import { useDispatch } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 import styles from './style.module.scss';
-import { checkAuth } from '@src/libs/localStorage';
+import { checkAuth, getLocalStored } from '@src/libs/localStorage';
 import UserDropdownAuth from '@src/components/widgets/UserDropdown';
+import { useQueryListCart } from '@src/queries/hooks/cart';
 
 const { Text } = Typography;
 
@@ -45,6 +46,11 @@ export default function Header() {
   const handleOpen = () => {
     dispatch(onOpen());
   };
+
+  const signature = getLocalStored('signature');
+  const { data: listCart } = useQueryListCart(signature?.userID);
+  const totalCart = useMemo(() => listCart?.data?.length, [listCart]);
+
   return (
     <Row className={`${styles.wrapper}`}>
       <Drawer placement='right' width={300} onClose={onClose} open={openDrawer}>
@@ -120,7 +126,9 @@ export default function Header() {
                 <Link to='/'>
                   <SearchOutlined className={styles.icon} />
                 </Link>
-                <ShoppingCartOutlined onClick={handleOpen} className={styles.icon} />
+                <Badge size='small' color='#571f7c' count={totalCart}>
+                  <ShoppingCartOutlined onClick={handleOpen} className={styles.icon} />
+                </Badge>
                 {!!accessToken ? (
                   <UserDropdownAuth color='#000' size={26} />
                 ) : (

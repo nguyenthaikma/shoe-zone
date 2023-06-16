@@ -28,8 +28,8 @@ export const useQueryListSize = (id) => {
   return useQuery(['SIZE_PRODUCT', id], () => getListSize(id));
 };
 
-export const useMutationUpdateProduct = () => {
-  return useMutation(updateProduct, {
+export const useMutationUpdateProduct = (token) => {
+  return useMutation((data) => updateProduct(data, token), {
     onSuccess: async (data) => {
       if (data.status === 200) {
         notification.success({ message: 'Update Success!' });
@@ -41,9 +41,9 @@ export const useMutationUpdateProduct = () => {
   });
 };
 
-export const useMutationCreateProduct = () => {
+export const useMutationCreateProduct = (token) => {
   const queryClient = useQueryClient();
-  return useMutation(createProduct, {
+  return useMutation((data) => createProduct(data, token), {
     onSuccess: async (data) => {
       if (data.status === 200) {
         notification.success({ message: 'Create Success!' });
@@ -56,8 +56,8 @@ export const useMutationCreateProduct = () => {
   });
 };
 
-export const useMutationDeleteProduct = () => {
-  return useMutation(deleteProduct, {
+export const useMutationDeleteProduct = (token) => {
+  return useMutation((id) => deleteProduct(id, token), {
     onSuccess: async (data) => {
       if (data.status === 200) {
         notification.success({ message: 'Delete Success!' });

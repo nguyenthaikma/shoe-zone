@@ -18,7 +18,7 @@ export default function Login() {
   };
   return (
     <Row className={styles.wrapper}>
-      <BreadcrumbPage className={styles.breadCrumb} />
+      <BreadcrumbPage title='Login' className={styles.breadCrumb} />
       <Col span={24} className={styles.form}>
         <div className='container'>
           <Form onFinish={onSubmit} layout='vertical'>
@@ -30,7 +30,7 @@ export default function Login() {
               </Col>
               <Col span={24}>
                 <Form.Item name='password'>
-                  <Input placeholder='Password' type='password' />
+                  <Input.Password placeholder='Password' />
                 </Form.Item>
               </Col>
               <Col span={24}>

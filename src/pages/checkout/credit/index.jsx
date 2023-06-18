@@ -1,13 +1,44 @@
+import { Button, Col, Descriptions, Form, Input, Row, Space, Typography } from 'antd';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { LockOutlined, QuestionCircleOutlined } from '@ant-design/icons';
-import { Button, Col, Form, Input, Row, Space, Typography } from 'antd';
-import Title from 'antd/es/skeleton/Title';
-import styles from './style.module.scss';
 
-const { Text } = Typography;
+import styles from './style.module.scss';
+import Swal from 'sweetalert2';
+
+const { Text, Title } = Typography;
 
 export default function Credit() {
+  const { idProduct } = useParams();
+  const navigate = useNavigate();
+
+  const handlePay = () => {
+    Swal.fire({
+      icon: 'success',
+      title: 'Payment success',
+      confirmButtonText: 'Back home',
+      footer: '<a href="/collections">Continue shopping</a>',
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        navigate('/');
+      }
+    });
+  };
   return (
-    <>
+    <Row gutter={[0, 38]} className={styles.wrapper}>
+      <Col span={24} style={{ border: '1px solid #eee', padding: 12, paddingTop: 12, borderRadius: 8 }}>
+        <Descriptions>
+          <Descriptions.Item contentStyle={{ textAlign: 'right', display: 'block' }} span={24} label='Contact'>
+            nguyenthai9cc@gmail.com
+          </Descriptions.Item>
+          <Descriptions.Item contentStyle={{ textAlign: 'right', display: 'block' }} span={24} label='Ship to'>
+            Hoc vien Ky thuat mat ma
+          </Descriptions.Item>
+          <Descriptions.Item contentStyle={{ textAlign: 'right', display: 'block' }} span={24} label='Method'>
+            International Shipping <Text strong>$20</Text>
+          </Descriptions.Item>
+        </Descriptions>
+      </Col>
       <Col span={24}>
         <Row gutter={[0, 14]}>
           <Col span={24}>
@@ -53,10 +84,11 @@ export default function Credit() {
         </Row>
       </Col>
       <Col style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }} span={24}>
-        <Button type='primary' size='large'>
+        <Link to={`/checkouts/shipping?product=${idProduct}`}>Return to shipping</Link>
+        <Button onClick={handlePay} type='primary' size='large'>
           Pay now
         </Button>
       </Col>
-    </>
+    </Row>
   );
 }

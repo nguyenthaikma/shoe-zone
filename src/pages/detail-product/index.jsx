@@ -25,16 +25,20 @@ export default function DetailProduct() {
   const { data: listSize } = useQueryListSize(detailProduct?.productID);
   const { mutate: addCart } = useMutationAddCart();
   const handleAdd = () => {
-    addCart(
-      {
-        userID: profile.userID,
-        productID: detailProduct?.productID,
-        size: active,
-        price: detailProduct?.price,
-        image: detailProduct?.image,
-      },
-      { onSuccess: () => navigate('/cart') }
-    );
+    if (active && quantity) {
+      addCart(
+        {
+          userID: profile.userID,
+          productID: detailProduct?.productID,
+          size: active,
+          price: detailProduct?.price,
+          image: detailProduct?.image,
+        },
+        { onSuccess: () => navigate('/cart') }
+      );
+    } else {
+      notification.error({ message: 'Please choose size and quantity!' });
+    }
   };
 
   // const { data: fetchRelatedProduct } = useQueryRelatedProduct(idProduct, { categoryID: detailProduct?.categoryID });

@@ -7,6 +7,7 @@ import { useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Item from './Item';
 import styles from './style.module.scss';
+import { regexEmail, regexPhone } from '@src/utils/regex';
 
 const { Title, Text } = Typography;
 
@@ -66,7 +67,19 @@ export default function Information() {
                         Already have an account? <Link to='/login'>Login</Link>
                       </Text>
                     </div>
-                    <Form.Item name='shipEmail'>
+                    <Form.Item
+                      rules={[
+                        {
+                          required: true,
+                          message: 'Email is required!',
+                        },
+                        {
+                          pattern: regexEmail,
+                          message: 'Email is invalid!',
+                        },
+                      ]}
+                      name='shipEmail'
+                    >
                       <Input placeholder='Email' />
                     </Form.Item>
                   </Col>
@@ -76,17 +89,45 @@ export default function Information() {
                     </div>
                     <Row gutter={[14, 14]}>
                       <Col span={24}>
-                        <Form.Item name='shipName'>
+                        <Form.Item
+                          rules={[
+                            {
+                              required: true,
+                              message: 'Name is required!',
+                            },
+                          ]}
+                          name='shipName'
+                        >
                           <Input placeholder='Name' />
                         </Form.Item>
                       </Col>
                       <Col span={24}>
-                        <Form.Item name='shipAddress'>
+                        <Form.Item
+                          rules={[
+                            {
+                              required: true,
+                              message: 'Address is required!',
+                            },
+                          ]}
+                          name='shipAddress'
+                        >
                           <Input placeholder='Address' />
                         </Form.Item>
                       </Col>
                       <Col span={24}>
-                        <Form.Item name='shipMobile'>
+                        <Form.Item
+                          rules={[
+                            {
+                              required: true,
+                              message: 'Phone is required!',
+                            },
+                            {
+                              pattern: regexPhone,
+                              message: 'Phone is invalid!',
+                            },
+                          ]}
+                          name='shipMobile'
+                        >
                           <Input placeholder='Phone' />
                         </Form.Item>
                       </Col>

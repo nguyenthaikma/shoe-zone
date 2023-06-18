@@ -1,14 +1,13 @@
-import { Button, Col, Descriptions, Form, Input, Row, Space, Typography } from 'antd';
-import { Link, useNavigate, useParams } from 'react-router-dom';
 import { LockOutlined, QuestionCircleOutlined } from '@ant-design/icons';
+import { Button, Col, Descriptions, Form, Input, Row, Space, Typography } from 'antd';
+import { Link, useNavigate } from 'react-router-dom';
 
-import styles from './style.module.scss';
 import Swal from 'sweetalert2';
+import styles from './style.module.scss';
 
 const { Text, Title } = Typography;
 
 export default function Credit() {
-  const { idProduct } = useParams();
   const navigate = useNavigate();
 
   const handlePay = () => {
@@ -84,7 +83,7 @@ export default function Credit() {
         </Row>
       </Col>
       <Col style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }} span={24}>
-        <Link to={`/checkouts/shipping?product=${idProduct}`}>Return to shipping</Link>
+        <Link to={`/`}>Back home</Link>
         <Button onClick={handlePay} type='primary' size='large'>
           Pay now
         </Button>

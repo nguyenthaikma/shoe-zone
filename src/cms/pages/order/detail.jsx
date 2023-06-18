@@ -14,6 +14,7 @@ function DetailOrder() {
   const navigate = useNavigate();
 
   const { data: detailOrder } = useQueryDetailOrder(id);
+  console.log(detailOrder);
   const { mutate: approve } = useMutationApproveOrder();
   const handleApprove = () => {
     approve(
@@ -33,7 +34,9 @@ function DetailOrder() {
           <>
             <FormSidebar.Content>
               <Card hoverable title={<PageHeader title='Detail order' inCard isSearch={false} />}>
-                {detailOrder && <FormInput data={detailOrder.data[0]} />}
+                {detailOrder?.data?.map((order) => (
+                  <FormInput data={order} />
+                ))}
               </Card>
             </FormSidebar.Content>
             <FormSidebar.Sidebar>

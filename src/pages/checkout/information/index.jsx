@@ -39,7 +39,7 @@ export default function Information() {
       },
       {
         onSuccess: () => {
-          navigate('/');
+          navigate('/checkouts/credit');
         },
       }
     );

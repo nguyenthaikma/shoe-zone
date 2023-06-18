@@ -82,7 +82,7 @@ function FormInput({ data, listSize }) {
       >
         <Input placeholder='Please enter material' />
       </Form.Item>
-      <Form.Item style={{ marginBottom: 24 }} name='vendor' label='Vendor' {...labelStyle} initialValue={data?.phone}>
+      <Form.Item style={{ marginBottom: 24 }} name='vendor' label='Vendor' {...labelStyle} initialValue={data?.vendor}>
         <Input placeholder='Please enter vendor' />
       </Form.Item>
     </>

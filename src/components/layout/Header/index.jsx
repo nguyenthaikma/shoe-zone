@@ -123,7 +123,7 @@ export default function Header() {
                   <MenuOutlined className={styles.icon} />
                   <Text className={styles.text}>Menu</Text>
                 </Space>
-                <Link to='/'>
+                <Link to='/search'>
                   <SearchOutlined className={styles.icon} />
                 </Link>
                 <Badge size='small' color='#571f7c' count={totalCart}>

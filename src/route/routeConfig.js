@@ -1,3 +1,5 @@
+import Order from '@src/cms/pages/order';
+import DetailOrder from '@src/cms/pages/order/detail';
 import Product from '@src/cms/pages/product';
 import CreateProduct from '@src/cms/pages/product/create';
 import DetailProductAdmin from '@src/cms/pages/product/detail';
@@ -70,4 +72,6 @@ export const adminRouter = [
   { path: '/create-product', Element: CreateProduct, Layout: LayoutApp },
   { path: '/product/:id', Element: DetailProductAdmin, Layout: LayoutApp },
   { path: '/user', Element: ListUser, Layout: LayoutApp },
+  { path: '/order', Element: Order, Layout: LayoutApp },
+  { path: '/order/:id', Element: DetailOrder, Layout: LayoutApp },
 ];

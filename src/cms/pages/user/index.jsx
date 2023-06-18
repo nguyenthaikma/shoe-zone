@@ -13,7 +13,6 @@ function ListUser() {
   const { mutate: deleteUser } = useMutationDeleteUser(accessToken);
 
   const onDelete = (id) => {
-    console.log(id);
     deleteUser(id);
   };
   const columns = columnsTableUser(onDelete);

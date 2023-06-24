@@ -2,12 +2,13 @@ import { useMemo, useState } from 'react';
 
 import { media } from '@src/assets/images/media';
 import BreadcrumbPage from '@src/components/elements/BreadcrumbPage';
-import { getStoredAuth } from '@src/libs/localStorage';
-import { useQueryDetailProduct, useQueryListSize } from '@src/queries/hooks';
+import { checkAuth, getStoredAuth } from '@src/libs/localStorage';
+import { useQueryDetailProduct, useQueryListSize, useQueryRelatedProduct } from '@src/queries/hooks';
 import { useMutationAddCart } from '@src/queries/hooks/cart';
 import { Button, Col, InputNumber, Row, Space, Typography, notification } from 'antd';
 import { useNavigate, useParams } from 'react-router-dom';
 import styles from './style.module.scss';
+import ProductItem from '@src/components/elements/ProductItem';
 
 const { Title, Text } = Typography;
 
@@ -17,6 +18,8 @@ export default function DetailProduct() {
   const { idProduct } = useParams();
   const profile = getStoredAuth();
 
+  const accessToken = checkAuth();
+
   const [quantity, setQuantity] = useState(1);
 
   const { data: fetchProduct } = useQueryDetailProduct(idProduct);
@@ -25,6 +28,11 @@ export default function DetailProduct() {
   const { data: listSize } = useQueryListSize(detailProduct?.productID);
   const { mutate: addCart } = useMutationAddCart();
   const handleAdd = () => {
+    if (!accessToken) {
+      notification.error({ message: 'Please login to continue!' });
+      return navigate('/login');
+    }
+
     if (active && quantity) {
       addCart(
         {
@@ -41,8 +49,24 @@ export default function DetailProduct() {
     }
   };
 
-  // const { data: fetchRelatedProduct } = useQueryRelatedProduct(idProduct, { categoryID: detailProduct?.categoryID });
-  // console.log(fetchRelatedProduct);
+  const handleBuy = () => {
+    if (!accessToken) {
+      notification.error({ message: 'Please login to continue!' });
+      return navigate('/login');
+    }
+
+    if (active && quantity) {
+      navigate(`/checkouts/information?product=${detailProduct?.productID}&size=${active}&quantity=${quantity}`);
+    } else {
+      notification.error({ message: 'Please choose size and quantity!' });
+    }
+  };
+
+  const { data: fetchRelatedProduct } = useQueryRelatedProduct({
+    cate: detailProduct?.categoryID,
+    productID: idProduct,
+  });
+  const relatedProduct = useMemo(() => fetchRelatedProduct?.data, [fetchRelatedProduct]);
 
   return (
     <Row className={styles.wrapper}>
@@ -158,19 +182,7 @@ export default function DetailProduct() {
                             <Button onClick={handleAdd} type='primary' size='large'>
                               ADD TO CART
                             </Button>
-                            <Button
-                              onClick={() => {
-                                if (active && quantity) {
-                                  navigate(
-                                    `/checkouts/information?product=${detailProduct?.productID}&size=${active}&quantity=${quantity}`
-                                  );
-                                } else {
-                                  notification.error({ message: 'Please choose size and quantity!' });
-                                }
-                              }}
-                              type='primary'
-                              size='large'
-                            >
+                            <Button onClick={handleBuy} type='primary' size='large'>
                               BUY IT NOW
                             </Button>
                           </Space>
@@ -218,18 +230,20 @@ export default function DetailProduct() {
                 </Text>
               </Space>
             </Col>
-            <Col span={24} className={styles.recommend}>
-              <Title level={3} className={styles.title}>
-                Recommended products
-              </Title>
-              {/* <Row gutter={[30, 30]}>
-                {listNewArrivals.map((item) => (
-                  <Col span={24} md={{ span: 12 }} xl={{ span: 6 }}>
-                    <ProductItem key={item.id} data={item} />
-                  </Col>
-                ))}
-              </Row> */}
-            </Col>
+            {relatedProduct && (
+              <Col span={24} className={styles.recommend}>
+                <Title level={3} className={styles.title}>
+                  Recommended products
+                </Title>
+                <Row gutter={[30, 30]}>
+                  {relatedProduct.slice(0, 4).map((item) => (
+                    <Col key={item.id} span={24} md={{ span: 12 }} xl={{ span: 6 }}>
+                      <ProductItem data={item} />
+                    </Col>
+                  ))}
+                </Row>
+              </Col>
+            )}
           </Row>
         </div>
       </Col>

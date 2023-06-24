@@ -20,8 +20,8 @@ export const useQueryDetailProduct = (id) => {
   return useQuery(['DETAIL_PRODUCT', id], () => getDetailProduct(id));
 };
 
-export const useQueryRelatedProduct = (id, params) => {
-  return useQuery(['RELATED_PRODUCT', id, params], () => getRelatedProduct(id));
+export const useQueryRelatedProduct = (params) => {
+  return useQuery(['RELATED_PRODUCT', params], () => getRelatedProduct(params));
 };
 
 export const useQueryListSize = (id) => {

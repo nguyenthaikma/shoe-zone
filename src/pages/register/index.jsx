@@ -9,7 +9,7 @@ import { regexEmail, regexPhone } from '@src/utils/regex';
 export default function Register() {
   const navigate = useNavigate();
 
-  const { mutate: Register } = useMutationRegister();
+  const { mutate: Register, isLoading } = useMutationRegister();
   const onSubmit = (values) => {
     Register(
       { ...values, role: 'user' },
@@ -94,7 +94,7 @@ export default function Register() {
                 </Form.Item>
               </Col>
               <Col span={24}>
-                <Button type='primary' htmlType='submit'>
+                <Button loading={isLoading} type='primary' htmlType='submit'>
                   CREATE
                 </Button>
               </Col>

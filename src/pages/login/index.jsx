@@ -8,7 +8,7 @@ import styles from './style.module.scss';
 export default function Login() {
   const navigate = useNavigate();
 
-  const { mutate: Login } = useMutationLogin();
+  const { mutate: Login, isLoading } = useMutationLogin();
   const onSubmit = (values) => {
     Login(values, {
       onSuccess: () => {
@@ -34,7 +34,7 @@ export default function Login() {
                 </Form.Item>
               </Col>
               <Col span={24}>
-                <Button type='primary' htmlType='submit'>
+                <Button loading={isLoading} type='primary' htmlType='submit'>
                   SIGN IN
                 </Button>
               </Col>

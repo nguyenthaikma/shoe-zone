@@ -1,18 +1,18 @@
+import { getUrlPaymentVNP } from '@src/configs/vnpay';
 import { checkAuth, getLocalStored } from '@src/libs/localStorage';
 import { useMutationPaymentCheckout } from '@src/queries/hooks';
 import { useQueryListCart } from '@src/queries/hooks/cart';
+import { regexEmail, regexPhone } from '@src/utils/regex';
 import { Button, Col, Form, Input, Row, Typography } from 'antd';
 import moment from 'moment';
 import { useMemo } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Item from './Item';
 import styles from './style.module.scss';
-import { regexEmail, regexPhone } from '@src/utils/regex';
 
 const { Title, Text } = Typography;
 
 export default function Information() {
-  const navigate = useNavigate();
   const accessToken = checkAuth();
 
   const signature = getLocalStored('signature');
@@ -33,8 +33,11 @@ export default function Information() {
         totalAmount: totalPrice + 20,
       },
       {
-        onSuccess: () => {
-          navigate('/checkouts/credit');
+        onSuccess: async (res) => {
+          const url = await (
+            await getUrlPaymentVNP((totalPrice + 20) * 23000, 'theo giỏ hàng')
+          ).getPaymentUrl(res.data);
+          window.open(url, '_blank');
         },
       }
     );

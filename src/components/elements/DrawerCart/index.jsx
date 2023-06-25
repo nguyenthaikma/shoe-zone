@@ -52,7 +52,14 @@ export default function DrawerCart() {
       </Col>
       <Col span={24}>
         <Space style={{ width: '100%' }} size={8} direction='vertical'>
-          <Button onClick={() => navigate('/checkouts/payment')} type='primary' block>
+          <Button
+            onClick={() => {
+              dispatch(onClose());
+              navigate('/checkouts/payment');
+            }}
+            type='primary'
+            block
+          >
             PROCEED TO CHECKOUT
           </Button>
           <Button onClick={handleViewCart} type='primary' block>

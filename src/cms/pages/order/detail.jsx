@@ -14,7 +14,6 @@ function DetailOrder() {
   const navigate = useNavigate();
 
   const { data: detailOrder } = useQueryDetailOrder(id);
-  console.log(detailOrder);
   const { mutate: approve } = useMutationApproveOrder();
   const handleApprove = () => {
     approve(

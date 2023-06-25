@@ -18,7 +18,6 @@ export default function PaymentLayout({ children, _breadcrumbs }) {
 
   const { data: fetchProduct } = useQueryDetailProduct(params.product);
   const data = useMemo(() => fetchProduct?.data[0], [fetchProduct]);
-  console.log(params);
 
   return (
     <Row className={styles.wrapper}>

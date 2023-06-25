@@ -30,5 +30,15 @@ export const getRelatedProduct = (params) =>
   axios({ url: `${REACT_APP_BASE_URL}/product/recommend`, method: 'GET', params });
 export const getListSize = (id) => axios({ url: `${REACT_APP_BASE_URL}/product/size/${id}`, method: 'GET' });
 
-export const paymentTT = (data) => axios({ url: `${REACT_APP_BASE_URL}/order/BuyItNow`, method: 'POST', data });
-export const paymentCheckout = (data) => axios({ url: `${REACT_APP_BASE_URL}/order/checkout`, method: 'POST', data });
+export const paymentTT = (data, token) =>
+  axios.post(`${REACT_APP_BASE_URL}/order/BuyItNow`, data, {
+    headers: {
+      token: `beare ${token}`,
+    },
+  });
+export const paymentCheckout = (data, token) =>
+  axios.post(`${REACT_APP_BASE_URL}/order/checkout`, data, {
+    headers: {
+      token: `beare ${token}`,
+    },
+  });

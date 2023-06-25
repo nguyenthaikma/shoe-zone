@@ -49,7 +49,6 @@ function UserDropdownAuth({ color = '#fff', size = 36 }) {
               notification.error({ message: 'Please login to continue!' });
               return navigate('/login');
             }
-            console.log('hiccS');
             navigate('/order');
           }}
         >

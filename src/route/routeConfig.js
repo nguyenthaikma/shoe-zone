@@ -1,10 +1,13 @@
 import lazyLoading from '@src/libs/lazyLoading';
+import VnpReturnScreen from '@src/pages/vnpay';
 
 const DetailOrder = lazyLoading(() => import('@src/cms/pages/order/detail'));
 const Product = lazyLoading(() => import('@src/cms/pages/product'));
 const CreateProduct = lazyLoading(() => import('@src/cms/pages/product/create'));
 const DetailProductAdmin = lazyLoading(() => import('@src/cms/pages/product/detail'));
 const ListUser = lazyLoading(() => import('@src/cms/pages/user'));
+const OrderAdmin = lazyLoading(() => import('@src/cms/pages/order'));
+
 const Credit = lazyLoading(() => import('@src/pages/checkout/credit'));
 const SearchProduct = lazyLoading(() => import('@src/pages/search'));
 const Home = lazyLoading(() => import('@src/pages/home'));
@@ -63,8 +66,12 @@ export const userRouter = [
     Element: SearchProduct,
   },
   {
-    path: '/order',
+    path: '/orders',
     Element: Order,
+  },
+  {
+    path: '/VnPayReturn',
+    Element: VnpReturnScreen,
   },
 ];
 
@@ -74,6 +81,6 @@ export const adminRouter = [
   { path: '/create-product', Element: CreateProduct, Layout: LayoutApp },
   { path: '/product/:id', Element: DetailProductAdmin, Layout: LayoutApp },
   { path: '/user', Element: ListUser, Layout: LayoutApp },
-  { path: '/order', Element: Order, Layout: LayoutApp },
+  { path: '/order', Element: OrderAdmin, Layout: LayoutApp },
   { path: '/order/:id', Element: DetailOrder, Layout: LayoutApp },
 ];

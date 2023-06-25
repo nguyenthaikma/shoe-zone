@@ -52,6 +52,16 @@ h2 {
   }
 }
 
+.auth-container {
+  max-width: 1440px;
+  margin: 0 auto;
+  .auth-wrapper {
+    margin-top: calc(100px + 52px);
+    margin-bottom: calc(100px + 97px);
+    padding: 0 (120/1440) * 100%;
+  }
+}
+
 .hoverColor {
   cursor: pointer;
   color: #1a1a1a;

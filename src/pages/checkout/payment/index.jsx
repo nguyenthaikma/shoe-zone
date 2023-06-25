@@ -1,4 +1,4 @@
-import { getLocalStored } from '@src/libs/localStorage';
+import { checkAuth, getLocalStored } from '@src/libs/localStorage';
 import { useMutationPaymentCheckout } from '@src/queries/hooks';
 import { useQueryListCart } from '@src/queries/hooks/cart';
 import { Button, Col, Form, Input, Row, Typography } from 'antd';
@@ -13,6 +13,7 @@ const { Title, Text } = Typography;
 
 export default function Information() {
   const navigate = useNavigate();
+  const accessToken = checkAuth();
 
   const signature = getLocalStored('signature');
   const { data: listCart } = useQueryListCart(signature?.userID);
@@ -21,9 +22,7 @@ export default function Information() {
     [listCart]
   );
 
-  console.log(listCart);
-
-  const { mutate: payment } = useMutationPaymentCheckout();
+  const { mutate: payment, isLoading } = useMutationPaymentCheckout(accessToken);
 
   const onFinish = (values) => {
     payment(
@@ -134,7 +133,7 @@ export default function Information() {
                     </Row>
                   </Col>
                   <Col style={{ textAlign: 'right' }} span={24}>
-                    <Button htmlType='submit' type='primary' size='large'>
+                    <Button loading={isLoading} htmlType='submit' type='primary' size='large'>
                       Payment
                     </Button>
                   </Col>

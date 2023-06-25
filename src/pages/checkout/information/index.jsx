@@ -1,18 +1,19 @@
 import { media } from '@src/assets/images/media';
-import { getStoredAuth } from '@src/libs/localStorage';
+import { checkAuth, getStoredAuth } from '@src/libs/localStorage';
 import { useMutationPaymentTT, useQueryDetailProduct } from '@src/queries/hooks';
 import { Badge, Button, Col, Form, Input, Row, Space, Typography } from 'antd';
 import moment from 'moment';
 import { useMemo } from 'react';
-import { Link, useNavigate, useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import styles from './style.module.scss';
 import { regexEmail, regexPhone } from '@src/utils/regex';
+import { getUrlPaymentVNP } from '@src/configs/vnpay';
 
 const { Title, Text } = Typography;
 
 export default function Information() {
+  const accessToken = checkAuth();
   const [searchParams] = useSearchParams();
-  const navigate = useNavigate();
   const params = {};
   for (const entry of searchParams.entries()) {
     const [param, value] = entry;
@@ -23,9 +24,9 @@ export default function Information() {
   const { data: fetchProduct } = useQueryDetailProduct(params.product);
   const data = useMemo(() => fetchProduct?.data[0], [fetchProduct]);
 
-  const { mutate: payment } = useMutationPaymentTT();
+  const { mutate: payment, isLoading } = useMutationPaymentTT(accessToken);
 
-  const onFinish = (values) => {
+  const onFinish = async (values) => {
     payment(
       {
         ...values,
@@ -35,11 +36,14 @@ export default function Information() {
         productID: params.product,
         size: Number(params.size),
         number: Number(params.quantity),
-        price: data?.price,
+        price: data?.price * 23000,
       },
       {
-        onSuccess: () => {
-          navigate('/checkouts/credit');
+        onSuccess: async (res) => {
+          const url = await (
+            await getUrlPaymentVNP((params.quantity * data?.price + 20) * 23000, data?.name)
+          ).getPaymentUrl(res.data);
+          window.open(url, '_blank');
         },
       }
     );
@@ -138,7 +142,7 @@ export default function Information() {
                     </Row>
                   </Col>
                   <Col style={{ textAlign: 'right' }} span={24}>
-                    <Button htmlType='submit' type='primary' size='large'>
+                    <Button loading={isLoading} htmlType='submit' type='primary' size='large'>
                       Payment
                     </Button>
                   </Col>

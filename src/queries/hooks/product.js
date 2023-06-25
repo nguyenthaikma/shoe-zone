@@ -69,8 +69,8 @@ export const useMutationDeleteProduct = (token) => {
   });
 };
 
-export const useMutationPaymentTT = () => {
-  return useMutation(paymentTT, {
+export const useMutationPaymentTT = (token) => {
+  return useMutation((data) => paymentTT(data, token), {
     onSuccess: async (data) => {
       if (data.status === 200) {
         notification.success({ message: 'Payment success' });
@@ -82,8 +82,8 @@ export const useMutationPaymentTT = () => {
   });
 };
 
-export const useMutationPaymentCheckout = () => {
-  return useMutation(paymentCheckout, {
+export const useMutationPaymentCheckout = (token) => {
+  return useMutation((data) => paymentCheckout(data, token), {
     onSuccess: async (data) => {
       if (data.status === 200) {
         notification.success({ message: 'Payment success' });

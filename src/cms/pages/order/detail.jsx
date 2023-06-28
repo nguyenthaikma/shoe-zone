@@ -5,6 +5,7 @@ import { useMutationApproveOrder, useQueryDetailOrder } from '@src/queries/hooks
 import { Button, Card, Col, Collapse, DatePicker, Divider, Form, Popconfirm, Row } from 'antd';
 import { useNavigate, useParams } from 'react-router-dom';
 import FormInput from './components/FormInput';
+import { checkAuth } from '@src/libs/localStorage';
 
 const { Panel } = Collapse;
 
@@ -12,9 +13,10 @@ function DetailOrder() {
   const { id } = useParams();
   const [form] = Form.useForm();
   const navigate = useNavigate();
+  const accessToken = checkAuth();
 
   const { data: detailOrder } = useQueryDetailOrder(id);
-  const { mutate: approve } = useMutationApproveOrder();
+  const { mutate: approve } = useMutationApproveOrder(accessToken);
   const handleApprove = () => {
     approve(
       { orderID: detailOrder.data[0].orderID, gmail: 'nguyenthai9cc@gmail.com' },

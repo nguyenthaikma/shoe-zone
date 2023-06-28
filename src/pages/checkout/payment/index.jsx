@@ -29,7 +29,7 @@ export default function Information() {
       {
         ...values,
         userID: signature.userID,
-        createdAt: moment().format('YYYY-MM-DD'),
+        createDate: moment().format('YYYY-MM-DD'),
         totalAmount: totalPrice + 20,
       },
       {

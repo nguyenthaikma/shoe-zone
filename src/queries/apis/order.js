@@ -5,4 +5,11 @@ export const getListOrder = (params) => axios({ url: `${REACT_APP_BASE_URL}/orde
 
 export const getDetailOrder = (id) => axios({ url: `${REACT_APP_BASE_URL}/order/order_detail/${id}`, method: 'GET' });
 
-export const approveOrder = (data) => axios({ url: `${REACT_APP_BASE_URL}/order/checkOrder`, method: 'POST', data });
+export const approveOrder = (data, token) =>
+  axios.post(`${REACT_APP_BASE_URL}/order/checkOrder`, data, {
+    headers: {
+      token: `beare ${token}`,
+    },
+  });
+
+export const getOrderByUser = (id) => axios.get(`${REACT_APP_BASE_URL}/order/getOrderUser/${id}`)

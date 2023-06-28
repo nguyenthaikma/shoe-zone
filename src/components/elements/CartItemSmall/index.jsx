@@ -65,9 +65,6 @@ export default function CartItemSmall({ data }) {
               </Col>
             </Row>
           </Col>
-          <Button style={{ color: 'red' }} type='error' onClick={handleDelete}>
-            Xoá
-          </Button>
         </Row>
       </Col>
     </Row>

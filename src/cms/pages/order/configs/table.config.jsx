@@ -50,7 +50,7 @@ export const columnsTableUser = () => {
       title: 'Published',
       dataIndex: 'createDate',
       key: 'createDate',
-      render: (value) => dayjs(value).format('DD/MM/YYYY HH:mm:ss'),
+      render: (value) => dayjs(value).format('DD/MM/YYYY'),
     },
     {
       title: 'Action',

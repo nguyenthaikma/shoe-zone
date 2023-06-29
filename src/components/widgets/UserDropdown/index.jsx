@@ -146,7 +146,7 @@ function UserDropdownAuth({ color = '#fff', size = 36 }) {
         </Form>
       </Modal>
       {profile && (
-        <Dropdown menu={{ items }} placement='topRight'>
+        <Dropdown menu={{ items }} trigger='click' overlayStyle={{ position: 'fixed' }} placement='bottomRight'>
           <Space className={styles.space} style align='center'>
             <Avatar size={size} icon={<UserOutlined />} src={profile?.avatar?.location} />
             <Typography.Paragraph style={{ color, margin: 0 }} className='user-label' ellipsis={{ rows: 1 }}>

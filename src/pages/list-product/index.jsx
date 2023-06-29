@@ -123,7 +123,7 @@ export default function ListProduct() {
                             <InputNumber
                               style={{ width: '100%' }}
                               value={from}
-                              onChange={(event) => setFrom(event.target.value)}
+                              onChange={(event) => setFrom(event)}
                               placeholder='0'
                             />
                           </Form.Item>
@@ -131,7 +131,7 @@ export default function ListProduct() {
                             <InputNumber
                               style={{ width: '100%' }}
                               value={to}
-                              onChange={(event) => setTo(event.target.value)}
+                              onChange={(event) => setTo(event)}
                               placeholder='389'
                             />
                           </Form.Item>

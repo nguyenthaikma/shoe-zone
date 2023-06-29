@@ -133,10 +133,20 @@ export default function SearchProduct() {
                       <Space style={{ marginTop: 12 }} size={20} direction='vertical'>
                         <Space size={15} direction='vertical'>
                           <Form.Item style={{ marginBottom: 0 }} labelCol={{ span: 24 }} label='From $'>
-                            <InputNumber style={{width: '100%'}} value={from} onChange={(event) => setFrom(event.target.value)} placeholder='0' />
+                            <InputNumber
+                              style={{ width: '100%' }}
+                              value={from}
+                              onChange={(event) => setFrom(event)}
+                              placeholder='0'
+                            />
                           </Form.Item>
                           <Form.Item style={{ marginBottom: 0 }} labelCol={{ span: 24 }} label='To $'>
-                            <InputNumber style={{width: '100%'}} value={to} onChange={(event) => setTo(event.target.value)} placeholder='389' />
+                            <InputNumber
+                              style={{ width: '100%' }}
+                              value={to}
+                              onChange={(event) => setTo(event)}
+                              placeholder='389'
+                            />
                           </Form.Item>
                         </Space>
                       </Space>

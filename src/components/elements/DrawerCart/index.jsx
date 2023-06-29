@@ -57,6 +57,7 @@ export default function DrawerCart() {
               dispatch(onClose());
               navigate('/checkouts/payment');
             }}
+            disabled={!(listCart?.data?.length > 0)}
             type='primary'
             block
           >

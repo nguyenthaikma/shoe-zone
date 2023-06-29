@@ -47,7 +47,12 @@ export default function Cart() {
                     Sub total: ${totalPrice}
                   </Text>
                   <Text fontSize='xs'>Shipping, taxes, and discounts will be calculated at checkout.</Text>
-                  <Button onClick={() => navigate('/checkouts/payment')} type='primary' block>
+                  <Button
+                    disabled={!(listCart?.data?.length > 0)}
+                    onClick={() => navigate('/checkouts/payment')}
+                    type='primary'
+                    block
+                  >
                     PROCEED TO CHECKOUT
                   </Button>
                 </Space>

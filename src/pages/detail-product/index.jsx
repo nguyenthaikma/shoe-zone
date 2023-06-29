@@ -18,6 +18,8 @@ export default function DetailProduct() {
   const { idProduct } = useParams();
   const profile = getStoredAuth();
 
+  const [available, setAvailable] = useState(1);
+
   const accessToken = checkAuth();
 
   const [quantity, setQuantity] = useState(1);
@@ -115,8 +117,12 @@ export default function DetailProduct() {
                                   <div
                                     key={item.size}
                                     className={`${styles.size} ${active === item.size && styles.active}`}
-                                    onClick={() => setActive(item.size)}
+                                    onClick={() => {
+                                      setAvailable(!!item.quanlity);
+                                      setActive(item.size);
+                                    }}
                                   >
+                                    {console.log(listSize)}
                                     {item.size}
                                   </div>
                                 ))}
@@ -130,7 +136,7 @@ export default function DetailProduct() {
                               <Text className={styles.label}>Material:</Text>
                             </Col>
                             <Col span={18} className={styles.labelWrap}>
-                              <Text style={{ fontSize: 12 }}>{detailProduct?.metarial}</Text>
+                              <Text style={{ fontSize: 12 }}>{detailProduct?.metarial || '__'}</Text>
                             </Col>
                           </Row>
                         </Col>
@@ -140,7 +146,7 @@ export default function DetailProduct() {
                               <Text className={styles.label}>Vendor:</Text>
                             </Col>
                             <Col span={18} className={styles.labelWrap}>
-                              <Text style={{ fontSize: 12 }}>{detailProduct?.vendor}</Text>
+                              <Text style={{ fontSize: 12 }}>{detailProduct?.vendor || '__'}</Text>
                             </Col>
                           </Row>
                         </Col>
@@ -152,7 +158,8 @@ export default function DetailProduct() {
                             <Col span={18} className={styles.labelWrap}>
                               <Text style={{ fontSize: 12 }}>
                                 {(detailProduct?.categoryID === 'cate1' && 'Sport') ||
-                                  (detailProduct?.categoryID === 'cate2' && 'Gym')}
+                                  (detailProduct?.categoryID === 'cate2' && 'Gym') ||
+                                  '__'}
                               </Text>
                             </Col>
                           </Row>
@@ -163,7 +170,9 @@ export default function DetailProduct() {
                               <Text className={styles.label}>Availability:</Text>
                             </Col>
                             <Col span={18} className={styles.labelWrap}>
-                              <Text style={{ fontSize: 12, color: '#4F8A10' }}>In stock!</Text>
+                              <Text style={{ fontSize: 12, color: available ? '#4F8A10' : 'red' }}>
+                                {available ? 'In stock' : 'Out stock'}!
+                              </Text>
                             </Col>
                           </Row>
                         </Col>
@@ -179,10 +188,10 @@ export default function DetailProduct() {
                         </Col>
                         <Col span={24}>
                           <Space size={16}>
-                            <Button onClick={handleAdd} type='primary' size='large'>
+                            <Button disabled={!available} onClick={handleAdd} type='primary' size='large'>
                               ADD TO CART
                             </Button>
-                            <Button onClick={handleBuy} type='primary' size='large'>
+                            <Button disabled={!available} onClick={handleBuy} type='primary' size='large'>
                               BUY IT NOW
                             </Button>
                           </Space>

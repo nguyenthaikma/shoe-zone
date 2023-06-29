@@ -17,10 +17,7 @@ export default function Information() {
 
   const signature = getLocalStored('signature');
   const { data: listCart } = useQueryListCart(signature?.userID);
-  const totalPrice = useMemo(
-    () => listCart?.data?.reduce((total, item) => (total += item.price * item.number), 0),
-    [listCart]
-  );
+  const totalPrice = useMemo(() => listCart?.data?.reduce((total, item) => (total += item.price), 0), [listCart]);
 
   const { mutate: payment, isLoading } = useMutationPaymentCheckout(accessToken);
 

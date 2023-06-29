@@ -1,12 +1,12 @@
-import { Button, Col, Form, Input, Row, Select, Space, Spin, Typography } from 'antd';
+import { Button, Col, Form, InputNumber, Row, Select, Space, Spin, Typography } from 'antd';
 
 import BreadcrumbPage from '@src/components/elements/BreadcrumbPage';
 import ProductItem from '@src/components/elements/ProductItem';
 import { useQueryListProduct } from '@src/queries/hooks';
+import Search from 'antd/es/input/Search';
 import { useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import styles from './style.module.scss';
-import Search from 'antd/es/input/Search';
 
 const { Text } = Typography;
 
@@ -133,10 +133,10 @@ export default function SearchProduct() {
                       <Space style={{ marginTop: 12 }} size={20} direction='vertical'>
                         <Space size={15} direction='vertical'>
                           <Form.Item style={{ marginBottom: 0 }} labelCol={{ span: 24 }} label='From $'>
-                            <Input value={from} onChange={(event) => setFrom(event.target.value)} placeholder='0' />
+                            <InputNumber style={{width: '100%'}} value={from} onChange={(event) => setFrom(event.target.value)} placeholder='0' />
                           </Form.Item>
                           <Form.Item style={{ marginBottom: 0 }} labelCol={{ span: 24 }} label='To $'>
-                            <Input value={to} onChange={(event) => setTo(event.target.value)} placeholder='389' />
+                            <InputNumber style={{width: '100%'}} value={to} onChange={(event) => setTo(event.target.value)} placeholder='389' />
                           </Form.Item>
                         </Space>
                       </Space>

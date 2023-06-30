@@ -25,8 +25,9 @@ export default function Order() {
             <Title level={5}>List order</Title>
           </div>
           {listOrder?.map((item, index) => (
-            <Descriptions column={5} style={{ marginBottom: 20 }} key={index} layout='vertical' bordered>
+            <Descriptions column={6} style={{ marginBottom: 20 }} key={index} layout='vertical' bordered>
               <Descriptions.Item label='ID'>{item?.orderID}</Descriptions.Item>
+              <Descriptions.Item label='Status'>{item?.status}</Descriptions.Item>
               <Descriptions.Item label='Address'>{item?.shipAddress}</Descriptions.Item>
               <Descriptions.Item label='Email'>{item?.shipEmail}</Descriptions.Item>
               <Descriptions.Item label='Phone'>{item?.shipMobile}</Descriptions.Item>

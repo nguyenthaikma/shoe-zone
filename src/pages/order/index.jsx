@@ -14,7 +14,6 @@ export default function Order() {
 
   const { data: fetchOrder } = useQueryUserOrder(profile?.userID);
   const listOrder = useMemo(() => fetchOrder?.data, [fetchOrder]);
-  console.log(listOrder);
 
   return (
     <Row className={styles.wrapper}>

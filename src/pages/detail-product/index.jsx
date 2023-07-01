@@ -122,7 +122,6 @@ export default function DetailProduct() {
                                       setActive(item.size);
                                     }}
                                   >
-                                    {console.log(listSize)}
                                     {item.size}
                                   </div>
                                 ))}

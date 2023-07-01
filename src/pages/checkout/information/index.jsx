@@ -76,6 +76,7 @@ export default function Information() {
                       </Text>
                     </div>
                     <Form.Item
+                      initialValue={profile?.email}
                       rules={[
                         {
                           required: true,
@@ -98,6 +99,7 @@ export default function Information() {
                     <Row gutter={[14, 14]}>
                       <Col span={24}>
                         <Form.Item
+                          initialValue={profile?.username}
                           rules={[
                             {
                               required: true,
@@ -111,6 +113,7 @@ export default function Information() {
                       </Col>
                       <Col span={24}>
                         <Form.Item
+                          initialValue={profile?.address}
                           rules={[
                             {
                               required: true,
@@ -124,6 +127,7 @@ export default function Information() {
                       </Col>
                       <Col span={24}>
                         <Form.Item
+                          initialValue={profile?.mobile}
                           rules={[
                             {
                               required: true,

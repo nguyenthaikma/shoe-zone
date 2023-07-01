@@ -1,5 +1,5 @@
 import { getUrlPaymentVNP } from '@src/configs/vnpay';
-import { checkAuth, getLocalStored } from '@src/libs/localStorage';
+import { checkAuth, getStoredAuth } from '@src/libs/localStorage';
 import { useMutationPaymentCheckout } from '@src/queries/hooks';
 import { useQueryListCart } from '@src/queries/hooks/cart';
 import { regexEmail, regexPhone } from '@src/utils/regex';
@@ -15,8 +15,8 @@ const { Title, Text } = Typography;
 export default function Information() {
   const accessToken = checkAuth();
 
-  const signature = getLocalStored('signature');
-  const { data: listCart } = useQueryListCart(signature?.userID);
+  const profile = getStoredAuth();
+  const { data: listCart } = useQueryListCart(profile?.userID);
   const totalPrice = useMemo(() => listCart?.data?.reduce((total, item) => (total += item.price), 0), [listCart]);
 
   const { mutate: payment, isLoading } = useMutationPaymentCheckout(accessToken);
@@ -25,7 +25,7 @@ export default function Information() {
     payment(
       {
         ...values,
-        userID: signature.userID,
+        userID: profile.userID,
         createDate: moment().format('YYYY-MM-DD'),
         totalAmount: totalPrice + 20,
       },
@@ -67,6 +67,7 @@ export default function Information() {
                       </Text>
                     </div>
                     <Form.Item
+                      initialValue={profile?.email}
                       rules={[
                         {
                           required: true,
@@ -89,6 +90,7 @@ export default function Information() {
                     <Row gutter={[14, 14]}>
                       <Col span={24}>
                         <Form.Item
+                          initialValue={profile?.username}
                           rules={[
                             {
                               required: true,
@@ -102,6 +104,7 @@ export default function Information() {
                       </Col>
                       <Col span={24}>
                         <Form.Item
+                          initialValue={profile?.address}
                           rules={[
                             {
                               required: true,
@@ -115,6 +118,7 @@ export default function Information() {
                       </Col>
                       <Col span={24}>
                         <Form.Item
+                          initialValue={profile?.mobile}
                           rules={[
                             {
                               required: true,

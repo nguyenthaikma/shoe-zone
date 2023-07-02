@@ -1,5 +1,5 @@
 import { ArrowLeftOutlined } from '@ant-design/icons';
-import { Button, Col, Divider, Input, Row, Typography } from 'antd';
+import { Button, Col, Divider, Row, Typography } from 'antd';
 import { useNavigate } from 'react-router-dom';
 
 const { Title } = Typography;
@@ -46,20 +46,6 @@ function PageHeader({ title, isBack = true, isSearch = true, extra = [], onSearc
             </Col>
           </Row>
         </Col>
-        {isSearch && (
-          <Col style={{ marginLeft: 23 }}>
-            <Input.Search
-              placeholder='Tìm kiếm'
-              className='search-bar'
-              name='search'
-              allowClear
-              size='middle'
-              onSearch={(value) => {
-                if (onSearch) void onSearch(value);
-              }}
-            />
-          </Col>
-        )}
       </Row>
       {!inCard && <Divider style={{ margin: 0, marginBottom: 24 }} />}
     </>

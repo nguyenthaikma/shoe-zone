@@ -69,12 +69,6 @@ export default function Information() {
               <Form layout='vertical' onFinish={onFinish}>
                 <Row gutter={[0, 32]} className={styles.wrapper}>
                   <Col span={24}>
-                    <div className={styles.titleGr}>
-                      <Title level={5}>Contact</Title>
-                      <Text>
-                        Already have an account? <Link to='/login'>Login</Link>
-                      </Text>
-                    </div>
                     <Form.Item
                       initialValue={profile?.email}
                       rules={[

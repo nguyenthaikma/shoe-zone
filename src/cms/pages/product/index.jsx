@@ -7,14 +7,15 @@ import { columnsTableUser } from './configs/table.config';
 function Product() {
   const columns = columnsTableUser();
 
-  const { data: listProduct } = useQueryListProduct({ id: 'list', from: 0 });
+  const { data: listProduct } = useQueryListProduct();
+  console.log(listProduct)
 
   return (
     <Col span={24}>
       <PageHeader title='Product' />
       <Row>
         <Col span={24}>
-          <Table rowKey='_id' scroll={{ x: 992 }} columns={columns} dataSource={listProduct?.data} />
+          <Table rowKey='_id' scroll={{ x: 992 }} columns={columns} dataSource={listProduct?.data?.data} />
         </Col>
       </Row>
     </Col>

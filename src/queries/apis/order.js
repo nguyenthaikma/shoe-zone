@@ -8,7 +8,7 @@ export const getDetailOrder = (id) => axios({ url: `${REACT_APP_BASE_URL}/order/
 export const approveOrder = (data, token) =>
   axios.post(`${REACT_APP_BASE_URL}/order/checkOrder`, data, {
     headers: {
-      token: `beare ${token}`,
+      Authorization: `Bearer ${token}`,
     },
   });
 

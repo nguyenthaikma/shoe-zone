@@ -1,3 +1,6 @@
+import Category from '@src/cms/pages/category';
+import CreateCategory from '@src/cms/pages/category/create';
+import DetailCategoryAdmin from '@src/cms/pages/category/detail';
 import lazyLoading from '@src/libs/lazyLoading';
 import VnpReturnScreen from '@src/pages/vnpay';
 
@@ -83,4 +86,7 @@ export const adminRouter = [
   { path: '/user', Element: ListUser, Layout: LayoutApp },
   { path: '/order', Element: OrderAdmin, Layout: LayoutApp },
   { path: '/order/:id', Element: DetailOrder, Layout: LayoutApp },
+  { path: '/category', Element: Category, Layout: LayoutApp },
+  { path: '/create-category', Element: CreateCategory, Layout: LayoutApp },
+  { path: '/category/:id', Element: DetailCategoryAdmin, Layout: LayoutApp },
 ];

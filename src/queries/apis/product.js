@@ -1,29 +1,36 @@
 import { REACT_APP_BASE_URL } from '@src/configs/api';
 import axios from 'axios';
 
-export const getListProduct = (params) =>
-  axios({ url: `${REACT_APP_BASE_URL}/product/${params.id}`, method: 'GET', params });
-
-export const getDetailProduct = (id) =>
-  axios({ url: `${REACT_APP_BASE_URL}/product/product_detail/${id}`, method: 'GET' });
-export const createProduct = (data, token) =>
-  axios.post(`${REACT_APP_BASE_URL}/product/add`, data, {
+export const getListProduct = (token) =>
+  axios.get(`${REACT_APP_BASE_URL}/cms/shoes`, {
     headers: {
-      token: `beare ${token}`,
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+export const getDetailProduct = (id, token) =>
+  axios.get(`${REACT_APP_BASE_URL}/cms/shoes/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+export const createProduct = (data, token) =>
+  axios.post(`${REACT_APP_BASE_URL}/cms/shoes`, data, {
+    headers: {
+      Authorization: `Bearer ${token}`,
     },
   });
 export const updateProduct = (data, token) =>
-  axios.post(`${REACT_APP_BASE_URL}/product/update`, data, {
+  axios.post(`${REACT_APP_BASE_URL}/cms/shoes`, data, {
     headers: {
-      token: `beare ${token}`,
+      Authorization: `Bearer ${token}`,
     },
   });
 export const deleteProduct = (id, token) =>
-  axios.delete(`${REACT_APP_BASE_URL}/product/delete`, {
+  axios.delete(`${REACT_APP_BASE_URL}/cms/shoes/${id}`, {
     headers: {
-      token: `beare ${token}`,
+      Authorization: `Bearer ${token}`,
     },
-    data: { productID: id },
   });
 
 export const getRelatedProduct = (params) =>
@@ -33,12 +40,12 @@ export const getListSize = (id) => axios({ url: `${REACT_APP_BASE_URL}/product/s
 export const paymentTT = (data, token) =>
   axios.post(`${REACT_APP_BASE_URL}/order/BuyItNow`, data, {
     headers: {
-      token: `beare ${token}`,
+      Authorization: `Bearer ${token}`,
     },
   });
 export const paymentCheckout = (data, token) =>
   axios.post(`${REACT_APP_BASE_URL}/order/checkout`, data, {
     headers: {
-      token: `beare ${token}`,
+      Authorization: `Bearer ${token}`,
     },
   });

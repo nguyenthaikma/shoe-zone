@@ -22,7 +22,7 @@ function RouteApp() {
       <Route path='*' element={<Notfound />} />
       <Route path='/login' element={<Login />} />
       <Route path='/register' element={<Register />} />
-      {currentRole === 'admin'
+      {currentRole
         ? adminRouter?.map(({ path, Element, Layout, _breadcrumbs }, index) => (
             <Route
               path={path}

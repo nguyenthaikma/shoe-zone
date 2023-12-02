@@ -6,13 +6,11 @@ import { changePassword, singIn, singUp } from '../apis';
 export const useMutationLogin = () => {
   return useMutation(singIn, {
     onSuccess: async (data) => {
-      if (data.status === 200) {
-        setStoredAuth(data.data);
-        notification.success({ message: 'Login Success!' });
-      }
+      setStoredAuth(data.data);
+      notification.success({ message: 'Login Success!' });
     },
     onError: (error) => {
-      clearStoredAuth();
+      clearStoredAuth();  
       notification.error({ message: 'Login failure!' });
     },
   });

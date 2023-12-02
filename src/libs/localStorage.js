@@ -7,16 +7,15 @@ export function getStoredAuth() {
 
 export function checkAuth() {
   const signature = getStoredAuth();
-  const accessToken = signature ? signature.accessToken : null;
+  const accessToken = signature ? signature.access_token : null;
   if (!!accessToken) return accessToken;
   return '';
 }
 
 export function checkRole() {
   const signature = getStoredAuth();
-  const role = signature ? signature.role : null;
-  if (!!role) return role;
-  return '';
+  const role = signature ? signature.isAdmin : null;
+  return !!role;
 }
 export function setStoredAuth(auth) {
   localStorage.setItem(SIGNATURE, JSON.stringify(auth));

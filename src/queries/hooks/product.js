@@ -11,13 +11,16 @@ import {
   updateProduct,
 } from '../apis';
 import { notification } from 'antd';
+import { checkAuth } from '@src/libs/localStorage';
 
 export const useQueryListProduct = (params = { id: 'list' }) => {
-  return useQuery(['LIST_PRODUCT', params], () => getListProduct(params));
+  const token = checkAuth();
+  return useQuery(['LIST_PRODUCT', params], () => getListProduct(token));
 };
 
 export const useQueryDetailProduct = (id) => {
-  return useQuery(['DETAIL_PRODUCT', id], () => getDetailProduct(id));
+  const token = checkAuth();
+  return useQuery(['DETAIL_PRODUCT', id], () => getDetailProduct(id, token));
 };
 
 export const useQueryRelatedProduct = (params) => {

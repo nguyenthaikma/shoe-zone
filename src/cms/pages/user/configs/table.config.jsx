@@ -34,8 +34,8 @@ export const columnsTableUser = (onDelete) => {
     },
     {
       title: 'Published',
-      dataIndex: 'createDate',
-      key: 'createDate',
+      dataIndex: 'createdAt',
+      key: 'createdAt',
       render: (value) => dayjs(value).format('DD/MM/YYYY HH:mm:ss'),
     },
   ];

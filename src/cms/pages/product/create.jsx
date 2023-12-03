@@ -1,16 +1,15 @@
-import PageHeader from '@components/widgets/PageHeader';
 import { EditFilled } from '@ant-design/icons';
+import PageHeader from '@components/widgets/PageHeader';
 import ActionPublish from '@src/components/widgets/ActionPublish';
 import { Button, Card, Col, Collapse, Form, Image, Modal, Row, Space, Typography } from 'antd';
 
-import FormSidebar from '@src/cms/layout/FormSidebar';
-import FormInput from './components/FormInput';
-import { useState } from 'react';
 import { media } from '@src/assets/images/media';
-import { useMutationCreateProduct } from '@src/queries/hooks';
-import moment from 'moment';
-import { useNavigate } from 'react-router-dom';
+import FormSidebar from '@src/cms/layout/FormSidebar';
 import { checkAuth } from '@src/libs/localStorage';
+import { useMutationCreateProduct } from '@src/queries/hooks';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import FormInput from './components/FormInput';
 
 const { Text } = Typography;
 
@@ -40,8 +39,8 @@ function CreateProduct() {
     createProduct(
       {
         ...values,
-        createDate: moment(Date.now()).format('YYYY-MM-DD'),
-        productID: Math.random(),
+        isBetterSell: !!values?.isBetterSell,
+        isNewArrival: !!values?.isNewArrival
       },
       {
         onSuccess: () => {

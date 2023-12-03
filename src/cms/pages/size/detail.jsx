@@ -15,7 +15,6 @@ function DetailSizeAdmin() {
   const token = checkAuth();
 
   const { data: detailSize } = useQueryDetailSize(id);
-  console.log(detailSize);
   const { mutate: updateSize } = useMutationUpdateSize(token, id);
   const { mutate: deleteSize } = useMutationDeleteSize(token);
 

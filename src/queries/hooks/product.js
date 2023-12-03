@@ -26,8 +26,8 @@ export const useQueryRelatedProduct = (params) => {
   return useQuery(['RELATED_PRODUCT', params], () => getRelatedProduct(params));
 };
 
-export const useMutationUpdateProduct = (token) => {
-  return useMutation((data) => updateProduct(data, token), {
+export const useMutationUpdateProduct = (token, id) => {
+  return useMutation((data) => updateProduct(data, token, id), {
     onSuccess: async (data) => {
       if (true) {
         notification.success({ message: 'Update Success!' });

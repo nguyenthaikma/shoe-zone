@@ -22,7 +22,7 @@ export function sortObject(obj) {
 
 export const getUrlPaymentVNP = async (amount, orderInfo) => {
   const IPv4 = await publicIpv4();
-  const vnpCreateDate = dayjs().format('YYYYMMDDHHmmss');
+  const vnpcreatedAt = dayjs().format('YYYYMMDDHHmmss');
 
   const vnpParamsToOrder = {
     vnpTmnCode: REACT_APP_VNP_TMCODE,
@@ -45,7 +45,7 @@ export const getUrlPaymentVNP = async (amount, orderInfo) => {
       vnp_Locale: 'vn',
       vnp_CurrCode: 'VND',
       vnp_Amount: amount * 100,
-      vnp_CreateDate: vnpCreateDate,
+      vnp_createdAt: vnpcreatedAt,
       vnp_IpAddr: IPv4,
     };
     vnpParams.vnp_TxnRef = paymentId;

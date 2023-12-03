@@ -68,7 +68,8 @@ function FormInput({ data }) {
       <Form.Item
         style={{ marginBottom: 24 }}
         name='isBetterSell'
-        label='isBetterSell'
+        label='Is betterSell'
+        valuePropName='checked'
         {...labelStyle}
         initialValue={data?.isBetterSell}
       >
@@ -77,7 +78,8 @@ function FormInput({ data }) {
       <Form.Item
         style={{ marginBottom: 24 }}
         name='isNewArrival'
-        label='isNewArrival'
+        label='Is newArrival'
+        valuePropName='checked'
         {...labelStyle}
         initialValue={data?.isNewArrival}
       >

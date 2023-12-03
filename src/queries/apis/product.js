@@ -22,8 +22,8 @@ export const createProduct = (data, token) =>
       Authorization: `Bearer ${token}`,
     },
   });
-export const updateProduct = (data, token) =>
-  axios.post(`${REACT_APP_BASE_URL}/cms/shoes`, data, {
+export const updateProduct = (data, token, id) =>
+  axios.patch(`${REACT_APP_BASE_URL}/cms/shoes/${id}`, data, {
     headers: {
       Authorization: `Bearer ${token}`,
     },

@@ -1,11 +1,11 @@
-import { LoginOutlined, UserOutlined, EuroCircleOutlined, LockOutlined } from '@ant-design/icons';
+import { LoginOutlined, UserOutlined } from '@ant-design/icons';
 import { checkAuth, clearStoredAuth, getStoredAuth } from '@libs/localStorage';
-import { Avatar, Button, Col, Dropdown, Form, Input, Modal, Row, Space, Typography, notification } from 'antd';
+import { Avatar, Button, Col, Dropdown, Form, Input, Modal, Row, Space, Typography } from 'antd';
 import { useNavigate } from 'react-router-dom';
 
-import styles from './style.module.scss';
-import { useState } from 'react';
 import { useMutationChangePassword } from '@src/queries/hooks';
+import { useState } from 'react';
+import styles from './style.module.scss';
 
 const { Text } = Typography;
 
@@ -39,39 +39,6 @@ function UserDropdownAuth({ color = '#fff', size = 36 }) {
   const items = [
     {
       key: '1',
-      label: (
-        <Button
-          block
-          type='link'
-          size='small'
-          onClick={() => {
-            if (!accessToken) {
-              notification.error({ message: 'Please login to continue!' });
-              return navigate('/login');
-            }
-            navigate('/orders');
-          }}
-        >
-          <Space size={10} align='center'>
-            <EuroCircleOutlined />
-            <Text>Order</Text>
-          </Space>
-        </Button>
-      ),
-    },
-    {
-      key: '2',
-      label: (
-        <Button block type='link' size='small' onClick={() => setVisible(true)}>
-          <Space size={10} align='center'>
-            <LockOutlined />
-            <Text>Change password</Text>
-          </Space>
-        </Button>
-      ),
-    },
-    {
-      key: '3',
       label: (
         <Button block type='link' size='small' onClick={onLogout}>
           <Space size={10} align='center'>

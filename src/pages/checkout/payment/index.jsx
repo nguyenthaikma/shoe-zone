@@ -26,7 +26,7 @@ export default function Information() {
       {
         ...values,
         userID: profile.userID,
-        createDate: moment().format('YYYY-MM-DD'),
+        createdAt: moment().format('YYYY-MM-DD'),
         totalAmount: totalPrice + 20,
       },
       {

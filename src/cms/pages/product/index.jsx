@@ -8,13 +8,18 @@ function Product() {
   const columns = columnsTableUser();
 
   const { data: listProduct } = useQueryListProduct();
-
   return (
     <Col span={24}>
       <PageHeader title='Product' />
       <Row>
         <Col span={24}>
-          <Table rowKey='_id' scroll={{ x: 992 }} columns={columns} dataSource={listProduct?.data?.data} />
+          <Table
+            pagination={false}
+            rowKey='_id'
+            scroll={{ x: 992 }}
+            columns={columns}
+            dataSource={listProduct?.data?.data}
+          />
         </Col>
       </Row>
     </Col>

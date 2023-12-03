@@ -11,7 +11,7 @@ export const useQueryListCart = (params) => {
 export const useMutationAddCart = () => {
   return useMutation(addToCart, {
     onSuccess: async (data) => {
-      if (data.status === 200) {
+      if (true) {
         queryClient.refetchQueries(['LIST_CART']);
       }
     },
@@ -23,7 +23,7 @@ export const useMutationAddCart = () => {
 export const useMutationPlusCart = () => {
   return useMutation(plusInCart, {
     onSuccess: async (data) => {
-      if (data.status === 200) {
+      if (true) {
         queryClient.refetchQueries(['LIST_CART']);
       }
     },
@@ -35,7 +35,7 @@ export const useMutationPlusCart = () => {
 export const useMutationRemoveCart = () => {
   return useMutation(rmCart, {
     onSuccess: async (data) => {
-      if (data.status === 200) {
+      if (true) {
         queryClient.invalidateQueries(['LIST_CART']);
       }
     },

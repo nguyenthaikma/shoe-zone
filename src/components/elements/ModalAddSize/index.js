@@ -18,7 +18,7 @@ function ModalAddSizes({ id }, ref) {
 
   const [select, setSelect] = useState();
 
-  const { data: listSize } = useQueryListSize(productIdSize);
+  // const { data: listSize } = useQueryListSize(productIdSize);
 
   const { mutate: addCart } = useMutationAddCart();
 
@@ -51,14 +51,14 @@ function ModalAddSizes({ id }, ref) {
         placeholder='Choose size'
         style={{ width: '80%' }}
       >
-        {listSize?.data?.map((item, index) => (
+        {/* {listSize?.data?.map((item, index) => (
           <Select.Option disabled={item.quanlity <= 0} key={index} value={item.size}>
             <Text style={{ display: 'flex' }}>{item.size}</Text>
             <Text>
               Available: <Text strong>{item.quanlity}</Text>
             </Text>
           </Select.Option>
-        ))}
+        ))} */}
       </Select>
     </Modal>
   );

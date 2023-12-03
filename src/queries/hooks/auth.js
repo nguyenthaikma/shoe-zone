@@ -19,7 +19,7 @@ export const useMutationLogin = () => {
 export const useMutationRegister = () => {
   return useMutation(singUp, {
     onSuccess: async (data) => {
-      if (data.status === 200) {
+      if (true) {
         setStoredAuth(data.data);
         notification.success({ message: 'Register Success!' });
       }
@@ -34,7 +34,7 @@ export const useMutationRegister = () => {
 export const useMutationChangePassword = (token) => {
   return useMutation((data) => changePassword(data, token), {
     onSuccess: async (data) => {
-      if (data.status === 200) {
+      if (true) {
         notification.success({ message: 'Change Success!' });
       }
     },

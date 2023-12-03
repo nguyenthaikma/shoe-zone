@@ -24,7 +24,7 @@ export const columnsTableUser = () => {
       sorter: true,
       render(name, record) {
         return (
-          <Link to={`/product/${record?.productID}`}>
+          <Link to={`/product/${record?.id}`}>
             <Typography.Text>{name}</Typography.Text>
           </Link>
         );
@@ -38,14 +38,8 @@ export const columnsTableUser = () => {
     },
     {
       title: 'Material',
-      dataIndex: 'metarial',
-      key: 'metarial',
-      render: (v) => v || '__',
-    },
-    {
-      title: 'Vendor',
-      dataIndex: 'vendor',
-      key: 'vendor',
+      dataIndex: 'material',
+      key: 'material',
       render: (v) => v || '__',
     },
     {
@@ -59,7 +53,7 @@ export const columnsTableUser = () => {
       key: 'action',
       render: (_, record) => (
         <Space size={5}>
-          <Link to={`/product/${record?.productID}`}>Detail</Link>
+          <Link to={`/product/${record?.id}`}>Detail</Link>
         </Space>
       ),
       width: 180,

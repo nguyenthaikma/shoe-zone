@@ -8,11 +8,11 @@ import { useMemo } from 'react';
 function Dashboard() {
   const accessToken = checkAuth();
 
-  const { data: listProduct } = useQueryListProduct({ id: 'list', from: 0 });
+  const { data: listProduct } = useQueryListProduct();
   const { data: listUser } = useQueryListUser(accessToken);
 
-  const totalProduct = useMemo(() => listProduct?.data?.length, [listProduct]);
-  const totalUser = useMemo(() => listUser?.data?.length, [listUser]);
+  const totalProduct = useMemo(() => listProduct?.data?.total, [listProduct]);
+  const totalUser = useMemo(() => listUser?.data?.total, [listUser]);
 
   return (
     <Col span={24}>

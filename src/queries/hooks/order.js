@@ -1,13 +1,16 @@
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { approveOrder, getDetailOrder, getListOrder, getOrderByUser } from '../apis';
 import { notification } from 'antd';
+import { checkAuth } from '@src/libs/localStorage';
 
 export const useQueryListOrder = () => {
-  return useQuery(['LIST_ORDER'], () => getListOrder());
+  const token = checkAuth();
+  return useQuery(['LIST_ORDER'], () => getListOrder(token));
 };
 
 export const useQueryDetailOrder = (id) => {
-  return useQuery(['DETAIL_ORDER', id], () => getDetailOrder(id));
+  const token = checkAuth();
+  return useQuery(['DETAIL_ORDER', id], () => getDetailOrder(id, token));
 };
 
 export const useQueryUserOrder = (id) => {
@@ -18,7 +21,7 @@ export const useMutationApproveOrder = (token) => {
   const queryClient = useQueryClient();
   return useMutation((data) => approveOrder(data, token), {
     onSuccess: async (data) => {
-      if (data.status === 200) {
+      if (true) {
         queryClient.invalidateQueries('LIST_ORDER');
         notification.success({ message: 'Approve Success!' });
       }

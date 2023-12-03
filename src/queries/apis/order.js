@@ -1,9 +1,19 @@
 import { REACT_APP_BASE_URL } from '@src/configs/api';
 import axios from 'axios';
 
-export const getListOrder = (params) => axios({ url: `${REACT_APP_BASE_URL}/order/listOrder`, method: 'GET', params });
+export const getListOrder = (token) =>
+  axios(`${REACT_APP_BASE_URL}/cms/orders`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
 
-export const getDetailOrder = (id) => axios({ url: `${REACT_APP_BASE_URL}/order/order_detail/${id}`, method: 'GET' });
+export const getDetailOrder = (id, token) =>
+  axios.get(`${REACT_APP_BASE_URL}/cms/orders/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
 
 export const approveOrder = (data, token) =>
   axios.post(`${REACT_APP_BASE_URL}/order/checkOrder`, data, {
@@ -12,4 +22,4 @@ export const approveOrder = (data, token) =>
     },
   });
 
-export const getOrderByUser = (id) => axios.get(`${REACT_APP_BASE_URL}/order/getOrderUser/${id}`)
+export const getOrderByUser = (id) => axios.get(`${REACT_APP_BASE_URL}/order/getOrderUser/${id}`);

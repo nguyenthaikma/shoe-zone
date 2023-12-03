@@ -6,45 +6,39 @@ export const columnsTableUser = () => {
   return [
     {
       title: 'Id',
-      dataIndex: 'orderID',
-      key: 'orderID',
+      dataIndex: 'id',
+      key: 'id',
       render: (v) => v || '__',
     },
     {
-      title: 'Receiver',
-      dataIndex: 'shipName',
-      key: 'shipName',
+      title: 'Amount',
+      dataIndex: 'amount',
+      key: 'amount',
       render: (v) => v || '__',
     },
     {
-      title: 'Phone number',
-      dataIndex: 'shipMobile',
-      key: 'shipMobile',
+      title: 'Is confirm',
+      dataIndex: 'isPaid',
+      key: 'isPaid',
+      render: (v) => v.toString(),
+    },
+    {
+      title: 'Shoe',
+      dataIndex: 'shoes',
+      key: 'shoes',
+      render: (v) => v.name || '__',
+    },
+    {
+      title: 'Size',
+      dataIndex: 'size',
+      key: 'size',
       render: (v) => v || '__',
     },
     {
-      title: 'Address',
-      dataIndex: 'shipAddress',
-      key: 'shipAddress',
-      render: (v) => v || '__',
-    },
-    {
-      title: 'Email',
-      dataIndex: 'shipEmail',
-      key: 'shipEmail',
-      render: (v) => v || '__',
-    },
-    {
-      title: 'Total price',
-      dataIndex: 'totalAmount',
-      key: 'totalAmount',
-      render: (v) => `$${v}` || '__',
-    },
-    {
-      title: 'Order status',
-      dataIndex: 'status',
-      key: 'status',
-      render: (v) => v || '__',
+      title: 'Customer',
+      dataIndex: 'user',
+      key: 'user',
+      render: (v) => `${v?.firstName} ${v?.lastName}` || '__',
     },
     {
       title: 'Published',
@@ -57,7 +51,7 @@ export const columnsTableUser = () => {
       key: 'action',
       render: (_, record) => (
         <Space size={5}>
-          <Link to={`/order/${record?.orderID}`}>Detail</Link>
+          <Link to={`/order/${record?.id}`}>Detail</Link>
         </Space>
       ),
       width: 180,

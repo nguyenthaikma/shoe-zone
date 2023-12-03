@@ -1,4 +1,11 @@
-import { DashboardOutlined, DropboxOutlined, UserOutlined, DollarOutlined,PicCenterOutlined } from '@ant-design/icons';
+import {
+  DashboardOutlined,
+  DropboxOutlined,
+  UserOutlined,
+  DollarOutlined,
+  PicCenterOutlined,
+  StrikethroughOutlined,
+} from '@ant-design/icons';
 import Breadcrumb from '@src/components/widgets/BreadCrumb';
 import UserDropdownAuth from '@src/components/widgets/UserDropdown';
 import { Col, Divider, Layout, Menu, Row } from 'antd';
@@ -40,6 +47,10 @@ function LayoutApp({ children }) {
       getItem('Product', 'productG', <DropboxOutlined />, [
         getItem(<Link to='/product'>List product</Link>, 'product'),
         getItem(<Link to='/create-product'>Create product</Link>, 'create-product'),
+      ]),
+      getItem('Size', 'sizeG', <StrikethroughOutlined />, [
+        getItem(<Link to='/size'>List size</Link>, 'size'),
+        getItem(<Link to='/create-size'>Create size</Link>, 'create-size'),
       ]),
       getItem('Category', 'categoryG', <PicCenterOutlined />, [
         getItem(<Link to='/category'>List category</Link>, 'category'),

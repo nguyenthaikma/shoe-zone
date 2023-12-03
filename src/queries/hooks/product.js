@@ -4,7 +4,6 @@ import {
   deleteProduct,
   getDetailProduct,
   getListProduct,
-  getListSize,
   getRelatedProduct,
   paymentCheckout,
   paymentTT,
@@ -27,14 +26,10 @@ export const useQueryRelatedProduct = (params) => {
   return useQuery(['RELATED_PRODUCT', params], () => getRelatedProduct(params));
 };
 
-export const useQueryListSize = (id) => {
-  return useQuery(['SIZE_PRODUCT', id], () => getListSize(id));
-};
-
 export const useMutationUpdateProduct = (token) => {
   return useMutation((data) => updateProduct(data, token), {
     onSuccess: async (data) => {
-      if (data.status === 200) {
+      if (true) {
         notification.success({ message: 'Update Success!' });
       }
     },
@@ -48,7 +43,7 @@ export const useMutationCreateProduct = (token) => {
   const queryClient = useQueryClient();
   return useMutation((data) => createProduct(data, token), {
     onSuccess: async (data) => {
-      if (data.status === 200) {
+      if (true) {
         notification.success({ message: 'Create Success!' });
         queryClient.invalidateQueries('LIST_PRODUCT');
       }
@@ -62,7 +57,7 @@ export const useMutationCreateProduct = (token) => {
 export const useMutationDeleteProduct = (token) => {
   return useMutation((id) => deleteProduct(id, token), {
     onSuccess: async (data) => {
-      if (data.status === 200) {
+      if (true) {
         notification.success({ message: 'Delete Success!' });
       }
     },
@@ -75,7 +70,7 @@ export const useMutationDeleteProduct = (token) => {
 export const useMutationPaymentTT = (token) => {
   return useMutation((data) => paymentTT(data, token), {
     onSuccess: async (data) => {
-      if (data.status === 200) {
+      if (true) {
         notification.success({ message: 'Payment success' });
       }
     },
@@ -88,7 +83,7 @@ export const useMutationPaymentTT = (token) => {
 export const useMutationPaymentCheckout = (token) => {
   return useMutation((data) => paymentCheckout(data, token), {
     onSuccess: async (data) => {
-      if (data.status === 200) {
+      if (true) {
         notification.success({ message: 'Payment success' });
       }
     },

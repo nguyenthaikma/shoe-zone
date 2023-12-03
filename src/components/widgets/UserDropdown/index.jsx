@@ -150,7 +150,7 @@ function UserDropdownAuth({ color = '#fff', size = 36 }) {
           <Space className={styles.space} style align='center'>
             <Avatar size={size} icon={<UserOutlined />} src={profile?.avatar?.location} />
             <Typography.Paragraph style={{ color, margin: 0 }} className='user-label' ellipsis={{ rows: 1 }}>
-              Hi, {profile.username}
+              Hi, Admin
             </Typography.Paragraph>
           </Space>
         </Dropdown>

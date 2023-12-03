@@ -1,6 +1,9 @@
 import Category from '@src/cms/pages/category';
 import CreateCategory from '@src/cms/pages/category/create';
 import DetailCategoryAdmin from '@src/cms/pages/category/detail';
+import Size from '@src/cms/pages/size';
+import CreateSize from '@src/cms/pages/size/create';
+import DetailSizeAdmin from '@src/cms/pages/size/detail';
 import lazyLoading from '@src/libs/lazyLoading';
 import VnpReturnScreen from '@src/pages/vnpay';
 
@@ -89,4 +92,7 @@ export const adminRouter = [
   { path: '/category', Element: Category, Layout: LayoutApp },
   { path: '/create-category', Element: CreateCategory, Layout: LayoutApp },
   { path: '/category/:id', Element: DetailCategoryAdmin, Layout: LayoutApp },
+  { path: '/size', Element: Size, Layout: LayoutApp },
+  { path: '/create-size', Element: CreateSize, Layout: LayoutApp },
+  { path: '/size/:id', Element: DetailSizeAdmin, Layout: LayoutApp },
 ];

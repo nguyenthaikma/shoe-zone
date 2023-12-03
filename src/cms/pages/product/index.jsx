@@ -8,7 +8,6 @@ function Product() {
   const columns = columnsTableUser();
 
   const { data: listProduct } = useQueryListProduct();
-  console.log(listProduct)
 
   return (
     <Col span={24}>

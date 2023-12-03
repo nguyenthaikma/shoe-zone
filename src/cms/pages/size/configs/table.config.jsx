@@ -2,17 +2,33 @@ import { Space, Typography } from 'antd';
 import dayjs from 'dayjs';
 import { Link } from 'react-router-dom';
 
-export const columnsTableCategory = () => {
+export const columnsTable = () => {
   return [
     {
-      title: 'Name',
-      dataIndex: 'name',
-      key: 'name',
-      sorter: true,
+      title: 'Size',
+      dataIndex: 'size',
+      key: 'size',
       render(name, record) {
         return (
-          <Link to={`/category/${record?.id}`}>
+          <Link to={`/size/${record?.id}`}>
             <Typography.Text>{name}</Typography.Text>
+          </Link>
+        );
+      },
+    },
+    {
+      title: 'Quantity',
+      dataIndex: 'quantity',
+      key: 'quantity',
+    },
+    {
+      title: 'Shoe',
+      dataIndex: 'shoes',
+      key: 'shoes',
+      render(shoes) {
+        return (
+          <Link to={`/product/${shoes?.id}`}>
+            <Typography.Text>{shoes?.name}</Typography.Text>
           </Link>
         );
       },
@@ -28,7 +44,7 @@ export const columnsTableCategory = () => {
       key: 'action',
       render: (_, record) => (
         <Space size={5}>
-          <Link to={`/category/${record?.id}`}>Detail</Link>
+          <Link to={`/size/${record?.id}`}>Detail</Link>
         </Space>
       ),
       width: 180,

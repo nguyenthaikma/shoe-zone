@@ -27,7 +27,7 @@ export default function DetailProduct() {
   const { data: fetchProduct } = useQueryDetailProduct(idProduct);
   const detailProduct = useMemo(() => fetchProduct?.data[0], [fetchProduct]);
 
-  const { data: listSize } = useQueryListSize(detailProduct?.productID);
+  // const { data: listSize } = useQueryListSize(detailProduct?.productID);
   const { mutate: addCart } = useMutationAddCart();
   const handleAdd = () => {
     if (!accessToken) {
@@ -113,7 +113,7 @@ export default function DetailProduct() {
                             </Col>
                             <Col span={18}>
                               <Space size={10}>
-                                {listSize?.data?.map((item) => (
+                                {/* {listSize?.data?.map((item) => (
                                   <div
                                     key={item.size}
                                     className={`${styles.size} ${active === item.size && styles.active}`}
@@ -124,7 +124,7 @@ export default function DetailProduct() {
                                   >
                                     {item.size}
                                   </div>
-                                ))}
+                                ))} */}
                               </Space>
                             </Col>
                           </Row>

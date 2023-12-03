@@ -1,12 +1,14 @@
 import { REACT_APP_BASE_URL } from '@src/configs/api';
 import axios from 'axios';
 
-export const getListProduct = (token) =>
-  axios.get(`${REACT_APP_BASE_URL}/cms/shoes`, {
+export const getListProduct = (token) => {
+  console.log(`${REACT_APP_BASE_URL}/cms/shoes`)
+  return axios.get(`${REACT_APP_BASE_URL}/cms/shoes`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   });
+};
 
 export const getDetailProduct = (id, token) =>
   axios.get(`${REACT_APP_BASE_URL}/cms/shoes/${id}`, {

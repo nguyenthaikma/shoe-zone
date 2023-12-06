@@ -8,7 +8,6 @@ function Order() {
   const columns = columnsTableUser();
 
   const { data: listOrder } = useQueryListOrder();
-  console.log(listOrder);
 
   return (
     <Col span={24}>

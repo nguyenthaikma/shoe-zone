@@ -1,10 +1,9 @@
 import { labelStyle } from '@src/configs/const';
-import { useQueryListProduct, useQueryListSize } from '@src/queries/hooks';
+import { useQueryListProduct } from '@src/queries/hooks';
 import { Form, InputNumber, Select } from 'antd';
 
 function FormInput({ data }) {
   const { data: listProduct } = useQueryListProduct();
-  const { data: listSize } = useQueryListSize();
   return (
     <>
       <Form.Item
@@ -22,7 +21,9 @@ function FormInput({ data }) {
       >
         <Select placeholder='Select shoe'>
           {listProduct?.data?.data?.map((item, index) => (
-            <Select.Option key={index} value={item.id}>{item.name}</Select.Option>
+            <Select.Option key={index} value={item.id}>
+              {item.name}
+            </Select.Option>
           ))}
         </Select>
       </Form.Item>
@@ -54,11 +55,7 @@ function FormInput({ data }) {
           },
         ]}
       >
-           <Select placeholder='Select size'>
-          {listSize?.data?.data?.map((item, index) => (
-            <Select.Option key={index} value={item.id}>{item.size}</Select.Option>
-          ))}
-        </Select>
+        <InputNumber style={{ width: '100%' }} min={0} max={100} placeholder='Please enter size' />
       </Form.Item>
     </>
   );

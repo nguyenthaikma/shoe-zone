@@ -3,7 +3,9 @@ import {
   createProduct,
   deleteProduct,
   getDetailProduct,
+  getDetailShoes,
   getListProduct,
+  getListShoes,
   getRelatedProduct,
   paymentCheckout,
   paymentTT,
@@ -12,20 +14,15 @@ import {
 import { notification } from 'antd';
 import { checkAuth } from '@src/libs/localStorage';
 
+// CMS
 export const useQueryListProduct = (params = { id: 'list' }) => {
   const token = checkAuth();
   return useQuery(['LIST_PRODUCT', params], () => getListProduct(token));
 };
-
 export const useQueryDetailProduct = (id) => {
   const token = checkAuth();
   return useQuery(['DETAIL_PRODUCT', id], () => getDetailProduct(id, token));
 };
-
-export const useQueryRelatedProduct = (params) => {
-  return useQuery(['RELATED_PRODUCT', params], () => getRelatedProduct(params));
-};
-
 export const useMutationUpdateProduct = (token, id) => {
   return useMutation((data) => updateProduct(data, token, id), {
     onSuccess: async (data) => {
@@ -38,7 +35,6 @@ export const useMutationUpdateProduct = (token, id) => {
     },
   });
 };
-
 export const useMutationCreateProduct = (token) => {
   const queryClient = useQueryClient();
   return useMutation((data) => createProduct(data, token), {
@@ -53,7 +49,6 @@ export const useMutationCreateProduct = (token) => {
     },
   });
 };
-
 export const useMutationDeleteProduct = (token) => {
   return useMutation((id) => deleteProduct(id, token), {
     onSuccess: async (data) => {
@@ -65,6 +60,17 @@ export const useMutationDeleteProduct = (token) => {
       notification.error({ message: error.message || 'Delete failure!' });
     },
   });
+};
+
+//USER
+export const useQueryListShoes = () => {
+  return useQuery(['LIST_SHOES'], () => getListShoes());
+};
+export const useQueryDetailShoes = (id) => {
+  return useQuery(['DETAIL_SHOES', id], () => getDetailShoes(id));
+};
+export const useQueryRelatedProduct = (params) => {
+  return useQuery(['RELATED_PRODUCT', params], () => getRelatedProduct(params));
 };
 
 export const useMutationPaymentTT = (token) => {

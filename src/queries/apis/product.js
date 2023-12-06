@@ -1,15 +1,14 @@
 import { REACT_APP_BASE_URL } from '@src/configs/api';
 import axios from 'axios';
 
+// CMS
 export const getListProduct = (token) => {
-  console.log(`${REACT_APP_BASE_URL}/cms/shoes`)
   return axios.get(`${REACT_APP_BASE_URL}/cms/shoes`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   });
 };
-
 export const getDetailProduct = (id, token) =>
   axios.get(`${REACT_APP_BASE_URL}/cms/shoes/${id}`, {
     headers: {
@@ -35,6 +34,9 @@ export const deleteProduct = (id, token) =>
     },
   });
 
+// User
+export const getListShoes = () => axios({ url: `${REACT_APP_BASE_URL}/explore/shoes`, method: 'GET' });
+export const getDetailShoes = (id) => axios({ url: `${REACT_APP_BASE_URL}/explore/shoes/${id}`, method: 'GET' });
 export const getRelatedProduct = (params) =>
   axios({ url: `${REACT_APP_BASE_URL}/product/recommend`, method: 'GET', params });
 export const getListSize = (id) => axios({ url: `${REACT_APP_BASE_URL}/product/size/${id}`, method: 'GET' });

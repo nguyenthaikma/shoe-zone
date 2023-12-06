@@ -33,7 +33,7 @@ function CreateSize() {
       <FormSidebar form={form} scrollToFirstError onFinish={onFinish}>
         <>
           <FormSidebar.Content>
-            <Card hoverable title={<PageHeader title='Create category' isSearch={false} inCard />}>
+            <Card hoverable title={<PageHeader title='Create size' isSearch={false} inCard />}>
               <FormInput />
             </Card>
           </FormSidebar.Content>

@@ -7,7 +7,7 @@ import { useQueryDetailProduct } from '@src/queries/hooks';
 const { Text } = Typography;
 
 export default function Item({ data }) {
-  const { data: fetchProduct } = useQueryDetailProduct(data?.productID);
+  const { data: fetchProduct } = useQueryDetailProduct(data?.id);
   const dataProduct = useMemo(() => fetchProduct?.data[0], [fetchProduct]);
   return (
     <Col span={24}>

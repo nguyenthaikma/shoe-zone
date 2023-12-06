@@ -10,7 +10,7 @@ export const useMutationLogin = () => {
       notification.success({ message: 'Login Success!' });
     },
     onError: (error) => {
-      clearStoredAuth();  
+      clearStoredAuth();
       notification.error({ message: 'Login failure!' });
     },
   });

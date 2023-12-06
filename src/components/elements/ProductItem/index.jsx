@@ -12,12 +12,12 @@ export default function ProductItem({ data }) {
   const dispatch = useDispatch();
 
   const handleAddToCart = () => {
-    dispatch(openAddSizeAction({ productIdSize: data?.productID, priceSize: data?.price, image: data?.image }));
+    dispatch(openAddSizeAction({ productIdSize: data?.id, priceSize: data?.price, image: data?.image }));
   };
 
   return (
     <Row className={styles.wrapper}>
-      <Link style={{ display: 'block', width: '100%' }} to={`/product/${data?.productID}`}>
+      <Link style={{ display: 'block', width: '100%' }} to={`/product/${data?.id}`}>
         <Col className={styles.thumbnailWrap} span={24}>
           <img
             src={media.find((item) => item.key === data?.image)?.value}
@@ -29,7 +29,7 @@ export default function ProductItem({ data }) {
       <Col span={24} className={styles.content}>
         <Row gutter={[0, 6]}>
           <Col span={24}>
-            <Link to={`/product/${data?.productID}`}>
+            <Link to={`/product/${data?.id}`}>
               <Title style={{ minHeight: 70 }} className={styles.title} level={5}>
                 {data?.name}
               </Title>

@@ -2,32 +2,22 @@ import FormSidebar from '@src/cms/layout/FormSidebar';
 import ActionPublish from '@src/components/widgets/ActionPublish';
 import PageHeader from '@src/components/widgets/PageHeader';
 import { checkAuth } from '@src/libs/localStorage';
-import { useMutationDeleteCategory, useMutationUpdateCategory, useQueryDetailCategory } from '@src/queries/hooks';
+import { useMutationUpdateCategory, useQueryDetailCategory } from '@src/queries/hooks';
 import { Card, Col, Form, Row } from 'antd';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import FormInput from './components/FormInput';
 
 function DetailCategoryAdmin() {
   const { id } = useParams();
   const [form] = Form.useForm();
-  const navigate = useNavigate();
 
   const token = checkAuth();
 
   const { data: detailCategory } = useQueryDetailCategory(id);
   const { mutate: updateCategory } = useMutationUpdateCategory(token, id);
-  const { mutate: deleteCategory } = useMutationDeleteCategory(token);
 
   const onFinish = (values) => {
     updateCategory({ ...values });
-  };
-
-  const onDelete = () => {
-    deleteCategory(id, {
-      onSuccess: () => {
-        navigate('/category');
-      },
-    });
   };
 
   return (
@@ -47,7 +37,6 @@ function DetailCategoryAdmin() {
                     <ActionPublish
                       data={detailCategory.data}
                       showInput={{ scheduleAt: true, status: true, publishedLanguage: true }}
-                      onDelete={onDelete}
                       onUpdate={() => form.submit()}
                     />
                   )}

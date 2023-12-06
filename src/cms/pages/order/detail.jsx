@@ -16,7 +16,6 @@ function DetailOrder() {
   const accessToken = checkAuth();
 
   const { data: detailOrder } = useQueryDetailOrder(id);
-  console.log(detailOrder);
   const { mutate: approve } = useMutationApproveOrder(accessToken);
   const handleApprove = () => {
     approve(

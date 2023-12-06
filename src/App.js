@@ -24,7 +24,7 @@ function App() {
   return (
     <ConfigProvider
       theme={{
-        Authorization: {
+        token: {
           colorPrimary: '#571f7c',
           colorLink: '#571f7c',
           colorLinkHover: '#571f7c',

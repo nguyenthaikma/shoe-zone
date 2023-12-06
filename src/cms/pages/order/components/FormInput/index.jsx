@@ -3,7 +3,6 @@ import moment from 'moment';
 import { Link } from 'react-router-dom';
 
 function FormInput({ data }) {
-  console.log(data);
   return (
     <Descriptions style={{ marginTop: 24 }} title='Order Info' layout='horizontal' bordered column={1}>
       <Descriptions.Item label='Id'>{data?.id}</Descriptions.Item>

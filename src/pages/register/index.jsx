@@ -4,7 +4,6 @@ import BreadcrumbPage from '@src/components/elements/BreadcrumbPage';
 import styles from './style.module.scss';
 import { Link, useNavigate } from 'react-router-dom';
 import { useMutationRegister } from '@src/queries/hooks';
-import { regexEmail, regexPhone } from '@src/utils/regex';
 
 export default function Register() {
   const navigate = useNavigate();
@@ -12,7 +11,7 @@ export default function Register() {
   const { mutate: Register, isLoading } = useMutationRegister();
   const onSubmit = (values) => {
     Register(
-      { ...values, role: 'user' },
+      { ...values },
       {
         onSuccess: () => {
           navigate('/login');
@@ -46,21 +45,12 @@ export default function Register() {
                   rules={[
                     {
                       required: true,
-                      message: 'Email is required!',
-                    },
-                    {
-                      pattern: regexEmail,
-                      message: 'Email is invalid!',
+                      message: 'First name is required!',
                     },
                   ]}
-                  name='email'
+                  name='firstName'
                 >
-                  <Input placeholder='Email' />
-                </Form.Item>
-              </Col>
-              <Col span={24}>
-                <Form.Item name='address'>
-                  <Input placeholder='Address' />
+                  <Input placeholder='First name' />
                 </Form.Item>
               </Col>
               <Col span={24}>
@@ -68,16 +58,12 @@ export default function Register() {
                   rules={[
                     {
                       required: true,
-                      message: 'Phone  is required!',
-                    },
-                    {
-                      pattern: regexPhone,
-                      message: 'Phone  is invalid!',
+                      message: 'Last name is required!',
                     },
                   ]}
-                  name='mobile'
+                  name='lastName'
                 >
-                  <Input placeholder='Phone number' />
+                  <Input placeholder='Last name' />
                 </Form.Item>
               </Col>
               <Col span={24}>
@@ -91,6 +77,28 @@ export default function Register() {
                   name='password'
                 >
                   <Input.Password placeholder='Password' type='password' />
+                </Form.Item>
+              </Col>
+              <Col span={24}>
+                <Form.Item
+                  rules={[
+                    {
+                      required: true,
+                      message: 'Confirm password is required!',
+                    },
+                    ({ getFieldValue }) => ({
+                      validator(_, value) {
+                        if (!value || getFieldValue('password') === value) {
+                          return Promise.resolve();
+                        }
+                        return Promise.reject(new Error('Password not match'));
+                      },
+                    }),
+                  ]}
+                  u
+                  name='passwordConfirm'
+                >
+                  <Input.Password placeholder='Confirm password' type='password' />
                 </Form.Item>
               </Col>
               <Col span={24}>

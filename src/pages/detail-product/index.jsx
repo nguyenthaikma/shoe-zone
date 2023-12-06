@@ -2,32 +2,34 @@ import { useMemo, useState } from 'react';
 
 import { media } from '@src/assets/images/media';
 import BreadcrumbPage from '@src/components/elements/BreadcrumbPage';
-import { checkAuth, getStoredAuth } from '@src/libs/localStorage';
-import { useQueryDetailProduct, useQueryListSize, useQueryRelatedProduct } from '@src/queries/hooks';
+import ProductItem from '@src/components/elements/ProductItem';
+import { checkAuth } from '@src/libs/localStorage';
+import {
+  useQueryDetailShoes,
+  useQueryProfile,
+  useQueryRelatedProduct,
+} from '@src/queries/hooks';
 import { useMutationAddCart } from '@src/queries/hooks/cart';
 import { Button, Col, InputNumber, Row, Space, Typography, notification } from 'antd';
 import { useNavigate, useParams } from 'react-router-dom';
 import styles from './style.module.scss';
-import ProductItem from '@src/components/elements/ProductItem';
 
 const { Title, Text } = Typography;
 
 export default function DetailProduct() {
   const navigate = useNavigate();
+  const accessToken = checkAuth();
   const [active, setActive] = useState();
   const { idProduct } = useParams();
-  const profile = getStoredAuth();
+  const profile = useQueryProfile(accessToken);
 
   const [available, setAvailable] = useState(1);
 
-  const accessToken = checkAuth();
-
   const [quantity, setQuantity] = useState(1);
 
-  const { data: fetchProduct } = useQueryDetailProduct(idProduct);
-  const detailProduct = useMemo(() => fetchProduct?.data[0], [fetchProduct]);
+  const { data: fetchProduct } = useQueryDetailShoes(idProduct);
+  const detailProduct = useMemo(() => fetchProduct?.data, [fetchProduct]);
 
-  // const { data: listSize } = useQueryListSize(detailProduct?.productID);
   const { mutate: addCart } = useMutationAddCart();
   const handleAdd = () => {
     if (!accessToken) {
@@ -113,18 +115,18 @@ export default function DetailProduct() {
                             </Col>
                             <Col span={18}>
                               <Space size={10}>
-                                {/* {listSize?.data?.map((item) => (
+                                {detailProduct?.refSizes?.map((item, index) => (
                                   <div
-                                    key={item.size}
+                                    key={index}
                                     className={`${styles.size} ${active === item.size && styles.active}`}
                                     onClick={() => {
-                                      setAvailable(!!item.quanlity);
+                                      setAvailable(item.quantity);
                                       setActive(item.size);
                                     }}
                                   >
                                     {item.size}
                                   </div>
-                                ))} */}
+                                ))}
                               </Space>
                             </Col>
                           </Row>
@@ -135,7 +137,7 @@ export default function DetailProduct() {
                               <Text className={styles.label}>Material:</Text>
                             </Col>
                             <Col span={18} className={styles.labelWrap}>
-                              <Text style={{ fontSize: 12 }}>{detailProduct?.metarial || '__'}</Text>
+                              <Text style={{ fontSize: 12 }}>{detailProduct?.material || '__'}</Text>
                             </Col>
                           </Row>
                         </Col>
@@ -155,11 +157,7 @@ export default function DetailProduct() {
                               <Text className={styles.label}>Type:</Text>
                             </Col>
                             <Col span={18} className={styles.labelWrap}>
-                              <Text style={{ fontSize: 12 }}>
-                                {(detailProduct?.categoryID === 'cate1' && 'Sport') ||
-                                  (detailProduct?.categoryID === 'cate2' && 'Gym') ||
-                                  '__'}
-                              </Text>
+                              <Text style={{ fontSize: 12 }}>{detailProduct?.category?.name}</Text>
                             </Col>
                           </Row>
                         </Col>
@@ -170,7 +168,7 @@ export default function DetailProduct() {
                             </Col>
                             <Col span={18} className={styles.labelWrap}>
                               <Text style={{ fontSize: 12, color: available ? '#4F8A10' : 'red' }}>
-                                {available ? 'In stock' : 'Out stock'}!
+                                {available ? `${available} (In stock)` : 'Out stock!'}
                               </Text>
                             </Col>
                           </Row>
@@ -181,7 +179,7 @@ export default function DetailProduct() {
                               <Text className={styles.label}>Quantity:</Text>
                             </Col>
                             <Col span={18} className={styles.labelWrap}>
-                              <InputNumber onChange={(value) => setQuantity(value)} defaultValue={1} min={1} />
+                              <InputNumber onChange={(value) => setQuantity(value)} defaultValue={1} min={1} max={available} />
                             </Col>
                           </Row>
                         </Col>

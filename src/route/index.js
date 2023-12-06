@@ -2,9 +2,9 @@ import Notfound from '@components/screens/404';
 import MainLayout from '@src/components/layout';
 import lazyLoading from '@src/libs/lazyLoading';
 import { checkRole } from '@src/libs/localStorage';
+import { useEffect, useState } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import { adminRouter, userRouter } from './routeConfig';
-import { useEffect, useState } from 'react';
 
 const Login = lazyLoading(() => import('@src/pages/login'));
 const Register = lazyLoading(() => import('@src/pages/register'));

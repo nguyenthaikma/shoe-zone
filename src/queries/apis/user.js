@@ -8,3 +8,9 @@ export const getListUser = (token) =>
     },
   });
 
+export const getProfile = (token) =>
+  axios.get(`${REACT_APP_BASE_URL}/explore/profile`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });

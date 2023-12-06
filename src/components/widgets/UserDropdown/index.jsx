@@ -1,39 +1,23 @@
 import { LoginOutlined, UserOutlined } from '@ant-design/icons';
-import { checkAuth, clearStoredAuth, getStoredAuth } from '@libs/localStorage';
-import { Avatar, Button, Col, Dropdown, Form, Input, Modal, Row, Space, Typography } from 'antd';
+import { checkAuth, clearStoredAuth } from '@libs/localStorage';
+import { Avatar, Button, Dropdown, Row, Space, Typography } from 'antd';
 import { useNavigate } from 'react-router-dom';
 
-import { useMutationChangePassword } from '@src/queries/hooks';
-import { useState } from 'react';
+import { useQueryProfile } from '@src/queries/hooks';
 import styles from './style.module.scss';
 
 const { Text } = Typography;
 
 function UserDropdownAuth({ color = '#fff', size = 36 }) {
-  const profile = getStoredAuth();
   const navigate = useNavigate();
   const accessToken = checkAuth();
-  const [form] = Form.useForm();
 
-  const [visible, setVisible] = useState(false);
+  const { data: profile } = useQueryProfile(accessToken);
 
   const onLogout = (e) => {
     e.preventDefault();
     clearStoredAuth();
     navigate('/login');
-  };
-
-  const { mutate: changePassword } = useMutationChangePassword(accessToken);
-
-  const onSubmit = (values) => {
-    changePassword(
-      { ...values, userID: profile?.userID },
-      {
-        onSuccess: () => {
-          setVisible(false);
-        },
-      }
-    );
   };
 
   const items = [
@@ -52,7 +36,7 @@ function UserDropdownAuth({ color = '#fff', size = 36 }) {
 
   return (
     <Row style={{ height: 'fit-content' }} className='user-dropdown'>
-      <Modal
+      {/* <Modal
         isLoading
         okText='Done'
         onOk={() => form.submit()}
@@ -111,17 +95,15 @@ function UserDropdownAuth({ color = '#fff', size = 36 }) {
             </Col>
           </Row>
         </Form>
-      </Modal>
-      {profile && (
-        <Dropdown menu={{ items }} trigger='click' overlayStyle={{ position: 'fixed' }} placement='bottomRight'>
-          <Space className={styles.space} style align='center'>
-            <Avatar size={size} icon={<UserOutlined />} src={profile?.avatar?.location} />
-            <Typography.Paragraph style={{ color, margin: 0 }} className='user-label' ellipsis={{ rows: 1 }}>
-              Hi, Admin
-            </Typography.Paragraph>
-          </Space>
-        </Dropdown>
-      )}
+      </Modal> */}
+      <Dropdown menu={{ items }} trigger='click' overlayStyle={{ position: 'fixed' }} placement='bottomRight'>
+        <Space className={styles.space} style align='center'>
+          <Avatar size={size} icon={<UserOutlined />} src={profile?.avatar?.location} />
+          <Typography.Paragraph style={{ color, margin: 0 }} className='user-label' ellipsis={{ rows: 1 }}>
+            Hi, {profile?.data?.username || 'Admin'}
+          </Typography.Paragraph>
+        </Space>
+      </Dropdown>
     </Row>
   );
 }

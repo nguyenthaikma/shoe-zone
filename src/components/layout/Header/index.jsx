@@ -8,15 +8,15 @@ import {
   ShoppingCartOutlined,
   UserOutlined,
 } from '@ant-design/icons';
+import UserDropdownAuth from '@src/components/widgets/UserDropdown';
 import { listCategory } from '@src/configs/const';
+import { checkAuth, getLocalStored } from '@src/libs/localStorage';
+import { useQueryListCart } from '@src/queries/hooks/cart';
 import { onOpen } from '@src/redux/actions/drawerReducer';
 import { Badge, Col, Drawer, Row, Space, Typography } from 'antd';
 import { useDispatch } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 import styles from './style.module.scss';
-import { checkAuth, getLocalStored } from '@src/libs/localStorage';
-import UserDropdownAuth from '@src/components/widgets/UserDropdown';
-import { useQueryListCart } from '@src/queries/hooks/cart';
 
 const { Text } = Typography;
 
@@ -78,7 +78,7 @@ export default function Header() {
             </Space>
             <Space size={3} className='hoverColor'>
               <MailFilled />
-              <Text> info@somedomain.com</Text>
+              <Text>info@somedomain.com</Text>
             </Space>
           </Space>
           <Space size={10} wrap>

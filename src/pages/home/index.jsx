@@ -1,17 +1,16 @@
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import SlideShowCustom from '@components/widgets/SlideShowCustom';
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo } from 'react';
 
 import OutstandingStoreItem from '@src/components/elements/OutstandingItem';
 import ProductItem from '@src/components/elements/ProductItem';
 import ShoeItem from '@src/components/elements/ShoeItem';
 import SlideItem from '@src/components/elements/SlideItem';
 import { listCollection } from '@src/configs/const';
-import { useQueryListProduct } from '@src/queries/hooks';
+import { useQueryListShoes } from '@src/queries/hooks';
 import { Button, Col, Row, Space, Typography } from 'antd';
-import moment from 'moment';
-import styles from './style.module.scss';
 import { useNavigate } from 'react-router-dom';
+import styles from './style.module.scss';
 
 const { Title, Text } = Typography;
 
@@ -63,25 +62,14 @@ export default function Home() {
     []
   );
 
-  const { data: listProduct } = useQueryListProduct();
+  const { data: listProduct } = useQueryListShoes();
 
-  const [newArrivals, setNewArrivals] = useState([]);
-  useEffect(() => {
-    const listPrd = listProduct?.data;
-    const newArrivals = listPrd?.sort((a, b) => moment(b?.createdAt) - moment(a?.createdAt)).slice(0, 10);
-    setNewArrivals(newArrivals);
-  }, [listProduct]);
+  const newArrivals = useMemo(() => listProduct?.data?.filter((x) => x.isNewArrival), [listProduct]);
   const slideElementNewArrivals = useMemo(
     () => newArrivals?.map((e) => <ProductItem data={e} key={e?.id} />),
     [newArrivals]
   );
-
-  const [bestSeller, setBestSeller] = useState([]);
-  useEffect(() => {
-    const listPrd = listProduct?.data;
-    const newArrivals = listPrd?.sort((a, b) => b?.price - a?.price).slice(0, 4);
-    setBestSeller(newArrivals);
-  }, [listProduct]);
+  const bestSeller = useMemo(() => listProduct?.data?.filter((x) => x.isNewArrival), [listProduct]);
 
   return (
     <Row className={`${styles.wrapper}`}>

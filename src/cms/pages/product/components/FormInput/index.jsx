@@ -34,8 +34,8 @@ function FormInput({ data }) {
       >
         <Select placeholder='Select category'>
           <Select.Option value={1}>Sport</Select.Option>
-          <Select.Option value={2}>Gym</Select.Option>
-          <Select.Option value={3}>Other</Select.Option>
+          <Select.Option value={3}>Gym</Select.Option>
+          <Select.Option value={4}>Other</Select.Option>
         </Select>
       </Form.Item>
       <Form.Item

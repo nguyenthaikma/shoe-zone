@@ -9,7 +9,6 @@ function Size() {
   const [search, setS] = useState();
   const columns = columnsTable();
 
-  console.log(search);
   const { data: listSize } = useQueryListSize({ search });
 
   return (

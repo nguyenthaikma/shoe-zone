@@ -9,7 +9,6 @@ function ListUser() {
   const accessToken = checkAuth();
 
   const { data: listUser } = useQueryListUser(accessToken);
-  console.log(listUser);
 
   const columns = columnsTableUser();
 

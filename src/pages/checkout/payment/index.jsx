@@ -16,8 +16,8 @@ export default function Information() {
   const accessToken = checkAuth();
 
   const profile = getStoredAuth();
-  const { data: listCart } = useQueryListCart(profile?.userID);
-  const totalPrice = useMemo(() => listCart?.data?.reduce((total, item) => (total += item.price), 0), [listCart]);
+  const { data: listCart } = useQueryListCart(accessToken);
+  const totalPrice = useMemo(() => listCart?.data?.reduce((total, item) => (total += item.amount), 0), [listCart]);
 
   const { mutate: payment, isLoading } = useMutationPaymentCheckout(accessToken);
 

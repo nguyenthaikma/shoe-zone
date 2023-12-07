@@ -1,8 +1,6 @@
-import { Button, Col, Form, InputNumber, Row, Select, Space, Spin, Typography } from 'antd';
+import { Button, Col, Form, InputNumber, Row, Select, Space, Typography } from 'antd';
 
 import BreadcrumbPage from '@src/components/elements/BreadcrumbPage';
-import ProductItem from '@src/components/elements/ProductItem';
-import { useQueryListProduct } from '@src/queries/hooks';
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import styles from './style.module.scss';
@@ -20,7 +18,7 @@ export default function ListProduct() {
 
   const baseParams = { id };
   const [params, setParams] = useState();
-  const { data: listProduct, isLoading } = useQueryListProduct({ ...params, id });
+  // const { data: listProduct, isLoading } = useQueryListProduct({ ...params, id });
 
   const navigate = useNavigate();
   return (
@@ -50,7 +48,7 @@ export default function ListProduct() {
                     </Select>
                   </Space>
                 </Col>
-                <Col span={24}>
+                {/* <Col span={24}>
                   {isLoading ? (
                     <Col style={{ display: 'flex' }}>
                       <Spin style={{ margin: 'auto' }} />
@@ -64,7 +62,7 @@ export default function ListProduct() {
                       ))}
                     </Row>
                   )}
-                </Col>
+                </Col> */}
               </Row>
             </Col>
             <Col md={{ span: 6 }} span={10} className={styles.filter}>

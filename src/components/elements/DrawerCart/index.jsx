@@ -1,4 +1,4 @@
-import { getLocalStored } from '@src/libs/localStorage';
+import { checkAuth } from '@src/libs/localStorage';
 import { useQueryListCart } from '@src/queries/hooks/cart';
 import { onClose } from '@src/redux/actions/drawerReducer';
 import { Button, Col, Row, Space, Typography } from 'antd';
@@ -12,6 +12,7 @@ const { Text } = Typography;
 
 export default function DrawerCart() {
   const navigate = useNavigate();
+  const accessToken = checkAuth();
 
   const dispatch = useDispatch();
 
@@ -20,9 +21,8 @@ export default function DrawerCart() {
     navigate('/cart');
   };
 
-  const signature = getLocalStored('signature');
-  const { data: listCart } = useQueryListCart(signature?.userID);
-  const totalPrice = useMemo(() => listCart?.data?.reduce((total, item) => (total += item.price), 0), [listCart]);
+  const { data: listCart } = useQueryListCart(accessToken);
+  const totalPrice = useMemo(() => listCart?.data?.reduce((total, item) => (total += item.amount), 0), [listCart]);
 
   return (
     <Row gutter={[0, 15]} className={styles.wrapper}>

@@ -3,7 +3,7 @@ import { Button, Col, Row, Space, Typography } from 'antd';
 import { useMemo } from 'react';
 
 import CartItem from '@src/components/elements/CartItem';
-import { getLocalStored } from '@src/libs/localStorage';
+import { checkAuth } from '@src/libs/localStorage';
 import { useQueryListCart } from '@src/queries/hooks/cart';
 import { Link, useNavigate } from 'react-router-dom';
 import styles from './style.module.scss';
@@ -12,10 +12,10 @@ const { Text } = Typography;
 
 export default function Cart() {
   const navigate = useNavigate();
+  const accessToken = checkAuth();
 
-  const signature = getLocalStored('signature');
-  const { data: listCart } = useQueryListCart(signature?.userID);
-  const totalPrice = useMemo(() => listCart?.data?.reduce((total, item) => (total += item.price), 0), [listCart]);
+  const { data: listCart } = useQueryListCart(accessToken);
+  const totalPrice = useMemo(() => listCart?.data?.reduce((total, item) => (total += item.amount), 0), [listCart]);
 
   return (
     <Row className={styles.wrapper}>

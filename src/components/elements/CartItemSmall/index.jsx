@@ -3,11 +3,15 @@ import { Button, Col, InputNumber, Row, Space, Typography } from 'antd';
 import { media } from '@src/assets/images/media';
 import { useMutationPlusCart, useMutationRemoveCart } from '@src/queries/hooks/cart';
 import styles from './style.module.scss';
+import { useMemo } from 'react';
 
 const { Text } = Typography;
 
 export default function CartItemSmall({ data }) {
   const { mutate: plusInCart } = useMutationPlusCart();
+
+  const shoes = useMemo(() => data?.shoes, [data]);
+
   const handlePlusCart = () => {
     plusInCart({ cartID: data?.cartID });
   };
@@ -25,8 +29,8 @@ export default function CartItemSmall({ data }) {
           <Col>
             <div className={styles.imgWrap}>
               <img
-                src={media.find((item) => item.key === data?.image)?.value}
-                alt={data?.name}
+                src={media.find((item) => item.key === shoes?.image)?.value}
+                alt={shoes?.name}
                 className={styles.img}
               />
             </div>
@@ -36,13 +40,13 @@ export default function CartItemSmall({ data }) {
               <Col span={24}>
                 <div className={styles.content}>
                   <Space size={0} direction='vertical'>
-                    <Text className={styles.name}>{data?.name}</Text>
+                    <Text className={styles.name}>{shoes?.name}</Text>
                     <Text className={styles.property}>Size: {data?.size}</Text>
                   </Space>
                 </div>
               </Col>
               <Col span={24}>
-                <Text strong>${data?.price}</Text>
+                <Text strong>${shoes?.price}</Text>
               </Col>
               <Col span={24}>
                 <InputNumber
@@ -60,7 +64,7 @@ export default function CartItemSmall({ data }) {
                     </Button>
                   }
                   min={0}
-                  value={data?.number}
+                  value={data?.quantity}
                 />
               </Col>
             </Row>

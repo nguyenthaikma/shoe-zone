@@ -42,7 +42,7 @@ export const getRelatedProduct = (params) =>
 export const getListSize = (id) => axios({ url: `${REACT_APP_BASE_URL}/product/size/${id}`, method: 'GET' });
 
 export const paymentTT = (data, token) =>
-  axios.post(`${REACT_APP_BASE_URL}/order/BuyItNow`, data, {
+  axios.post(`${REACT_APP_BASE_URL}/explore/add-orders`, data, {
     headers: {
       Authorization: `Bearer ${token}`,
     },

@@ -3,13 +3,13 @@ import { notification } from 'antd';
 import { useMutation, useQuery } from 'react-query';
 import { addToCart, getListCart, plusInCart, rmCart } from '../apis/cart';
 
-export const useQueryListCart = (params) => {
-  return useQuery(['LIST_CART', params], () => getListCart({ userID: params }), {
-    enabled: !!params,
+export const useQueryListCart = (token) => {
+  return useQuery([token], () => getListCart(token), {
+    enabled: !!token,
   });
 };
-export const useMutationAddCart = () => {
-  return useMutation(addToCart, {
+export const useMutationAddCart = (token) => {
+  return useMutation((data) => addToCart(data, token), {
     onSuccess: async (data) => {
       if (true) {
         queryClient.refetchQueries(['LIST_CART']);

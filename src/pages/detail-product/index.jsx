@@ -2,13 +2,8 @@ import { useMemo, useState } from 'react';
 
 import { media } from '@src/assets/images/media';
 import BreadcrumbPage from '@src/components/elements/BreadcrumbPage';
-import ProductItem from '@src/components/elements/ProductItem';
 import { checkAuth } from '@src/libs/localStorage';
-import {
-  useQueryDetailShoes,
-  useQueryProfile,
-  useQueryRelatedProduct,
-} from '@src/queries/hooks';
+import { useQueryDetailShoes } from '@src/queries/hooks';
 import { useMutationAddCart } from '@src/queries/hooks/cart';
 import { Button, Col, InputNumber, Row, Space, Typography, notification } from 'antd';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -21,16 +16,14 @@ export default function DetailProduct() {
   const accessToken = checkAuth();
   const [active, setActive] = useState();
   const { idProduct } = useParams();
-  const profile = useQueryProfile(accessToken);
 
   const [available, setAvailable] = useState(1);
-
   const [quantity, setQuantity] = useState(1);
 
   const { data: fetchProduct } = useQueryDetailShoes(idProduct);
   const detailProduct = useMemo(() => fetchProduct?.data, [fetchProduct]);
 
-  const { mutate: addCart } = useMutationAddCart();
+  const { mutate: addCart } = useMutationAddCart(accessToken);
   const handleAdd = () => {
     if (!accessToken) {
       notification.error({ message: 'Please login to continue!' });
@@ -40,11 +33,9 @@ export default function DetailProduct() {
     if (active && quantity) {
       addCart(
         {
-          userID: profile.userID,
-          productID: detailProduct?.productID,
+          quantity,
+          shoesId: detailProduct?.id,
           size: active,
-          price: detailProduct?.price,
-          image: detailProduct?.image,
         },
         { onSuccess: () => navigate('/cart') }
       );
@@ -60,17 +51,11 @@ export default function DetailProduct() {
     }
 
     if (active && quantity) {
-      navigate(`/checkouts/information?product=${detailProduct?.productID}&size=${active}&quantity=${quantity}`);
+      navigate(`/checkouts/information?product=${detailProduct?.id}&size=${active}&quantity=${quantity}`);
     } else {
       notification.error({ message: 'Please choose size and quantity!' });
     }
   };
-
-  const { data: fetchRelatedProduct } = useQueryRelatedProduct({
-    cate: detailProduct?.categoryID,
-    productID: idProduct,
-  });
-  const relatedProduct = useMemo(() => fetchRelatedProduct?.data, [fetchRelatedProduct]);
 
   return (
     <Row className={styles.wrapper}>
@@ -179,7 +164,12 @@ export default function DetailProduct() {
                               <Text className={styles.label}>Quantity:</Text>
                             </Col>
                             <Col span={18} className={styles.labelWrap}>
-                              <InputNumber onChange={(value) => setQuantity(value)} defaultValue={1} min={1} max={available} />
+                              <InputNumber
+                                onChange={(value) => setQuantity(value)}
+                                defaultValue={1}
+                                min={1}
+                                max={available}
+                              />
                             </Col>
                           </Row>
                         </Col>
@@ -236,20 +226,6 @@ export default function DetailProduct() {
                 </Text>
               </Space>
             </Col>
-            {relatedProduct && (
-              <Col span={24} className={styles.recommend}>
-                <Title level={3} className={styles.title}>
-                  Recommended products
-                </Title>
-                <Row gutter={[30, 30]}>
-                  {relatedProduct.slice(0, 4).map((item) => (
-                    <Col key={item.id} span={24} md={{ span: 12 }} xl={{ span: 6 }}>
-                      <ProductItem data={item} />
-                    </Col>
-                  ))}
-                </Row>
-              </Col>
-            )}
           </Row>
         </div>
       </Col>

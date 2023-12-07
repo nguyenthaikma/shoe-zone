@@ -1,13 +1,12 @@
 import { media } from '@src/assets/images/media';
+import { getUrlPaymentVNP } from '@src/configs/vnpay';
 import { checkAuth, getStoredAuth } from '@src/libs/localStorage';
-import { useMutationPaymentTT, useQueryDetailProduct } from '@src/queries/hooks';
+import { useMutationPaymentTT, useQueryDetailShoes } from '@src/queries/hooks';
+import { regexEmail, regexPhone } from '@src/utils/regex';
 import { Badge, Button, Col, Form, Input, Row, Space, Typography } from 'antd';
-import moment from 'moment';
 import { useMemo } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import styles from './style.module.scss';
-import { regexEmail, regexPhone } from '@src/utils/regex';
-import { getUrlPaymentVNP } from '@src/configs/vnpay';
 
 const { Title, Text } = Typography;
 
@@ -21,8 +20,8 @@ export default function Information() {
   }
   const profile = getStoredAuth();
 
-  const { data: fetchProduct } = useQueryDetailProduct(params.product);
-  const data = useMemo(() => fetchProduct?.data[0], [fetchProduct]);
+  const { data: fetchProduct } = useQueryDetailShoes(params.product);
+  const data = useMemo(() => fetchProduct?.data, [fetchProduct]);
 
   const { mutate: payment, isLoading } = useMutationPaymentTT(accessToken);
 
@@ -30,13 +29,9 @@ export default function Information() {
     payment(
       {
         ...values,
-        userID: profile.userID,
-        createdAt: moment().format('YYYY-MM-DD'),
-        totalAmount: params.quantity * data?.price + 20,
-        productID: params.product,
+        quantity: Number(params.quantity),
+        shoesId: Number(params.product),
         size: Number(params.size),
-        number: Number(params.quantity),
-        price: data?.price * 23000,
       },
       {
         onSuccess: async (res) => {

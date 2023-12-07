@@ -2,15 +2,13 @@ import { Button, Col, InputNumber, Row, Space, Typography } from 'antd';
 import { useMemo } from 'react';
 
 import { media } from '@src/assets/images/media';
-import { useQueryDetailProduct } from '@src/queries/hooks';
 import { useMutationPlusCart, useMutationRemoveCart } from '@src/queries/hooks/cart';
 import styles from './style.module.scss';
 
 const { Text } = Typography;
 
 export default function CartItem({ data: dataCart }) {
-  const { data: fetchProduct } = useQueryDetailProduct(dataCart?.productID);
-  const data = useMemo(() => fetchProduct?.data[0], [fetchProduct]);
+  const shoes = useMemo(() => dataCart?.shoes, [dataCart]);
 
   const { mutate: plusInCart } = useMutationPlusCart();
   const handlePlusCart = () => {
@@ -29,8 +27,8 @@ export default function CartItem({ data: dataCart }) {
           <Col>
             <div className={styles.imgWrap}>
               <img
-                src={media.find((item) => item.key === dataCart?.image)?.value}
-                alt={data?.name}
+                src={media.find((item) => item.key === shoes?.image)?.value}
+                alt={shoes?.name}
                 className={styles.img}
               />
             </div>
@@ -40,14 +38,14 @@ export default function CartItem({ data: dataCart }) {
               <Col span={24}>
                 <div className={styles.content}>
                   <Space size={0} direction='vertical'>
-                    <Text className={styles.name}>{data?.name}</Text>
+                    <Text className={styles.name}>{shoes?.name}</Text>
                     <Text className={styles.property}>Size: {dataCart?.size}</Text>
                   </Space>
                 </div>
               </Col>
               <Col span={24}>
                 <Text className={styles.total} strong>
-                  ${dataCart?.price}
+                  ${shoes?.price}
                 </Text>
               </Col>
               <Col span={24}>
@@ -66,7 +64,7 @@ export default function CartItem({ data: dataCart }) {
                     </Button>
                   }
                   min={0}
-                  value={dataCart?.number}
+                  value={dataCart?.quantity}
                 />
               </Col>
             </Row>

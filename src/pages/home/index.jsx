@@ -1,5 +1,6 @@
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import SlideShowCustom from '@components/widgets/SlideShowCustom';
+import * as a from 'crypto-js';
 import { useMemo } from 'react';
 
 import OutstandingStoreItem from '@src/components/elements/OutstandingItem';
@@ -70,9 +71,11 @@ export default function Home() {
     [newArrivals]
   );
   const bestSeller = useMemo(() => listProduct?.data?.filter((x) => x.isNewArrival), [listProduct]);
+  console.log(a)
 
   return (
     <Row className={`${styles.wrapper}`}>
+
       <Col span={24}>
         <Row gutter={[0, 20]} className='container'>
           <Col span={24}>

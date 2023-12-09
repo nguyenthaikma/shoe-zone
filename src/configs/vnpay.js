@@ -2,7 +2,7 @@ import { REACT_APP_VNP_HASHSECRET, REACT_APP_VNP_TMCODE, REACT_APP_VNP_URL } fro
 import dayjs from 'dayjs';
 import querystring from 'qs';
 import { publicIpv4 } from 'public-ip';
-import * as crypto from 'crypto';
+import { HmacSHA512, enc } from 'crypto-js';
 
 export function sortObject(obj) {
   const sorted = {};
@@ -56,9 +56,8 @@ export const getUrlPaymentVNP = async (amount, orderInfo) => {
     const secretKey = REACT_APP_VNP_HASHSECRET ?? '';
 
     const signData = querystring.stringify(vnpParams, { encode: false });
-    const hmac = crypto.createHmac('sha512', secretKey);
-    // eslint-disable-next-line no-buffer-constructor
-    const signed = hmac.update(new Buffer(signData, 'utf-8')).digest('hex');
+    const hmac = HmacSHA512(signData, secretKey);
+    const signed = hmac.toString(enc.Hex);
 
     vnpParams.vnp_SecureHash = signed;
 

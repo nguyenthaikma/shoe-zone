@@ -18,14 +18,11 @@ function DetailOrder() {
   const { data: detailOrder } = useQueryDetailOrder(id);
   const { mutate: approve } = useMutationApproveOrder(accessToken);
   const handleApprove = () => {
-    approve(
-      { orderID: detailOrder.data[0].orderID, gmail: 'nguyenthai9cc@gmail.com' },
-      {
-        onSuccess: () => {
-          navigate('/order');
-        },
-      }
-    );
+    approve(id, {
+      onSuccess: () => {
+        navigate('/order');
+      },
+    });
   };
 
   return (

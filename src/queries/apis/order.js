@@ -15,8 +15,10 @@ export const getDetailOrder = (id, token) =>
     },
   });
 
-export const approveOrder = (data, token) =>
-  axios.post(`${REACT_APP_BASE_URL}/order/checkOrder`, data, {
+export const approveOrder = (id, token) =>
+  axios({
+    url: `${REACT_APP_BASE_URL}/cms/orders/verify/${id}`,
+    method: 'PATCH',
     headers: {
       Authorization: `Bearer ${token}`,
     },

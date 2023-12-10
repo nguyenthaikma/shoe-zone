@@ -20,7 +20,7 @@ export const useQueryUserOrder = (id) => {
 
 export const useMutationApproveOrder = (token) => {
   const queryClient = useQueryClient();
-  return useMutation((data) => approveOrder(data, token), {
+  return useMutation((id) => approveOrder(id, token), {
     onSuccess: async (data) => {
       if (true) {
         queryClient.invalidateQueries('LIST_ORDER');

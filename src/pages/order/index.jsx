@@ -6,7 +6,7 @@ import { useMemo } from 'react';
 import styles from './style.module.scss';
 import { media } from '@src/assets/images/media';
 
-const { Title } = Typography;
+const { Title, Text } = Typography;
 
 export default function Order() {
   const _breadcrumbs = [{ title: 'Home', href: '/' }, { title: 'Order' }];
@@ -32,7 +32,11 @@ export default function Order() {
                 />
               </Descriptions.Item>
               <Descriptions.Item label='Shoes'>{item?.shoes?.name}</Descriptions.Item>
-              <Descriptions.Item label='Status'>{item?.isVerify ? 'Verified' : 'Not verified'}</Descriptions.Item>
+              <Descriptions.Item label='Status'>
+                <Text style={{ color: item?.isVerify ? '#24cf24' : 'red', fontWeight: 500 }}>
+                  {item?.isVerify ? 'Verified' : 'Not verified'}
+                </Text>
+              </Descriptions.Item>
               <Descriptions.Item label='Total price'>{item?.amount}$</Descriptions.Item>
             </Descriptions>
           ))}

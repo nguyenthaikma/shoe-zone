@@ -20,7 +20,7 @@ export default function ListProduct() {
 
   const baseParams = { id };
   const [params, setParams] = useState();
-  const { data: listProduct, isLoading } = useQueryListShoes({ id });
+  const { data: listProduct, isLoading } = useQueryListShoes({ categoryId: id });
 
   const navigate = useNavigate();
   return (

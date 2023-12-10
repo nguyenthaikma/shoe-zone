@@ -31,10 +31,19 @@ export const columnsTableUser = () => {
       },
     },
     {
+      title: 'Category',
+      dataIndex: 'category',
+      key: 'category',
+      sorter: true,
+      render(category) {
+        return <Link to={`/category/${category?.id}`}>{category?.name}</Link>;
+      },
+    },
+    {
       title: 'Price',
       dataIndex: 'price',
       key: 'price',
-      render: (v) => v || '__',
+      render: (v) => `${v}$` || '__',
     },
     {
       title: 'Material',

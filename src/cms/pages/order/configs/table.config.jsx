@@ -18,8 +18,8 @@ export const columnsTableUser = () => {
     },
     {
       title: 'Is confirm',
-      dataIndex: 'isPaid',
-      key: 'isPaid',
+      dataIndex: 'isVerify',
+      key: 'isVerify',
       render: (v) => v.toString(),
     },
     {

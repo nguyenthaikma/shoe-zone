@@ -45,7 +45,7 @@ export const getUrlPaymentVNP = async (amount, orderInfo) => {
       vnp_Locale: 'vn',
       vnp_CurrCode: 'VND',
       vnp_Amount: amount * 100,
-      vnp_createdAt: vnpcreatedAt,
+      vnp_CreateDate: vnpcreatedAt,
       vnp_IpAddr: IPv4,
     };
     vnpParams.vnp_TxnRef = paymentId;

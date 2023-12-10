@@ -14,6 +14,10 @@ function FormInput({ data }) {
         <Link to={`/product/${data?.shoes?.id}`}>{data?.shoes?.name}</Link>
       </Descriptions.Item>
       <Descriptions.Item label='Customer'>{data?.user?.username}</Descriptions.Item>
+      <Descriptions.Item label='Name'>{data?.description?.name}</Descriptions.Item>
+      <Descriptions.Item label='Address'>{data?.description?.address}</Descriptions.Item>
+      <Descriptions.Item label='Email'>{data?.description?.email}</Descriptions.Item>
+      <Descriptions.Item label='Phone number'>{data?.description?.phone}</Descriptions.Item>
       <Descriptions.Item label='Created time'>{moment(data?.createdDate).format('DD/MM/YYYY HH:mm')}</Descriptions.Item>
     </Descriptions>
   );

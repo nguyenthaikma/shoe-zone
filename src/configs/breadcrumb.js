@@ -4,4 +4,5 @@ export const pathHeadPage = {
   cart: 'Your Shopping Cart',
   login: 'Login',
   register: 'Register',
+  orders: "Order"
 };

@@ -22,4 +22,9 @@ export const approveOrder = (data, token) =>
     },
   });
 
-export const getOrderByUser = (id) => axios.get(`${REACT_APP_BASE_URL}/order/getOrderUser/${id}`);
+export const getOrderByUser = (token) =>
+  axios.get(`${REACT_APP_BASE_URL}/explore/orders`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });

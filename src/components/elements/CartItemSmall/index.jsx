@@ -1,30 +1,31 @@
 import { Button, Col, InputNumber, Row, Space, Typography } from 'antd';
+import { DeleteOutlined } from '@ant-design/icons';
 
 import { media } from '@src/assets/images/media';
 import { useMutationPlusCart, useMutationRemoveCart } from '@src/queries/hooks/cart';
 import styles from './style.module.scss';
 import { useMemo } from 'react';
+import { checkAuth } from '@src/libs/localStorage';
 
 const { Text } = Typography;
 
 export default function CartItemSmall({ data }) {
-  const { mutate: plusInCart } = useMutationPlusCart();
-
+  const token = checkAuth();
   const shoes = useMemo(() => data?.shoes, [data]);
 
-  const handlePlusCart = () => {
-    plusInCart({ cartID: data?.cartID });
+  const { mutate: plusInCart, isLoading: isLoadingPlusCart } = useMutationPlusCart(token, data?.id);
+  const handleChangeQuantity = (quantity) => {
+    plusInCart(quantity);
   };
 
-  const { mutate: deleteCart } = useMutationRemoveCart();
-
+  const { mutate: deleteCart } = useMutationRemoveCart(token);
   const handleDelete = () => {
-    deleteCart({ cartID: data?.cartID });
+    deleteCart(data?.id);
   };
 
   return (
     <Row gutter={[0, 21]} className={styles.row}>
-      <Col span={24}>
+      <Col xl={{ span: 20 }} span={24}>
         <Row gutter={[20, 14]} className={styles.content}>
           <Col>
             <div className={styles.imgWrap}>
@@ -54,12 +55,24 @@ export default function CartItemSmall({ data }) {
                   controls={false}
                   size='small'
                   addonBefore={
-                    <Button onClick={handleDelete} block type='primary' size='small'>
+                    <Button
+                      disabled={isLoadingPlusCart}
+                      onClick={() => handleChangeQuantity(-1)}
+                      block
+                      type='primary'
+                      size='small'
+                    >
                       -
                     </Button>
                   }
                   addonAfter={
-                    <Button onClick={handlePlusCart} block type='primary' size='small'>
+                    <Button
+                      disabled={isLoadingPlusCart}
+                      onClick={() => handleChangeQuantity(+1)}
+                      block
+                      type='primary'
+                      size='small'
+                    >
                       +
                     </Button>
                   }
@@ -70,6 +83,14 @@ export default function CartItemSmall({ data }) {
             </Row>
           </Col>
         </Row>
+      </Col>
+      <Col
+        style={{ justifyContent: 'flex-end', display: 'flex', alignItems: 'flex-start', cursor: 'pointer' }}
+        xl={{ span: 4 }}
+        span={24}
+        onClick={handleDelete}
+      >
+        <DeleteOutlined style={{ color: 'red', fontSize: 16 }} />
       </Col>
     </Row>
   );

@@ -1,18 +1,18 @@
 import { ShoppingCartOutlined } from '@ant-design/icons';
 import { media } from '@src/assets/images/media';
-import { openAddSizeAction } from '@src/redux/actions/drawerReducer';
 import { Col, Row, Typography } from 'antd';
-import { useDispatch } from 'react-redux';
+import { useRef } from 'react';
 import { Link } from 'react-router-dom';
+import ModalAddSizes from '../ModalAddSize';
 import styles from './style.module.scss';
 
 const { Title, Text } = Typography;
 
 export default function ProductItem({ data }) {
-  const dispatch = useDispatch();
+  const ref = useRef();
 
   const handleAddToCart = () => {
-    dispatch(openAddSizeAction({ productIdSize: data?.id, priceSize: data?.price, image: data?.image }));
+    ref.current?.onOpen(true);
   };
 
   return (
@@ -81,6 +81,7 @@ export default function ProductItem({ data }) {
           </Col>
         </Row>
       </Col>
+      <ModalAddSizes ref={ref} id={data?.id} listSize={data?.refSizes} />
     </Row>
   );
 }

@@ -35,7 +35,7 @@ export const deleteProduct = (id, token) =>
   });
 
 // User
-export const getListShoes = () => axios({ url: `${REACT_APP_BASE_URL}/explore/shoes`, method: 'GET' });
+export const getListShoes = (params) => axios({ url: `${REACT_APP_BASE_URL}/explore/shoes`, method: 'GET', params });
 export const getDetailShoes = (id) => axios({ url: `${REACT_APP_BASE_URL}/explore/shoes/${id}`, method: 'GET' });
 export const getRelatedProduct = (params) =>
   axios({ url: `${REACT_APP_BASE_URL}/product/recommend`, method: 'GET', params });
@@ -48,7 +48,7 @@ export const paymentTT = (data, token) =>
     },
   });
 export const paymentCheckout = (data, token) =>
-  axios.post(`${REACT_APP_BASE_URL}/order/checkout`, data, {
+  axios.patch(`${REACT_APP_BASE_URL}/explore/carts/paid`, data, {
     headers: {
       Authorization: `Bearer ${token}`,
     },

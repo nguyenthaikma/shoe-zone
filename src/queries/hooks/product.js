@@ -63,8 +63,8 @@ export const useMutationDeleteProduct = (token) => {
 };
 
 //USER
-export const useQueryListShoes = () => {
-  return useQuery(['LIST_SHOES'], () => getListShoes());
+export const useQueryListShoes = (params) => {
+  return useQuery(['LIST_SHOES', JSON.stringify(params)], () => getListShoes(params));
 };
 export const useQueryDetailShoes = (id) => {
   return useQuery(['DETAIL_SHOES', id], () => getDetailShoes(id));

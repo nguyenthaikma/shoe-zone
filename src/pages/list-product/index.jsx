@@ -1,9 +1,11 @@
-import { Button, Col, Form, InputNumber, Row, Select, Space, Typography } from 'antd';
+import { Button, Col, Form, InputNumber, Row, Select, Space, Spin, Typography } from 'antd';
 
 import BreadcrumbPage from '@src/components/elements/BreadcrumbPage';
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import styles from './style.module.scss';
+import { useQueryListShoes } from '@src/queries/hooks';
+import ProductItem from '@src/components/elements/ProductItem';
 
 const { Text } = Typography;
 
@@ -18,7 +20,7 @@ export default function ListProduct() {
 
   const baseParams = { id };
   const [params, setParams] = useState();
-  // const { data: listProduct, isLoading } = useQueryListProduct({ ...params, id });
+  const { data: listProduct, isLoading } = useQueryListShoes({ id });
 
   const navigate = useNavigate();
   return (
@@ -48,21 +50,21 @@ export default function ListProduct() {
                     </Select>
                   </Space>
                 </Col>
-                {/* <Col span={24}>
+                <Col span={24}>
                   {isLoading ? (
                     <Col style={{ display: 'flex' }}>
                       <Spin style={{ margin: 'auto' }} />
                     </Col>
                   ) : (
                     <Row gutter={[30, 30]}>
-                      {listProduct?.data?.map((item) => (
+                      {listProduct?.data?.data?.map((item) => (
                         <Col xl={{ span: 8 }} md={{ span: 12 }} span={24}>
                           <ProductItem data={item} key={item.id} />
                         </Col>
                       ))}
                     </Row>
                   )}
-                </Col> */}
+                </Col>
               </Row>
             </Col>
             <Col md={{ span: 6 }} span={10} className={styles.filter}>

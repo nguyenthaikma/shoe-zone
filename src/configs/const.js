@@ -20,9 +20,9 @@ export const listTabBestSeller = [
 export const listCategory = [
   { id: 1, name: 'Home', href: '/' },
   { id: 2, name: 'collection', href: '/collections' },
-  { id: 3, name: 'Shoes', href: '/collections/list' },
-  { id: 5, name: 'Gym', href: '/collections/gymShoe' },
-  { id: 6, name: 'Sport', href: '/collections/sportShoe' },
+  { id: 3, name: 'Shoes', href: '/collections/4' },
+  { id: 5, name: 'Gym', href: '/collections/3' },
+  { id: 6, name: 'Sport', href: '/collections/1' },
 ];
 
 export const listCollection = [

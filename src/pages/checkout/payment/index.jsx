@@ -4,7 +4,6 @@ import { useMutationPaymentCheckout } from '@src/queries/hooks';
 import { useQueryListCart } from '@src/queries/hooks/cart';
 import { regexEmail, regexPhone } from '@src/utils/regex';
 import { Button, Col, Form, Input, Row, Typography } from 'antd';
-import moment from 'moment';
 import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import Item from './Item';
@@ -24,10 +23,10 @@ export default function Information() {
   const onFinish = (values) => {
     payment(
       {
-        ...values,
-        userID: profile.userID,
-        createdAt: moment().format('YYYY-MM-DD'),
-        totalAmount: totalPrice + 20,
+        description: {
+          ...values,
+        },
+        orderIds: listCart?.data?.map((cart) => cart?.id),
       },
       {
         onSuccess: async (res) => {
@@ -72,7 +71,7 @@ export default function Information() {
                           message: 'Email is invalid!',
                         },
                       ]}
-                      name='shipEmail'
+                      name='email'
                     >
                       <Input placeholder='Email' />
                     </Form.Item>
@@ -84,35 +83,32 @@ export default function Information() {
                     <Row gutter={[14, 14]}>
                       <Col span={24}>
                         <Form.Item
-                          initialValue={profile?.username}
                           rules={[
                             {
                               required: true,
                               message: 'Name is required!',
                             },
                           ]}
-                          name='shipName'
+                          name='name'
                         >
                           <Input placeholder='Name' />
                         </Form.Item>
                       </Col>
                       <Col span={24}>
                         <Form.Item
-                          initialValue={profile?.address}
                           rules={[
                             {
                               required: true,
                               message: 'Address is required!',
                             },
                           ]}
-                          name='shipAddress'
+                          name='address'
                         >
                           <Input placeholder='Address' />
                         </Form.Item>
                       </Col>
                       <Col span={24}>
                         <Form.Item
-                          initialValue={profile?.mobile}
                           rules={[
                             {
                               required: true,
@@ -123,7 +119,7 @@ export default function Information() {
                               message: 'Phone is invalid!',
                             },
                           ]}
-                          name='shipMobile'
+                          name='phone'
                         >
                           <Input placeholder='Phone' />
                         </Form.Item>

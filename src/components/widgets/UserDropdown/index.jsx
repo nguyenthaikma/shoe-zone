@@ -22,7 +22,7 @@ function UserDropdownAuth({ color = '#fff', size = 36 }) {
 
   const items = [
     {
-      key: '1',
+      key: '2',
       label: (
         <Button block type='link' size='small' onClick={onLogout}>
           <Space size={10} align='center'>
@@ -41,9 +41,8 @@ function UserDropdownAuth({ color = '#fff', size = 36 }) {
           !profile?.data?.isAdmin
             ? {
                 items: [
-                  ...items,
                   {
-                    key: '2',
+                    key: '1',
                     label: (
                       <Button block type='link' size='small' onClick={() => navigate('/orders')}>
                         <Space size={10} align='center'>
@@ -53,6 +52,7 @@ function UserDropdownAuth({ color = '#fff', size = 36 }) {
                       </Button>
                     ),
                   },
+                  ...items,
                 ],
               }
             : {

@@ -5,12 +5,10 @@ import { Card, Col, Form, Row } from 'antd';
 import FormSidebar from '@src/cms/layout/FormSidebar';
 import { checkAuth } from '@src/libs/localStorage';
 import { useMutationCreateSize } from '@src/queries/hooks';
-import { useNavigate } from 'react-router-dom';
 import FormInput from './components/FormInput';
 
 function CreateSize() {
   const [form] = Form.useForm();
-  const navigate = useNavigate();
   const token = checkAuth();
 
   const { mutate: createSize } = useMutationCreateSize(token);
@@ -20,11 +18,6 @@ function CreateSize() {
       {
         ...values,
       },
-      {
-        onSuccess: () => {
-          navigate('/size');
-        },
-      }
     );
   };
 

@@ -14,7 +14,8 @@ export const useQueryDetailOrder = (id) => {
 };
 
 export const useQueryUserOrder = (id) => {
-  return useQuery(['DETAIL_ORDER', id], () => getOrderByUser(id));
+  const token = checkAuth()
+  return useQuery(['DETAIL_ORDER', id], () => getOrderByUser(token));
 };
 
 export const useMutationApproveOrder = (token) => {

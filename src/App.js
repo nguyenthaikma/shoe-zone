@@ -5,10 +5,9 @@ import { ReactQueryDevtools } from 'react-query/devtools';
 import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import DrawerCart from './components/elements/DrawerCart';
+import ScrollToTop from './components/widgets/ScrollTop';
 import { onClose } from './redux/actions/drawerReducer';
 import RouteApp from './route';
-import ModalAddSizes from './components/elements/ModalAddSize';
-import ScrollToTop from './components/widgets/ScrollTop';
 
 export const queryClient = new QueryClient();
 
@@ -38,7 +37,6 @@ function App() {
           <Drawer title='Your cart' placement='right' width={300} onClose={handleClose} open={open}>
             <DrawerCart />
           </Drawer>
-          <ModalAddSizes />
           <ScrollToTop>
             <RouteApp />
           </ScrollToTop>

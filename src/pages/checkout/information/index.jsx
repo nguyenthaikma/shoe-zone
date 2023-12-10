@@ -28,7 +28,9 @@ export default function Information() {
   const onFinish = async (values) => {
     payment(
       {
-        ...values,
+        description: {
+          ...values,
+        },
         quantity: Number(params.quantity),
         shoesId: Number(params.product),
         size: Number(params.size),
@@ -76,7 +78,7 @@ export default function Information() {
                           message: 'Email is invalid!',
                         },
                       ]}
-                      name='shipEmail'
+                      name='email'
                     >
                       <Input placeholder='Email' />
                     </Form.Item>
@@ -95,7 +97,7 @@ export default function Information() {
                               message: 'Name is required!',
                             },
                           ]}
-                          name='shipName'
+                          name='name'
                         >
                           <Input placeholder='Name' />
                         </Form.Item>
@@ -109,7 +111,7 @@ export default function Information() {
                               message: 'Address is required!',
                             },
                           ]}
-                          name='shipAddress'
+                          name='address'
                         >
                           <Input placeholder='Address' />
                         </Form.Item>
@@ -127,7 +129,7 @@ export default function Information() {
                               message: 'Phone is invalid!',
                             },
                           ]}
-                          name='shipMobile'
+                          name='phone'
                         >
                           <Input placeholder='Phone' />
                         </Form.Item>

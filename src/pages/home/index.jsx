@@ -1,6 +1,5 @@
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import SlideShowCustom from '@components/widgets/SlideShowCustom';
-import * as a from 'crypto-js';
 import { useMemo } from 'react';
 
 import OutstandingStoreItem from '@src/components/elements/OutstandingItem';
@@ -65,17 +64,15 @@ export default function Home() {
 
   const { data: listProduct } = useQueryListShoes();
 
-  const newArrivals = useMemo(() => listProduct?.data?.filter((x) => x.isNewArrival), [listProduct]);
+  const newArrivals = useMemo(() => listProduct?.data?.data?.filter((x) => x.isNewArrival), [listProduct]);
   const slideElementNewArrivals = useMemo(
     () => newArrivals?.map((e) => <ProductItem data={e} key={e?.id} />),
     [newArrivals]
   );
-  const bestSeller = useMemo(() => listProduct?.data?.filter((x) => x.isNewArrival), [listProduct]);
-  console.log(a)
+  const bestSeller = useMemo(() => listProduct?.data?.data?.filter((x) => x.isNewArrival), [listProduct]);
 
   return (
     <Row className={`${styles.wrapper}`}>
-
       <Col span={24}>
         <Row gutter={[0, 20]} className='container'>
           <Col span={24}>
@@ -204,7 +201,7 @@ export default function Home() {
                 </Title>
               </Col>
               <Col span={24}>
-                <button onClick={() => navigate('/collections/list')} className={styles.btn}>
+                <button onClick={() => navigate('/collections/4')} className={styles.btn}>
                   SHOP NOW
                 </button>
               </Col>

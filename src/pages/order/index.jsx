@@ -1,19 +1,18 @@
-import { Col, Descriptions, Row, Typography } from 'antd';
+import { Col, Descriptions, Image, Row, Typography } from 'antd';
 
 import BreadcrumbPage from '@src/components/elements/BreadcrumbPage';
-import { getStoredAuth } from '@src/libs/localStorage';
 import { useQueryUserOrder } from '@src/queries/hooks';
 import { useMemo } from 'react';
 import styles from './style.module.scss';
+import { media } from '@src/assets/images/media';
 
 const { Title } = Typography;
 
 export default function Order() {
   const _breadcrumbs = [{ title: 'Home', href: '/' }, { title: 'Order' }];
-  const profile = getStoredAuth();
 
-  const { data: fetchOrder } = useQueryUserOrder(profile?.userID);
-  const listOrder = useMemo(() => fetchOrder?.data, [fetchOrder]);
+  const { data: fetchOrder } = useQueryUserOrder();
+  const listOrder = useMemo(() => fetchOrder?.data?.data, [fetchOrder]);
 
   return (
     <Row className={styles.wrapper}>
@@ -25,12 +24,16 @@ export default function Order() {
           </div>
           {listOrder?.map((item, index) => (
             <Descriptions column={6} style={{ marginBottom: 20 }} key={index} layout='vertical' bordered>
-              <Descriptions.Item label='ID'>{item?.orderID}</Descriptions.Item>
-              <Descriptions.Item label='Status'>{item?.status}</Descriptions.Item>
-              <Descriptions.Item label='Address'>{item?.shipAddress}</Descriptions.Item>
-              <Descriptions.Item label='Email'>{item?.shipEmail}</Descriptions.Item>
-              <Descriptions.Item label='Phone'>{item?.shipMobile}</Descriptions.Item>
-              <Descriptions.Item label='Total price'>{item?.totalAmount}$</Descriptions.Item>
+              <Descriptions.Item label='ID'>{item?.id}</Descriptions.Item>
+              <Descriptions.Item label='Image'>
+                <Image
+                  style={{ width: 40, height: 40 }}
+                  src={media.find((media) => media.key === item?.shoes?.image)?.value}
+                />
+              </Descriptions.Item>
+              <Descriptions.Item label='Shoes'>{item?.shoes?.name}</Descriptions.Item>
+              <Descriptions.Item label='Status'>{item?.isVerify ? 'Verified' : 'Not verified'}</Descriptions.Item>
+              <Descriptions.Item label='Total price'>{item?.amount}$</Descriptions.Item>
             </Descriptions>
           ))}
         </div>

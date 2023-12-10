@@ -13,6 +13,19 @@ export const addToCart = (data, token) =>
       Authorization: `Bearer ${token}`,
     },
   });
-export const rmCart = (data) => axios({ url: `${REACT_APP_BASE_URL}/cart/deleteCart`, method: 'POST', data });
+export const rmCart = (id, token) =>
+  axios({
+    url: `${REACT_APP_BASE_URL}/explore/carts/delete-product/${id}`,
+    method: 'DELETE',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
 
-export const plusInCart = (data) => axios({ url: `${REACT_APP_BASE_URL}/cart/addToCart`, method: 'POST', data });
+export const plusInCart = (id, token, quantity) =>
+  axios({
+    url: `${REACT_APP_BASE_URL}/explore/carts/update-product/${id}`,
+    method: 'PATCH',
+    data: { quantity },
+    headers: { Authorization: `Bearer ${token}` },
+  });

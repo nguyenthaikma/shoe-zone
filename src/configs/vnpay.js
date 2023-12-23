@@ -26,7 +26,7 @@ export const getUrlPaymentVNP = async (amount, orderInfo) => {
 
   const vnpParamsToOrder = {
     vnpTmnCode: REACT_APP_VNP_TMCODE,
-    vnpReturnUrl: 'http://huge-shoes.kma.surge.sh/VnPayReturn',
+    vnpReturnUrl: 'https://shoe-zone.vercel.app/VnPayReturn',
     vnpVersion: '2.1.0',
     vnpCommand: 'pay',
     vnpOrderType: 'topu',
@@ -38,7 +38,7 @@ export const getUrlPaymentVNP = async (amount, orderInfo) => {
   function getPaymentUrl(paymentId) {
     let vnpParams = {
       vnp_TmnCode: REACT_APP_VNP_TMCODE,
-      vnp_ReturnUrl: 'http://huge-shoes.kma.surge.sh/VnPayReturn',
+      vnp_ReturnUrl: 'https://shoe-zone.vercel.app/VnPayReturn',
       vnp_Version: '2.1.0',
       vnp_Command: 'pay',
       vnp_OrderType: 'topu',

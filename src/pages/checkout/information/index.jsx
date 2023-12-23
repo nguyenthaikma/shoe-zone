@@ -39,7 +39,7 @@ export default function Information() {
         onSuccess: async (res) => {
           const url = await (
             await getUrlPaymentVNP((params.quantity * data?.price + 20) * 23000, data?.name)
-          ).getPaymentUrl(res.data);
+          ).getPaymentUrl(res.data.id);
           window.open(url, '_blank');
         },
       }

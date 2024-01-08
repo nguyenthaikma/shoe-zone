@@ -27,20 +27,20 @@ export const listCategory = [
 
 export const listCollection = [
   {
-    id: 'gymShoe',
+    id: '3',
     total: 4,
     title: 'Gym sneakers',
     image: 'https://cdn.shopify.com/s/files/1/1811/9799/files/collection3_large.jpg?v=1613156071',
   },
   {
-    id: 'sportShoe',
+    id: '1',
     total: 4,
     title: 'Sport sneakers',
     image:
       'https://cdn.shopify.com/s/files/1/1811/9799/files/collection5_47277ffa-efcf-413d-a764-b4b5be9e4e99_large.jpg?v=1613157025',
   },
   {
-    id: 'list',
+    id: '4',
     total: 4,
     title: 'Other',
     image:

@@ -19,7 +19,7 @@ export default function Login() {
 
   // oh my god!!
   // a + b
-  // a - c
+  // a - s
 
   return (
     <Row className={styles.wrapper}>

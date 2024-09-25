@@ -3,10 +3,12 @@ import { getUrlPaymentVNP } from '@src/configs/vnpay';
 import { checkAuth, getStoredAuth } from '@src/libs/localStorage';
 import { useMutationPaymentTT, useQueryDetailShoes } from '@src/queries/hooks';
 import { regexEmail, regexPhone } from '@src/utils/regex';
-import { Badge, Button, Col, Form, Input, Row, Space, Typography } from 'antd';
-import { useMemo } from 'react';
+import { Badge, Button, Col, Form, Input, QRCode, Row, Space, Typography } from 'antd';
+import { useMemo, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import styles from './style.module.scss';
+import { REACT_APP_VNP_URL } from '@src/configs/api';
+import { decryptionQRValue, encryptionQRValue } from '@src/configs/sqrc-handle';
 
 const { Title, Text } = Typography;
 
@@ -20,6 +22,8 @@ export default function Information() {
   }
   const profile = getStoredAuth();
 
+  const [url, setUrl] = useState('this is public data \nthis is another public data ');
+  console.log('🚀 ~ Information ~ url:', url)
   const { data: fetchProduct } = useQueryDetailShoes(params.product);
   const data = useMemo(() => fetchProduct?.data, [fetchProduct]);
 
@@ -40,7 +44,7 @@ export default function Information() {
           const url = await (
             await getUrlPaymentVNP((params.quantity * data?.price + 20) * 23000, data?.name)
           ).getPaymentUrl(res.data.id);
-          window.open(url, '_blank');
+          setUrl(url);
         },
       }
     );
@@ -63,86 +67,100 @@ export default function Information() {
                   />
                 </Link>
               </Col>
-              <Form layout='vertical' onFinish={onFinish}>
-                <Row gutter={[0, 32]} className={styles.wrapper}>
-                  <Col span={24}>
-                    <Form.Item
-                      initialValue={profile?.email}
-                      rules={[
-                        {
-                          required: true,
-                          message: 'Email is required!',
-                        },
-                        {
-                          pattern: regexEmail,
-                          message: 'Email is invalid!',
-                        },
-                      ]}
-                      name='email'
-                    >
-                      <Input placeholder='Email' />
-                    </Form.Item>
-                  </Col>
-                  <Col span={24}>
-                    <div className={styles.titleGr}>
-                      <Title level={5}>Information</Title>
-                    </div>
-                    <Row gutter={[14, 14]}>
-                      <Col span={24}>
-                        <Form.Item
-                          initialValue={profile?.username}
-                          rules={[
-                            {
-                              required: true,
-                              message: 'Name is required!',
-                            },
-                          ]}
-                          name='name'
-                        >
-                          <Input placeholder='Name' />
-                        </Form.Item>
-                      </Col>
-                      <Col span={24}>
-                        <Form.Item
-                          initialValue={profile?.address}
-                          rules={[
-                            {
-                              required: true,
-                              message: 'Address is required!',
-                            },
-                          ]}
-                          name='address'
-                        >
-                          <Input placeholder='Address' />
-                        </Form.Item>
-                      </Col>
-                      <Col span={24}>
-                        <Form.Item
-                          initialValue={profile?.mobile}
-                          rules={[
-                            {
-                              required: true,
-                              message: 'Phone is required!',
-                            },
-                            {
-                              pattern: regexPhone,
-                              message: 'Phone is invalid!',
-                            },
-                          ]}
-                          name='phone'
-                        >
-                          <Input placeholder='Phone' />
-                        </Form.Item>
-                      </Col>
-                    </Row>
-                  </Col>
-                  <Col style={{ textAlign: 'right' }} span={24}>
-                    <Button loading={isLoading} htmlType='submit' type='primary' size='large'>
-                      Payment
+              {url ? (
+                <Col span={24}>
+                  <Space size={20} direction='vertical' style={{ width: '100%' }}>
+                    <Button type='link' onClick={() => setUrl(null)}>
+                      Go back
                     </Button>
-                  </Col>
-                </Row>
-              </Form>
+                    <div className={styles.qrWrap}>
+                      <QRCode size={230} value={url} />
+                    </div>
+                  </Space>
+                </Col>
+              ) : (
+                <Form layout='vertical' onFinish={onFinish}>
+                  <Row gutter={[0, 32]} className={styles.wrapper}>
+                    <Col span={24}>
+                      <Form.Item
+                        initialValue={profile?.email}
+                        rules={[
+                          {
+                            required: true,
+                            message: 'Email is required!',
+                          },
+                          {
+                            pattern: regexEmail,
+                            message: 'Email is invalid!',
+                          },
+                        ]}
+                        name='email'
+                      >
+                        <Input placeholder='Email' />
+                      </Form.Item>
+                    </Col>
+                    <Col span={24}>
+                      <div className={styles.titleGr}>
+                        <Title level={5}>Information</Title>
+                      </div>
+                      <Row gutter={[14, 14]}>
+                        <Col span={24}>
+                          <Form.Item
+                            initialValue={profile?.username}
+                            rules={[
+                              {
+                                required: true,
+                                message: 'Name is required!',
+                              },
+                            ]}
+                            name='name'
+                          >
+                            <Input placeholder='Name' />
+                          </Form.Item>
+                        </Col>
+                        <Col span={24}>
+                          <Form.Item
+                            initialValue={profile?.address}
+                            rules={[
+                              {
+                                required: true,
+                                message: 'Address is required!',
+                              },
+                            ]}
+                            name='address'
+                          >
+                            <Input placeholder='Address' />
+                          </Form.Item>
+                        </Col>
+                        <Col span={24}>
+                          <Form.Item
+                            initialValue={profile?.mobile}
+                            rules={[
+                              {
+                                required: true,
+                                message: 'Phone is required!',
+                              },
+                              {
+                                pattern: regexPhone,
+                                message: 'Phone is invalid!',
+                              },
+                            ]}
+                            name='phone'
+                          >
+                            <Input placeholder='Phone' />
+                          </Form.Item>
+                        </Col>
+                      </Row>
+                    </Col>
+                    <Col style={{ textAlign: 'right' }} span={24}>
+                      <Button loading={isLoading} htmlType='submit' type='primary' size='large'>
+                        Create QR code
+                      </Button>
+                    </Col>
+                  </Row>
+                </Form>
+              )}
+
               <Col span={24} className={styles.foot}>
                 <Text className={styles.text}>All rights reserved Shoes</Text>
               </Col>

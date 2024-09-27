@@ -159,7 +159,7 @@ export default function Information() {
                   <Col className={styles.colValue} span={24}>
                     <Text className={styles.label}>Shipping</Text>
                     <Text className={styles.value} strong>
-                      $20
+                      $0
                     </Text>
                   </Col>
                   <Col className={styles.colValue} span={24}>
@@ -167,7 +167,7 @@ export default function Information() {
                       Total
                     </Text>
                     <Text className={styles.totalValue} strong>
-                      ${totalPrice + 20}
+                      ${totalPrice + 0}
                     </Text>
                   </Col>
                 </Row>

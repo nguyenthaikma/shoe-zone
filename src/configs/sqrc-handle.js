@@ -19,3 +19,25 @@ export const decryptionQRValue = (encryptedData, encryptionKey) => {
     const json = JSON.parse(bytes.toString(CryptoJS.enc.Utf8))
     return json.value;
 }
+
+const secretKey = CryptoJS.enc.Hex.parse('955f317955394d6af1b486da77e150423bd6ad5699595c49625db77340366991');
+// Hàm giải mã
+export const decryptOrder = (encryptedData) => {
+    try {
+        const [ivHex, encryptedText] = encryptedData.split(':');
+        const iv = CryptoJS.enc.Hex.parse(ivHex); // IV dạng Hex
+
+        const decrypted = CryptoJS.AES.decrypt(encryptedData, secretKey, {
+            mode: CryptoJS.mode.CBC,     // Bạn có thể điều chỉnh chế độ này nếu cần
+            padding: CryptoJS.pad.Pkcs7, // Tự động xử lý padding
+            iv: iv                       // Vector khởi tạo (Initialization Vector)
+        });
+
+        // Chuyển đổi dữ liệu đã giải mã thành chuỗi
+        const decryptedText = decrypted.toString(CryptoJS.enc.Utf8);
+
+        return JSON.parse(decryptedText); // Trả về dữ liệu JSON đã giải mã
+    } catch (err) {
+        console.log(err)
+    }
+}; 

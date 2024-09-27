@@ -84,7 +84,7 @@ export default function PaymentLayout({ children, _breadcrumbs }) {
                   <Col className={styles.colValue} span={24}>
                     <Text className={styles.label}>Shipping</Text>
                     <Text className={styles.value} strong>
-                      $20
+                      $0
                     </Text>
                   </Col>
                   <Col className={styles.colValue} span={24}>
@@ -92,7 +92,7 @@ export default function PaymentLayout({ children, _breadcrumbs }) {
                       Total
                     </Text>
                     <Text className={styles.totalValue} strong>
-                      ${params.quantity * data?.price + 20}
+                      ${params.quantity * data?.price + 0}
                     </Text>
                   </Col>
                 </Row>

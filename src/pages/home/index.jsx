@@ -1,14 +1,16 @@
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import SlideShowCustom from '@components/widgets/SlideShowCustom';
-import { useMemo } from 'react';
-
 import OutstandingStoreItem from '@src/components/elements/OutstandingItem';
 import ProductItem from '@src/components/elements/ProductItem';
 import ShoeItem from '@src/components/elements/ShoeItem';
 import SlideItem from '@src/components/elements/SlideItem';
 import { listCollection } from '@src/configs/const';
 import { useQueryListShoes } from '@src/queries/hooks';
+import { generateKey } from '@src/utils/genegate-key';
+import GenerateSQRC from '@src/utils/generate-sqrc';
+import ValidateSQRC from '@src/utils/validate-sqrc';
 import { Button, Col, Row, Space, Typography } from 'antd';
+import { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './style.module.scss';
 
@@ -55,6 +57,7 @@ const listStoreOutstanding = [
 
 export default function Home() {
   const navigate = useNavigate();
+  const [qrCodeData, setQrCodeData] = useState('');
 
   const slideElement = useMemo(() => listSlide.map((e, i) => <SlideItem key={i} data={e} />), []);
   const slideElementSecond = useMemo(
@@ -71,8 +74,25 @@ export default function Home() {
   );
   const bestSeller = useMemo(() => listProduct?.data?.data?.filter((x) => x.isNewArrival), [listProduct]);
 
+  const { secretKey, privateKey, publicKey } = useMemo(() => generateKey(), []);
+
+  useEffect(() => {
+    GenerateSQRC({ privateData: 'private', publicData: '123321123321', secretKey, privateKey }).then((res) => {
+      setQrCodeData(res);
+    });
+  }, [privateKey, secretKey]);
+
   return (
     <Row className={`${styles.wrapper}`}>
+      {qrCodeData && (
+        <div>
+          <h3>Your SQRC:</h3>
+          <img src={qrCodeData.qrCodeUrl} alt='SQRC' />
+        </div>
+      )}
+
+      <ValidateSQRC data={qrCodeData.qrData} publicKey={publicKey} secretKey={secretKey} />
+
       <Col span={24}>
         <Row gutter={[0, 20]} className='container'>
           <Col span={24}>

@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from 'react-query';
-import { approveOrder, getDetailOrder, getListOrder, getOrderByUser } from '../apis';
+import { approveOrder, getDetailOrder, getListOrder, getOrderByUser, verifyQr } from '../apis';
 import { notification } from 'antd';
 import { checkAuth } from '@src/libs/localStorage';
 
@@ -29,6 +29,16 @@ export const useMutationApproveOrder = (token) => {
     },
     onError: (error) => {
       notification.error({ message: error.message || 'Approve failure!' });
+    },
+  });
+};
+
+export const useMutationVerifyQr = (token) => {
+  return useMutation((data) => verifyQr(data, token), {
+    onSuccess: async (data) => {
+    },
+    onError: (error) => {
+      notification.error({ message: error.message || 'Create failure!' });
     },
   });
 };

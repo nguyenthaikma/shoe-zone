@@ -1,6 +1,10 @@
 
 import EC from 'elliptic';
 
+export const PUBLIC_KEY = '04624666a95f14576337b808df707ed678a1fab0d43629f01b901efe4e820db97b31e65893b4c164670e22fa7b92882b80fd0a69c81be8fd921ade2371c75b8d8d'
+export const PRIVATE_KEY = '37f47579fc9c270d24e87117a52aa3e79927e9085c41c55f663a0444cddbb17b'
+export const SECRET_KEY = '8e6dd35dc0bc5b359af904e8f1c6a5a4d1ce349ebbc012e4dae3a614a49fe430'
+
 const generateSecretKey = (length = 32) => {
     const array = new Uint8Array(length);
     window.crypto.getRandomValues(array); // Lấy số ngẫu nhiên

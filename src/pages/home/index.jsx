@@ -6,11 +6,10 @@ import ShoeItem from '@src/components/elements/ShoeItem';
 import SlideItem from '@src/components/elements/SlideItem';
 import { listCollection } from '@src/configs/const';
 import { useQueryListShoes } from '@src/queries/hooks';
-import { generateKey } from '@src/utils/genegate-key';
-import GenerateSQRC from '@src/utils/generate-sqrc';
+import { PUBLIC_KEY, SECRET_KEY } from '@src/utils/genegate-key';
 import ValidateSQRC from '@src/utils/validate-sqrc';
 import { Button, Col, Row, Space, Typography } from 'antd';
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './style.module.scss';
 
@@ -55,9 +54,10 @@ const listStoreOutstanding = [
   },
 ];
 
+// generateKey();
+
 export default function Home() {
   const navigate = useNavigate();
-  const [qrCodeData, setQrCodeData] = useState('');
 
   const slideElement = useMemo(() => listSlide.map((e, i) => <SlideItem key={i} data={e} />), []);
   const slideElementSecond = useMemo(
@@ -74,25 +74,18 @@ export default function Home() {
   );
   const bestSeller = useMemo(() => listProduct?.data?.data?.filter((x) => x.isNewArrival), [listProduct]);
 
-  const { secretKey, privateKey, publicKey } = useMemo(() => generateKey(), []);
-
-  useEffect(() => {
-    GenerateSQRC({ privateData: 'private', publicData: '123321123321', secretKey, privateKey }).then((res) => {
-      setQrCodeData(res);
-    });
-  }, [privateKey, secretKey]);
+  const data = {
+    publicData:
+      '{"size":42,"quantity":1,"amount":120,"timestamp":"2024-09-27T18:34:48.360Z","shoes":{"id":62,"name":"Wika Van Hau","price":120},"id":28}',
+    encryptedPrivateData:
+      'VTJGc2RHVmtYMThPMlBqUE9XRDY3b2MwdURRRlBSWXZSR2ZickZVMkd0emxzMWsxL0RXNlVrdDNZdE9HNE9JcjhHQlovMlQ2Z1RCT2tCOU5wcUhUblRKQWEybSsybnAxMUF0Y2pWZDJzY2pJdDgvMEZ1YVd6YjhqUm9WaVU3YXU5QmxPOGJYcThHZCsvZThuM3YxUTM3RTM4Wk96ZjBpbmxxTDc4NHUyNnQyVGFQUU92dzFNMkNjQWwwOHpBSkdjTjZKcFVSaldLTU5GTTI1OGtmOHZjY1NteHkzdFRaVTd4L09LVjQzSUszTm5ZSEUwbkFld2dOSTFZaDhyWXpnbWZwRjlYdkNSeUptVjhpNEZOeVUzWW1KamZzd2JjUTNSVHcxckVSNXlmNDljOUJPazc5RXpkWnZ5eXQxcVcyWmc=',
+    signature:
+      '3044022024d0180b25bcea1fc429bb7b4cfadb971a7f778244b8e27557adbc72fa5752fb02207cc6a4443534209debbb2551caf5b5b3427d4ae8163906f49d1dee8410cf0885',
+  };
 
   return (
     <Row className={`${styles.wrapper}`}>
-      {qrCodeData && (
-        <div>
-          <h3>Your SQRC:</h3>
-          <img src={qrCodeData.qrCodeUrl} alt='SQRC' />
-        </div>
-      )}
-
-      <ValidateSQRC data={qrCodeData.qrData} publicKey={publicKey} secretKey={secretKey} />
-
+      <ValidateSQRC publicKey={PUBLIC_KEY} secretKey={SECRET_KEY} data={data} />
       <Col span={24}>
         <Row gutter={[0, 20]} className='container'>
           <Col span={24}>

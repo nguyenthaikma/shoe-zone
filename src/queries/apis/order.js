@@ -30,3 +30,11 @@ export const getOrderByUser = (token) =>
       Authorization: `Bearer ${token}`,
     },
   });
+
+
+export const verifyQr = (data, token) =>
+  axios.post(`${REACT_APP_BASE_URL}/explore/verify-qr`, data, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });

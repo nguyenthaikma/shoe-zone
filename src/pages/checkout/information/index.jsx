@@ -1,13 +1,21 @@
 import { media } from '@src/assets/images/media';
 import { checkAuth, getStoredAuth } from '@src/libs/localStorage';
 import { useMutationPaymentTT, useQueryDetailShoes } from '@src/queries/hooks';
-import { PRIVATE_KEY, SECRET_KEY } from '@src/utils/genegate-key';
-import GenerateSQRC from '@src/utils/generate-sqrc';
+import { GenerateSQRCV2 } from '@src/utils/generate-sqrc';
 import { regexEmail, regexPhone } from '@src/utils/regex';
+import { hashData, signData } from '@src/utils/sqrc';
 import { Badge, Button, Col, Form, Input, Row, Space, Typography } from 'antd';
 import { useMemo, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
+import Credit from '../credit';
 import styles from './style.module.scss';
+
+export const PI_data = {
+  cardNumber: '42424242424242',
+  nameOnCard: 'Nguyen Hong Thai',
+  expried: '08/2030',
+  securityCode: 'creditsecurity',
+};
 
 const { Title, Text } = Typography;
 
@@ -28,54 +36,49 @@ export default function Information() {
   const { mutate: payment, isLoading } = useMutationPaymentTT(accessToken);
 
   const onFinish = async (values) => {
-    payment(
-      {
-        description: {
-          ...values,
-        },
-        quantity: Number(params.quantity),
-        shoesId: Number(params.product),
-        size: Number(params.size),
+    const OI_data = {
+      description: {
+        ...values,
       },
-      {
-        onSuccess: async (_res) => {
-          const res = _res.data;
-          const publicData = {
-            size: res.size,
-            quantity: res.quantity,
-            amount: res.amount,
-            timestamp: res.timestamp,
-            shoes: {
-              id: res.shoes.id,
-              name: res.shoes.name,
-              price: res.shoes.price,
-            },
-            id: res.id,
-          };
-          const privateData = {
-            isPaid: res.isPaid,
-            description: {
-              ...res.description,
-            },
-            user: {
-              id: res.user.id,
-              username: res.user.username,
-              firstName: res.user.firstName,
-              lastName: res.user.lastName,
-            },
-          };
+      quantity: Number(params.quantity),
+      shoesId: Number(params.product),
+      size: Number(params.size),
+    };
 
-          GenerateSQRC({
-            privateData: JSON.stringify(privateData),
-            publicData: JSON.stringify(publicData),
-            secretKey: SECRET_KEY,
-            privateKey: PRIVATE_KEY,
-          }).then((res) => {
-            setUrl(res.qrCodeUrl);
-          });
-        },
-      }
-    );
+    const PIMD = hashData(PI_data);
+    const H = {
+      PIMD,
+      OI_data,
+    };
+
+    const signature = signData(H);
+
+    const requestData = {
+      S: signature,
+      PIMD,
+      OI: OI_data,
+    };
+
+    payment(requestData, {
+      onSuccess: async (_res) => {
+        const res = _res.data;
+        const publicData = {
+          payment: res.PI_Merchant,
+          order: res.OI,
+        };
+        const privateData = {
+          PI: res.PIMD,
+        };
+
+        GenerateSQRCV2({
+          privateData: JSON.stringify(privateData),
+          publicData: JSON.stringify(publicData),
+          signature: res.signature,
+        }).then((res) => {
+          setUrl(res.qrCodeUrl);
+        });
+      },
+    });
   };
 
   return (
@@ -180,6 +183,7 @@ export default function Information() {
                         </Col>
                       </Row>
                     </Col>
+
                     <Col style={{ textAlign: 'right' }} span={24}>
                       <Button loading={isLoading} htmlType='submit' type='primary' size='large'>
                         Payment By QR
@@ -247,6 +251,9 @@ export default function Information() {
                     </Text>
                   </Col>
                 </Row>
+              </Col>
+              <Col span={24}>
+                <Credit />
               </Col>
             </Row>
           </div>

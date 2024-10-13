@@ -48,4 +48,28 @@ const GenerateSQRC = async ({ secretKey, privateKey, publicData, privateData }) 
     return generateSQRC()
 };
 
+export const GenerateSQRCV2 = async ({ publicData, privateData, signature }) => {
+    // Hàm tạo mã SQRC
+    const generateSQRC = async () => {
+        try {
+
+            // Kết hợp dữ liệu public, private và chữ ký số
+            const qrData = {
+                publicData,
+                privateData,
+                signature,
+            };
+            // Chuyển đối tượng qrData thành chuỗi JSON và mã hóa thành QR code
+            const qrCodeUrl = await QRCode.toDataURL(JSON.stringify(qrData));
+
+            return { qrData, qrCodeUrl }
+        } catch (error) {
+            console.log('🚀🚀🚀🚀 ~ generateSQRC ~ error:', error)
+        }
+    };
+
+
+    return generateSQRC()
+};
+
 export default GenerateSQRC;

@@ -25,7 +25,7 @@ export default function Credit() {
   };
   return (
     <Row gutter={[0, 38]} className={styles.wrapper}>
-      <Col span={24} style={{ border: '1px solid #eee', padding: 12, paddingTop: 12, borderRadius: 8 }}>
+      {/* <Col span={24} style={{ border: '1px solid #eee', padding: 12, paddingTop: 12, borderRadius: 8 }}>
         <Descriptions>
           <Descriptions.Item contentStyle={{ textAlign: 'right', display: 'block' }} span={24} label='Contact'>
             nguyenthai9cc@gmail.com
@@ -37,7 +37,7 @@ export default function Credit() {
             International Shipping <Text strong>$20</Text>
           </Descriptions.Item>
         </Descriptions>
-      </Col>
+      </Col> */}
       <Col span={24}>
         <Row gutter={[0, 14]}>
           <Col span={24}>
@@ -82,12 +82,12 @@ export default function Credit() {
           </Col>
         </Row>
       </Col>
-      <Col style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }} span={24}>
+      {/* <Col style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }} span={24}>
         <Link to={`/`}>Back home</Link>
         <Button onClick={handlePay} type='primary' size='large'>
           Pay now
         </Button>
-      </Col>
+      </Col> */}
     </Row>
   );
 }

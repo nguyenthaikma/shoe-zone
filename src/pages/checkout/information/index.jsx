@@ -6,11 +6,10 @@ import { regexEmail, regexPhone } from '@src/utils/regex';
 import { hashData, signData } from '@src/utils/sqrc';
 import { Badge, Button, Col, Form, Input, Row, Space, Typography } from 'antd';
 import { useMemo, useState } from 'react';
-import { Link, useNavigate, useSearchParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { Link, useSearchParams } from 'react-router-dom';
 import Credit from '../credit';
 import styles from './style.module.scss';
-import { useSelector } from 'react-redux';
-import Swal from 'sweetalert2';
 
 export const PI_data = {
   cardNumber: '42424242424242',
@@ -22,7 +21,7 @@ export const PI_data = {
 const { Title, Text } = Typography;
 
 export default function Information() {
-  const navigate = useNavigate();
+  const [form] = Form.useForm();
   const accessToken = checkAuth();
   const isSuccess = useSelector((state) => state.scannerReducer.isSuccess);
   const PI_merchant = useSelector((state) => state.scannerReducer.PI_merchant);
@@ -37,6 +36,7 @@ export default function Information() {
   const [url, setUrl] = useState();
   const [paymentData, setPaymentData] = useState();
   const [order, setOrder] = useState();
+  console.log('🚀🚀🚀🚀 ~ Information ~ order:', order);
   const { data: fetchProduct } = useQueryDetailShoes(params.product);
   const data = useMemo(() => fetchProduct?.data, [fetchProduct]);
 
@@ -88,18 +88,8 @@ export default function Information() {
     });
   };
 
-  const handlePay = () => {
-    Swal.fire({
-      icon: 'success',
-      title: 'Payment success',
-      confirmButtonText: 'Back home',
-      footer: '<a href="/collections">Continue shopping</a>',
-    }).then((result) => {
-      /* Read more about isConfirmed, isDenied below */
-      if (result.isConfirmed) {
-        navigate('/');
-      }
-    });
+  const handlePay = (values) => {
+    console.log('🚀🚀🚀🚀 ~ handlePay ~ values:', values);
   };
 
   return (
@@ -108,10 +98,10 @@ export default function Information() {
         <div className='container'>
           <div className='wrapper'>
             <Row className={styles.contentWrap}>
-              {!isSuccess ? (
+              {isSuccess ? (
                 <Row gutter={[0, 38]}>
                   <Col span={24}>
-                    <Credit data={{ email: 'nguyenthai9cc@gmail.com', address: 'Hoc vien Ky thuat mat ma' }} />
+                    <Credit data={paymentData} />
                   </Col>
                   <Col span={24}>
                     <Row gutter={[0, 14]}>
@@ -121,21 +111,26 @@ export default function Information() {
                         </Space>
                       </Col>
                       <Col span={24}>
-                        <Form layout='vertical'>
+                        <Form form={form} onFinish={handlePay} layout='vertical'>
                           <Row gutter={[14, 14]}>
                             <Col span={24}>
-                              <Form.Item label='Card number'>
+                              <Form.Item label='Card Number'>
                                 <Input disabled value={PI_merchant.cardNumber} />
                               </Form.Item>
                             </Col>
                             <Col span={24}>
-                              <Form.Item label='Name'>
+                              <Form.Item label='Cardholder Name'>
                                 <Input disabled value={PI_merchant.nameOnCard} />
                               </Form.Item>
                             </Col>
                             <Col span={24}>
-                              <Form.Item initialValue={order?.amount + 20} label='Amount'>
-                                <Input />
+                              <Form.Item label='Amount'>
+                                <Input suffix='$' disabled value={`${order?.amount + 20}$`} />
+                              </Form.Item>
+                            </Col>
+                            <Col span={24}>
+                              <Form.Item name='content' label='Transfer Details'>
+                                <Input.TextArea rows={4} placeholder={`Payment for ${order.shoes.name}`} />
                               </Form.Item>
                             </Col>
                           </Row>
@@ -152,7 +147,7 @@ export default function Information() {
                     }}
                     span={24}
                   >
-                    <Button block onClick={handlePay} type='primary' size='large'>
+                    <Button block onClick={form.submit} type='primary' size='large'>
                       Pay now
                     </Button>
                     <Link style={{ display: 'block', marginTop: 24 }} to={`/`}>

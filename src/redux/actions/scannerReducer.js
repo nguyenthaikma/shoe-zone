@@ -18,3 +18,15 @@ export const addDataActionScanner = (data) => {
   };
 };
 
+export const updateSuccessActionScanner = (data) => {
+  return (dispatch, getState) => {
+    dispatch(scannerReducer.actions.updateSuccess(data));
+  };
+};
+
+export const updatePiMerchant = (data) => {
+  return (dispatch, getState) => {
+    dispatch(scannerReducer.actions.updatePiMerchant(data));
+  };
+};
+

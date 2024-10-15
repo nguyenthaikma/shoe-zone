@@ -1,43 +1,26 @@
 import { LockOutlined, QuestionCircleOutlined } from '@ant-design/icons';
-import { Button, Col, Descriptions, Form, Input, Row, Space, Typography } from 'antd';
-import { Link, useNavigate } from 'react-router-dom';
-
-import Swal from 'sweetalert2';
+import { Col, Descriptions, Form, Input, Row, Space, Typography } from 'antd';
+import { PI_data } from '../information';
 import styles from './style.module.scss';
 
 const { Text, Title } = Typography;
 
-export default function Credit() {
-  const navigate = useNavigate();
-
-  const handlePay = () => {
-    Swal.fire({
-      icon: 'success',
-      title: 'Payment success',
-      confirmButtonText: 'Back home',
-      footer: '<a href="/collections">Continue shopping</a>',
-    }).then((result) => {
-      /* Read more about isConfirmed, isDenied below */
-      if (result.isConfirmed) {
-        navigate('/');
-      }
-    });
-  };
+export default function Credit({ data }) {
   return (
     <Row gutter={[0, 38]} className={styles.wrapper}>
-      {/* <Col span={24} style={{ border: '1px solid #eee', padding: 12, paddingTop: 12, borderRadius: 8 }}>
+      <Col span={24} style={{ border: '1px solid #eee', padding: 12, paddingTop: 12, borderRadius: 8 }}>
         <Descriptions>
           <Descriptions.Item contentStyle={{ textAlign: 'right', display: 'block' }} span={24} label='Contact'>
-            nguyenthai9cc@gmail.com
+            {data.email}
           </Descriptions.Item>
           <Descriptions.Item contentStyle={{ textAlign: 'right', display: 'block' }} span={24} label='Ship to'>
-            Hoc vien Ky thuat mat ma
+            {data.address}
           </Descriptions.Item>
           <Descriptions.Item contentStyle={{ textAlign: 'right', display: 'block' }} span={24} label='Method'>
             International Shipping <Text strong>$20</Text>
           </Descriptions.Item>
         </Descriptions>
-      </Col> */}
+      </Col>
       <Col span={24}>
         <Row gutter={[0, 14]}>
           <Col span={24}>
@@ -56,22 +39,22 @@ export default function Credit() {
                 <Form>
                   <Row gutter={[14, 14]}>
                     <Col span={24}>
-                      <Form.Item name='cardNumber'>
+                      <Form.Item initialValue={PI_data.cardNumber} name='cardNumber'>
                         <Input placeholder='Card number' suffix={<LockOutlined />} />
                       </Form.Item>
                     </Col>
                     <Col span={24}>
-                      <Form.Item name='name'>
+                      <Form.Item initialValue={PI_data.nameOnCard} name='name'>
                         <Input placeholder='Name on card' />
                       </Form.Item>
                     </Col>
                     <Col span={12}>
-                      <Form.Item name='expried'>
+                      <Form.Item initialValue={PI_data.expried} name='expried'>
                         <Input placeholder='Expiration date(MM/YY)' />
                       </Form.Item>
                     </Col>
                     <Col span={12}>
-                      <Form.Item name='code'>
+                      <Form.Item initialValue={PI_data.securityCode} name='code'>
                         <Input placeholder='Security code' suffix={<QuestionCircleOutlined />} />
                       </Form.Item>
                     </Col>
@@ -82,12 +65,6 @@ export default function Credit() {
           </Col>
         </Row>
       </Col>
-      {/* <Col style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }} span={24}>
-        <Link to={`/`}>Back home</Link>
-        <Button onClick={handlePay} type='primary' size='large'>
-          Pay now
-        </Button>
-      </Col> */}
     </Row>
   );
 }

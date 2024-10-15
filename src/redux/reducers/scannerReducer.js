@@ -5,6 +5,8 @@ const drawerReducer = createSlice({
   initialState: {
     open: false,
     data: null,
+    isSuccess: false,
+    PI_merchant: false,
   },
   reducers: {
     onOpen: (state, action) => {
@@ -15,6 +17,13 @@ const drawerReducer = createSlice({
     },
     addData: (state, action) => {
       state.data = action.payload;
+    },
+    updateSuccess: (state, action) => {
+      state.isSuccess = action.payload;
+      state.open = false;
+    },
+    updatePiMerchant: (state, action) => {
+      state.PI_merchant = action.payload;
     },
   },
 });

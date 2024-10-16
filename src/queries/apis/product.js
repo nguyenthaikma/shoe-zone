@@ -47,6 +47,12 @@ export const paymentTT = (data, token) =>
       Authorization: `Bearer ${token}`,
     },
   });
+export const paymentOrder = (data, token) =>
+  axios.post(`${REACT_APP_BASE_URL}/explore/order-payment`, data, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
 export const paymentCheckout = (data, token) =>
   axios.patch(`${REACT_APP_BASE_URL}/explore/carts/paid`, data, {
     headers: {

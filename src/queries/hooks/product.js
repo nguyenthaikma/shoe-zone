@@ -8,6 +8,7 @@ import {
   getListShoes,
   getRelatedProduct,
   paymentCheckout,
+  paymentOrder,
   paymentTT,
   updateProduct,
 } from '../apis';
@@ -75,6 +76,19 @@ export const useQueryRelatedProduct = (params) => {
 
 export const useMutationPaymentTT = (token) => {
   return useMutation((data) => paymentTT(data, token), {
+    onSuccess: async (data) => {
+      if (true) {
+        notification.success({ message: 'Payment success' });
+      }
+    },
+    onError: (error) => {
+      notification.error({ message: error.message || 'Create order failure!' });
+    },
+  });
+};
+
+export const useMutationPaymentOrder = (token) => {
+  return useMutation((data) => paymentOrder(data, token), {
     onSuccess: async (data) => {
       if (true) {
         notification.success({ message: 'Payment success' });

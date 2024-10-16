@@ -1,6 +1,6 @@
 import { media } from '@src/assets/images/media';
 import { checkAuth, getStoredAuth } from '@src/libs/localStorage';
-import { useMutationPaymentTT, useQueryDetailShoes } from '@src/queries/hooks';
+import { useMutationPaymentOrder, useMutationPaymentTT, useQueryDetailShoes } from '@src/queries/hooks';
 import { GenerateSQRCV2 } from '@src/utils/generate-sqrc';
 import { regexEmail, regexPhone } from '@src/utils/regex';
 import { hashData, signData } from '@src/utils/sqrc';
@@ -36,11 +36,11 @@ export default function Information() {
   const [url, setUrl] = useState();
   const [paymentData, setPaymentData] = useState();
   const [order, setOrder] = useState();
-  console.log('🚀🚀🚀🚀 ~ Information ~ order:', order);
   const { data: fetchProduct } = useQueryDetailShoes(params.product);
   const data = useMemo(() => fetchProduct?.data, [fetchProduct]);
 
   const { mutate: payment, isLoading } = useMutationPaymentTT(accessToken);
+  const { mutate: donePayment, isLoading: isLoadingDonePayment } = useMutationPaymentOrder(accessToken);
 
   const onFinish = async (values) => {
     const OI_data = {
@@ -89,7 +89,14 @@ export default function Information() {
   };
 
   const handlePay = (values) => {
-    console.log('🚀🚀🚀🚀 ~ handlePay ~ values:', values);
+    donePayment(
+      { ...values, id: order.id },
+      {
+        onSuccess: (res) => {
+          console.log(res);
+        },
+      }
+    );
   };
 
   return (
@@ -129,7 +136,7 @@ export default function Information() {
                               </Form.Item>
                             </Col>
                             <Col span={24}>
-                              <Form.Item name='content' label='Transfer Details'>
+                              <Form.Item name='description' label='Transfer Details'>
                                 <Input.TextArea rows={4} placeholder={`Payment for ${order.shoes.name}`} />
                               </Form.Item>
                             </Col>
@@ -147,7 +154,7 @@ export default function Information() {
                     }}
                     span={24}
                   >
-                    <Button block onClick={form.submit} type='primary' size='large'>
+                    <Button loading={isLoadingDonePayment} block onClick={form.submit} type='primary' size='large'>
                       Pay now
                     </Button>
                     <Link style={{ display: 'block', marginTop: 24 }} to={`/`}>
